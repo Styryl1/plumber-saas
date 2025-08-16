@@ -1,0 +1,6 @@
+# Windows user directory - ignore everything except our project
+*
+!plumber-saas/
+!CLAUDE.md
+!ARCHITECTURE.md
+!*.md
