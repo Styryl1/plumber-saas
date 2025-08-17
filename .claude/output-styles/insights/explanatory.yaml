@@ -1,0 +1,213 @@
+# Explanatory Insights Configuration for Plumber SaaS PRP
+version: "2.0.0"
+approach: "educational_when_valuable"
+
+# When to provide explanatory insights
+trigger_conditions:
+  complexity_threshold: "medium"  # Always explain medium/complex tasks
+  new_patterns: true             # Explain when introducing new patterns
+  dutch_market_features: true    # Always explain Netherlands-specific features
+  competitive_advantages: true   # Explain how features build moats
+  user_request: true            # When user explicitly asks for explanation
+
+# Types of explanatory insights to provide
+insight_categories:
+  technical_education:
+    description: "Explain the 'why' behind technical decisions"
+    examples:
+      - "Why tRPC provides better type safety than REST APIs"
+      - "How RLS policies ensure multi-tenant data isolation"
+      - "Why Schedule-X calendar over other calendar solutions"
+      - "How Supabase real-time improves user experience"
+    
+    trigger_keywords: ["why", "explain", "how", "reason", "choice", "decision"]
+    
+    format: |
+      ### 💡 Technical Insight: {topic}
+      
+      **Why this approach**: {explanation}
+      
+      **Alternative approaches**: {alternatives}
+      
+      **Benefits for plumber-saas**: {specific_benefits}
+      
+      **Dutch market advantage**: {dutch_benefits}
+
+  business_strategy:
+    description: "Explain how features contribute to competitive advantages"
+    examples:
+      - "How data collection creates network effects"
+      - "Why Netherlands-first approach builds moats"
+      - "How AI improvements benefit all plumbers"
+      - "Why professional UX beats DIY solutions"
+    
+    trigger_keywords: ["competitive", "advantage", "moat", "strategy", "business"]
+    
+    format: |
+      ### 🏰 Strategic Insight: {topic}
+      
+      **Competitive advantage**: {advantage_explanation}
+      
+      **Network effects**: {network_effects}
+      
+      **Data moats**: {data_advantages}
+      
+      **Netherlands positioning**: {local_advantages}
+
+  dutch_market_education:
+    description: "Explain Netherlands-specific features and requirements"
+    examples:
+      - "Why BTW calculations matter for plumber invoicing"
+      - "How iDEAL integration improves conversion"
+      - "Why Amsterdam focus creates market penetration"
+      - "How Dutch terminology builds trust"
+    
+    trigger_keywords: ["btw", "ideal", "dutch", "netherlands", "amsterdam"]
+    
+    format: |
+      ### 🇳🇱 Dutch Market Insight: {topic}
+      
+      **Local requirement**: {requirement_explanation}
+      
+      **Customer benefit**: {customer_benefit}
+      
+      **Market advantage**: {market_advantage}
+      
+      **Cultural consideration**: {cultural_aspect}
+
+  performance_education:
+    description: "Explain performance optimizations and their impact"
+    examples:
+      - "How bundle splitting improves mobile performance"
+      - "Why lazy loading reduces initial page load"
+      - "How database indexing speeds up queries"
+      - "Why caching strategies improve user experience"
+    
+    trigger_keywords: ["performance", "optimization", "speed", "loading", "cache"]
+    
+    format: |
+      ### ⚡ Performance Insight: {topic}
+      
+      **Performance impact**: {impact_explanation}
+      
+      **User experience benefit**: {ux_benefit}
+      
+      **Technical implementation**: {technical_details}
+      
+      **Measurement strategy**: {measurement_approach}
+
+  security_education:
+    description: "Explain security measures and their importance"
+    examples:
+      - "How RLS prevents data leakage between tenants"
+      - "Why input validation prevents security vulnerabilities"
+      - "How authentication middleware protects routes"
+      - "Why GDPR compliance protects customer data"
+    
+    trigger_keywords: ["security", "privacy", "gdpr", "protection", "auth"]
+    
+    format: |
+      ### 🔒 Security Insight: {topic}
+      
+      **Security benefit**: {security_explanation}
+      
+      **Risk mitigation**: {risk_reduction}
+      
+      **Compliance aspect**: {compliance_benefit}
+      
+      **Implementation details**: {implementation_notes}
+
+# Context-based insight triggering
+context_triggers:
+  new_developer:
+    description: "Provide more educational content for learning"
+    indicators: ["first time", "new to", "learning", "understand"]
+    insight_level: "detailed"
+  
+  experienced_developer:
+    description: "Focus on strategic and competitive insights"
+    indicators: ["familiar with", "experienced", "know", "understand"]
+    insight_level: "strategic"
+  
+  business_focused:
+    description: "Emphasize competitive advantages and market benefits"
+    indicators: ["business", "revenue", "market", "competition"]
+    insight_level: "business_strategic"
+
+# Insight delivery strategy
+delivery_approach:
+  placement: "contextual"  # Place insights near relevant implementation
+  frequency: "balanced"    # Not overwhelming, but comprehensive
+  depth: "adaptive"        # Adjust based on user expertise and task complexity
+  
+  formatting:
+    use_emojis: true
+    section_headers: true
+    code_examples: true
+    visual_hierarchy: true
+
+# Quality guidelines for insights
+quality_standards:
+  clarity: "Explain concepts clearly without jargon"
+  relevance: "Always tie insights back to plumber-saas specific benefits"
+  actionability: "Provide concrete next steps or implementation guidance"
+  brevity: "Keep insights concise while being comprehensive"
+  
+  avoid:
+    - "Obvious explanations that don't add value"
+    - "Generic advice that doesn't apply to plumber-saas"
+    - "Overly technical details without business context"
+    - "Repetitive insights across multiple sections"
+
+# Dutch market insight specialization
+dutch_insights:
+  btw_calculations:
+    explanation: "BTW (Belasting over de Toegevoegde Waarde) is Dutch VAT"
+    rates: "21% standard rate for most plumbing services, 9% for installation"
+    business_impact: "Proper BTW handling is legally required and builds trust"
+    competitive_advantage: "Many competitors handle BTW incorrectly"
+  
+  ideal_payments:
+    explanation: "iDEAL is the dominant online payment method in Netherlands"
+    adoption: "Over 60% of Dutch online payments use iDEAL"
+    business_impact: "iDEAL integration significantly improves conversion rates"
+    competitive_advantage: "International competitors often lack proper iDEAL support"
+  
+  amsterdam_focus:
+    explanation: "Amsterdam is the largest market with highest plumber demand"
+    market_size: "Over 800,000 residents with high home ownership rates"
+    business_impact: "Amsterdam success creates references for national expansion"
+    competitive_advantage: "Local-first approach beats international generalists"
+  
+  dutch_terminology:
+    explanation: "Using correct Dutch plumbing terms builds professional credibility"
+    examples: "loodgieter, lekkage, spoedgeval, reparatie, installatie"
+    business_impact: "Professional terminology increases customer trust"
+    competitive_advantage: "Many competitors use generic or translated terms"
+
+# Competitive moat insights
+moat_insights:
+  data_network_effects:
+    explanation: "Every customer interaction improves AI for all plumbers"
+    mechanism: "Shared AI learns from all conversations and problem patterns"
+    strength: "More data = better AI = more customers = more data"
+    defensibility: "Competitors need massive data to match our AI quality"
+  
+  netherlands_specialization:
+    explanation: "Deep local market optimization creates switching costs"
+    components: "Language, payments, regulations, cultural preferences"
+    strength: "Local optimization compound over time"
+    defensibility: "International competitors can't match local specialization"
+  
+  learning_velocity:
+    explanation: "Faster learning creates compounding advantages"
+    mechanism: "Better data collection → faster AI improvement → better service"
+    strength: "Speed of improvement matters more than starting point"
+    defensibility: "Learning advantage compounds exponentially"
+
+# Success metrics for insights
+insight_metrics:
+  understanding: "User comprehension of technical and business concepts"
+  implementation: "Successful application of insights in development"
+  retention: "Knowledge retention across development sessions"
+  value: "Perceived value of insights for decision making"

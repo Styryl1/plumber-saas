@@ -1,0 +1,289 @@
+# 10 Golden Rules for Plumber SaaS Development
+version: "2.0.0"
+enforcement_level: "strict"
+
+rules:
+  rule_1:
+    name: "NO Mock Data"
+    priority: "CRITICAL"
+    description: "Never use hardcoded/mock/fallback data without explicit permission"
+    enforcement:
+      - "Always show real errors instead of fake success states"
+      - "Use actual API responses or display loading/error states"
+      - "Exception: Only with user permission for prototyping"
+    validation:
+      - "Check for hardcoded arrays/objects used as fallback data"
+      - "Verify API errors are properly displayed to user"
+      - "Confirm loading states exist for all async operations"
+
+  rule_2:
+    name: "Smart Legacy Delete"
+    priority: "HIGH"
+    description: "Ask before deleting, explain why outdated"
+    enforcement:
+      - "ASK before deleting any existing code"
+      - "Explain WHY code is outdated and what replaces it"
+      - "Show the improvement gained from deletion"
+      - "Get confirmation before removing legacy patterns"
+    validation:
+      - "User confirmation received for deletions"
+      - "Explanation provided for why code is legacy"
+      - "Replacement solution clearly identified"
+
+  rule_3:
+    name: "Smart Comments"
+    priority: "MEDIUM"
+    description: "Section markers ✓, JSDoc ✓, Redundant ✗"
+    enforcement:
+      approved:
+        - "Section markers: // === DASHBOARD HEADER ==="
+        - "JSDoc for functions: Document parameters and return types"
+      forbidden:
+        - "Redundant comments: No obvious explanations like // increment counter"
+        - "Focus on WHY, not WHAT"
+    validation:
+      - "Section markers used for major code blocks"
+      - "JSDoc present for all exported functions"
+      - "No obvious/redundant comments present"
+
+  rule_4:
+    name: "Type Safety"
+    priority: "CRITICAL"
+    description: "tRPC only, never 'any' types"
+    enforcement:
+      - "tRPC ONLY for all API calls (automatic types)"
+      - "NEVER use any types"
+      - "Prisma generates types from database"
+      - "End-to-end type safety from DB to UI"
+    validation:
+      - "All API calls use tRPC"
+      - "No 'any' types in TypeScript code"
+      - "Prisma types imported and used correctly"
+
+  rule_5:
+    name: "Shared Components"
+    priority: "HIGH"
+    description: "Never duplicate, always import from ~/components"
+    enforcement:
+      - "NEVER duplicate code - import from ~/components"
+      - "If it appears on multiple pages, it MUST be a shared component"
+      - "Use shadcn/ui for base components"
+      - "Create domain-specific components in /components"
+    validation:
+      - "No duplicated component code"
+      - "Multi-page components are shared"
+      - "Proper import paths used"
+
+  rule_6:
+    name: "MCP Tools Only"
+    priority: "CRITICAL"
+    description: "Use MCP servers, never manual guessing"
+    enforcement:
+      tools:
+        - "Supabase MCP: Database operations and testing"
+        - "Context7 MCP: Latest library documentation"
+        - "Firecrawl MCP: Scrape working examples"
+        - "Playwright MCP: Browser testing (NO test file creation)"
+      forbidden:
+        - "NEVER manually guess API responses or documentation"
+    validation:
+      - "MCP tools used for data retrieval"
+      - "No hardcoded documentation assumptions"
+      - "Current library versions confirmed via Context7"
+
+  rule_7:
+    name: "T3 Conventions"
+    priority: "CRITICAL"
+    description: "NO vanilla JS patterns ever"
+    enforcement:
+      - "NO vanilla JS patterns ever"
+      - "App Router only (not Pages Router)"
+      - "Complete replacement - delete old code entirely"
+      - "Follow T3 Stack best practices religiously"
+    validation:
+      - "All code follows T3 patterns"
+      - "App Router used consistently"
+      - "No legacy vanilla JS code"
+
+  rule_8:
+    name: "Real Data/Errors"
+    priority: "HIGH"
+    description: "Show real errors with meaningful messages"
+    enforcement:
+      - "Show real errors with meaningful messages"
+      - "Never fake success responses"
+      - "Real data loading states with proper UX"
+      - "API errors displayed to user with context"
+    validation:
+      - "Error messages are informative and real"
+      - "Loading states properly implemented"
+      - "No fake success states"
+
+  rule_9:
+    name: "Context Engineering (Plan Mode)"
+    priority: "HIGH"
+    description: "Always ask clarifying questions before implementation"
+    enforcement:
+      - "ALWAYS ask clarifying questions before implementation"
+      - "Understand scope, integration points, mobile requirements"
+      - "Consider Dutch market specifics (BTW, terminology)"
+      - "Plan competitive moats and data collection opportunities"
+    validation:
+      - "Clarifying questions asked in plan mode"
+      - "Dutch market considerations identified"
+      - "Integration points understood"
+
+  rule_10:
+    name: "Proactive Patterns"
+    priority: "MEDIUM"
+    description: "Suggest improvements when opportunities spotted"
+    enforcement:
+      - "Suggest improvements when opportunities spotted"
+      - "Identify competitive advantage opportunities"
+      - "Recommend data collection enhancements"
+      - "Point out performance optimization possibilities"
+    validation:
+      - "Proactive suggestions provided"
+      - "Competitive advantages identified"
+      - "Performance optimizations noted"
+
+  rule_11:
+    name: "Always Latest Versions"
+    priority: "HIGH"
+    description: "Use current/latest versions, never hardcode version numbers"
+    enforcement:
+      - "Always use 'latest', 'current' instead of specific version numbers"
+      - "Context7 MCP pulls current documentation, not outdated versions"
+      - "Patterns reference 'Next.js latest', 'React current', etc."
+      - "Future-proof all configurations and documentation"
+    validation:
+      - "No hardcoded version numbers in implementations"
+      - "MCP tools configured for latest documentation"
+      - "Pattern references use 'latest' terminology"
+    examples:
+      correct: "Next.js latest App Router", "React current patterns", "TypeScript latest features"
+      incorrect: "Next.js 14", "React 18", "TypeScript 5.3"
+
+  rule_12:
+    name: "Proactive Git Commits"
+    priority: "CRITICAL"
+    description: "Save progress frequently, commit every production feature"
+    enforcement:
+      progress_commits:
+        - "Suggest git commit after ANY meaningful progress"
+        - "Commit before attempting risky changes or major refactoring"
+        - "Create safety checkpoints when user expresses uncertainty"
+        - "Save work before debugging complex issues"
+      production_commits:
+        - "MANDATORY git commit after EVERY production-level feature"
+        - "Include feature description and business impact in commit message"
+        - "Tag major releases for easy rollback identification"
+        - "Commit with Co-Authored-By: Claude credit line"
+      rollback_safety:
+        - "Multiple granular commits > one large commit"
+        - "Enable 'go back to beginning' or 'go back one step' requests"
+        - "Preserve working states before experimental changes"
+        - "Document commit messages for easy navigation"
+    validation:
+      - "Progress commits suggested proactively"
+      - "Production features always committed"
+      - "Commit messages include business context"
+      - "Rollback capability maintained"
+    commit_triggers:
+      - "Completed component implementation"
+      - "Working API endpoint created"
+      - "Database schema changes applied successfully"
+      - "UI component functioning correctly"
+      - "Bug fix verified working"
+      - "Feature integration completed"
+      - "Before major refactoring attempts"
+      - "Before debugging session starts"
+    commit_message_format: |
+      feat: [Brief description]
+      
+      [Business impact and technical details]
+      
+      🤖 Generated with [Claude Code](https://claude.ai/code)
+      
+      Co-Authored-By: Claude <noreply@anthropic.com>
+
+dutch_market_specifics:
+  btw_rates:
+    standard: "21%"
+    reduced: "9%"
+  terminology:
+    - "loodgieter (plumber)"
+    - "lekkage (leak)"
+    - "spoedgeval (emergency)"
+    - "reparatie (repair)"
+    - "installatie (installation)"
+  target_cities:
+    primary: "Amsterdam"
+    expansion: ["Rotterdam", "Utrecht", "Den Haag"]
+  payment_methods:
+    preferred: "iDEAL via Mollie"
+    secondary: ["Credit Card", "SEPA"]
+  compliance:
+    - "GDPR data protection"
+    - "Dutch business regulations"
+    - "Professional licensing requirements"
+
+competitive_moats:
+  data_network_effects:
+    description: "Every customer interaction improves AI for all plumbers"
+    measurement: "Number of conversations processed"
+  netherlands_first:
+    description: "Local language, regulations, payment methods"
+    measurement: "Market penetration in target cities"
+  learning_velocity:
+    description: "Faster AI improvement through data collection"
+    measurement: "AI accuracy improvement rate"
+  professional_trust:
+    description: "Superior UX compared to DIY Facebook pages"
+    measurement: "Conversion rate vs competitors"
+
+# PRODUCTION ERROR HANDLING
+error_handling:
+  violations:
+    action: "immediate_stop_and_fix"
+    notification: "clear_explanation_of_violation"
+    resolution: "guided_fix_process"
+    
+  production_robustness:
+    graceful_degradation:
+      enabled: true
+      fallback_hierarchy:
+        1: "retry_with_fixed_parameters"
+        2: "use_cached_patterns_with_notification"
+        3: "simplified_implementation_with_user_consent"
+        4: "defer_to_next_session_with_clear_todo"
+    
+    monitoring_and_recovery:
+      track_error_patterns: true
+      auto_suggest_prevention: true
+      session_recovery: "preserve_progress_on_critical_errors"
+      
+    user_communication:
+      error_transparency: "always_explain_what_went_wrong"
+      fix_guidance: "provide_specific_steps_to_resolve"
+      progress_preservation: "never_lose_completed_work"
+      alternative_paths: "suggest_workarounds_when_blocked"
+      
+    system_health_checks:
+      pre_session_validation:
+        - "verify_mcp_connections"
+        - "check_file_permissions"
+        - "validate_context_loading_paths"
+        - "confirm_specialist_pattern_availability"
+      
+      during_session_monitoring:
+        - "track_memory_usage"
+        - "monitor_response_times"
+        - "detect_infinite_loops"
+        - "watch_for_context_overflow"
+        
+      post_session_cleanup:
+        - "clear_temporary_files"
+        - "update_error_logs"
+        - "cache_successful_patterns"
+        - "prepare_next_session_context"

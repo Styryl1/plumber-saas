@@ -1,0 +1,18 @@
+{
+  "timestamp": 1755280768364,
+  "query": "Next.js 15 latest features",
+  "data": {
+    "sources": [
+      {
+        "url": "https://nextjs.org/docs/app",
+        "title": "Next.js 15 App Router Documentation",
+        "content": "Latest App Router features including React 19 support, improved performance...",
+        "lastUpdated": "2025-08-15T17:59:28.363Z",
+        "relevance": 0.95
+      }
+    ],
+    "summary": "Next.js 15 introduces significant performance improvements and React 19 compatibility",
+    "confidence": 0.92,
+    "lastUpdated": "2025-08-15T17:59:28.363Z"
+  }
+}

@@ -1,0 +1,356 @@
+# Plumber SaaS PRP Workflow Automation
+version: "2.0.0"
+automation_level: "full"
+
+phases:
+  phase_1_analysis:
+    name: "Analysis & Planning"
+    duration: "5-15 minutes"
+    auto_execute: true
+    steps:
+      - step: "context_loading"
+        action: "Load always_load files automatically"
+        files:
+          - "C:/Users/styry/CLAUDE.md"
+          - "C:/Users/styry/plumber-saas/context/prp-active/*.md"
+          - "C:/Users/styry/plumber-saas/context/specialists/*.md"
+        validation: "Confirm all files loaded successfully"
+      
+      - step: "conditional_context"
+        action: "Load context based on keywords in user prompt"
+        rules:
+          - keywords: ["dashboard", "jobs", "customers", "invoices", "ui", "components"]
+            load: 
+              - "C:/Users/styry/plumber-saas/dashboard/T3_STACK_ARCHITECTURE.md"
+              - "C:/Users/styry/plumber-saas/dashboard/API_PATTERNS.md"
+              - "C:/Users/styry/plumber-saas/dashboard/DATABASE_INTEGRATION.md"
+              - "C:/Users/styry/plumber-saas/dashboard/SUPABASE_ARCHITECTURE.md"
+              - "C:/Users/styry/plumber-saas/dashboard/DATA_MODELS.md"
+              - "C:/Users/styry/plumber-saas/dashboard/MULTI_TENANT_PATTERNS.md"
+              - "C:/Users/styry/plumber-saas/dashboard/BUSINESS_PARTNER_AI.md"
+          - keywords: ["widget", "chat", "booking", "conversion"]
+            load: ["C:/Users/styry/plumber-saas/widget/*.md"]
+          - keywords: ["ai", "gpt", "claude", "prompt", "personality"]
+            load: ["C:/Users/styry/plumber-saas/ai-core/*.md"]
+          - keywords: ["t3", "next", "trpc", "typescript", "architecture", "api"]
+            load:
+              - "C:/Users/styry/plumber-saas/dashboard/T3_STACK_ARCHITECTURE.md"
+              - "C:/Users/styry/plumber-saas/dashboard/API_PATTERNS.md"
+          - keywords: ["supabase", "prisma", "database", "migration", "rls"]
+            load:
+              - "C:/Users/styry/plumber-saas/dashboard/DATABASE_INTEGRATION.md"
+              - "C:/Users/styry/plumber-saas/dashboard/SUPABASE_ARCHITECTURE.md"
+              - "C:/Users/styry/plumber-saas/dashboard/DATA_MODELS.md"
+      
+      - step: "specialist_activation"
+        action: "Auto-activate specialist agents based on keywords"
+        threshold: 0.7
+        max_specialists: 4
+        priority: "by_keyword_count"
+      
+      - step: "complexity_analysis"
+        action: "Determine task complexity and time estimate"
+        criteria:
+          simple: "Single component/page, <4 hours"
+          medium: "Multiple components, API integration, 1-3 days"
+          complex: "System architecture, multiple integrations, 3+ days"
+        output: "Select appropriate PRP template"
+      
+      - step: "legacy_detection"
+        action: "Scan for outdated code patterns to delete"
+        patterns:
+          - "Vanilla JS in T3 project"
+          - "Pages Router instead of App Router"
+          - "Mock data instead of real API"
+          - "Duplicate components"
+        requirement: "Ask user before deletion (Rule #2)"
+
+  phase_2_planning:
+    name: "Clarifying Questions & Strategy"
+    duration: "10-20 minutes"
+    mandatory: true
+    steps:
+      - step: "clarifying_questions"
+        action: "Ask questions based on Rule #9"
+        categories:
+          scope:
+            - "What are the exact boundaries of this task?"
+            - "Which components/pages need to be created/modified?"
+            - "What are the success criteria?"
+          
+          integration:
+            - "How does this connect to existing tRPC routers?"
+            - "What database changes are required?"
+            - "Are there external API integrations needed?"
+          
+          mobile:
+            - "What are the mobile experience requirements?"
+            - "Should this work on tablets and phones?"
+            - "Any touch-specific interactions needed?"
+          
+          dutch_market:
+            - "Are BTW calculations needed?"
+            - "What Dutch terminology should be used?"
+            - "Amsterdam vs other cities considerations?"
+            - "iDEAL payment integration required?"
+          
+          competitive_moats:
+            - "What data can we collect for AI improvement?"
+            - "How does this strengthen our Netherlands advantage?"
+            - "What learning opportunities exist?"
+      
+      - step: "specialist_consultation"
+        action: "Gather recommendations from activated specialists"
+        process:
+          - "Load fresh patterns from specialist files"
+          - "Synthesize recommendations for current task"
+          - "Identify potential conflicts and resolutions"
+        output: "Integrated specialist guidance"
+      
+      - step: "moat_identification"
+        action: "Identify competitive advantage opportunities"
+        focus_areas:
+          - "Data collection points for AI training"
+          - "Netherlands-specific feature opportunities"
+          - "Learning velocity improvements"
+          - "Network effect potential"
+
+  phase_3_implementation:
+    name: "Development & Build"
+    duration: "Variable based on complexity"
+    rule_enforcement: "strict"
+    steps:
+      - step: "rule_validation_pre"
+        action: "Validate compliance before starting"
+        checks:
+          - "MCP tools available and functional"
+          - "Project context fully loaded"
+          - "T3 development environment ready"
+          - "Legacy deletion permissions confirmed"
+      
+      - step: "mcp_knowledge_gathering"
+        action: "Use MCP tools for current information"
+        tools:
+          context7:
+            queries:
+              - "Schedule-X v2 latest features and API"
+              - "shadcn/ui latest components and patterns"
+              - "Tailwind CSS 4.0 container queries"
+              - "Next.js 14 App Router best practices"
+          firecrawl:
+            targets:
+              - "Working Schedule-X integration examples"
+              - "shadcn/ui dashboard implementations"
+              - "T3 stack production patterns"
+          supabase_mcp:
+            operations:
+              - "Test database connections"
+              - "Validate RLS policies"
+              - "Check real-time subscriptions"
+      
+      - step: "implementation"
+        action: "Build according to 10 golden rules"
+        enforcement:
+          rule_1: "Use real API data or proper loading states"
+          rule_2: "Delete legacy code only after confirmation"
+          rule_3: "Add section markers and JSDoc, no redundant comments"
+          rule_4: "Use tRPC and Prisma types exclusively"
+          rule_5: "Create shared components in ~/components"
+          rule_6: "Use MCP tools for all external knowledge"
+          rule_7: "Follow T3 conventions strictly"
+          rule_8: "Show real errors with context"
+          rule_9: "Reference clarifying questions from Phase 2"
+          rule_10: "Include proactive improvement suggestions"
+      
+      - step: "dutch_integration"
+        action: "Implement Netherlands-specific features"
+        requirements:
+          - "Use proper Dutch terminology from rules.yaml"
+          - "Implement BTW calculations where relevant"
+          - "Consider Amsterdam-first UX patterns"
+          - "Integrate iDEAL payment flow if needed"
+      
+      - step: "shared_component_creation"
+        action: "Build reusable components following Rule #5"
+        guidelines:
+          - "Check if component already exists in ~/components"
+          - "If creating new, make it maximally reusable"
+          - "Use shadcn/ui as base, add domain-specific logic"
+          - "Export from ~/components/index.ts"
+          - "Document with JSDoc"
+
+  phase_4_validation:
+    name: "Testing & Quality Assurance"
+    duration: "15-30 minutes"
+    automation: "playwright_mcp"
+    steps:
+      - step: "playwright_testing"
+        action: "Validate implementation with browser automation"
+        tests:
+          - "Component renders without errors"
+          - "Mobile responsiveness works properly"
+          - "API calls function correctly"
+          - "Loading states display properly"
+          - "Error states show meaningful messages"
+        note: "NO test file creation - Playwright MCP only"
+      
+      - step: "rule_compliance_check"
+        action: "Validate all 10 golden rules were followed"
+        automated_checks:
+          - "No mock data detected"
+          - "Legacy deletion confirmed"
+          - "Comments follow smart pattern"
+          - "Type safety maintained"
+          - "Components properly shared"
+          - "MCP tools used correctly"
+          - "T3 patterns followed"
+          - "Real error handling present"
+          - "Clarifying questions addressed"
+          - "Proactive suggestions included"
+      
+      - step: "performance_validation"
+        action: "Check performance metrics"
+        targets:
+          - "Lighthouse score >90 on mobile"
+          - "Bundle size impact minimal"
+          - "API response times <100ms"
+          - "Core Web Vitals green"
+      
+      - step: "accessibility_check"
+        action: "Validate WCAG 2.1 AA compliance"
+        tools: "Playwright MCP accessibility testing"
+        requirements:
+          - "Screen reader compatibility"
+          - "Keyboard navigation support"
+          - "Color contrast ratios"
+          - "Focus management"
+
+  phase_5_documentation:
+    name: "PRP Generation & Moat Building"
+    duration: "10-15 minutes"
+    output_files: true
+    steps:
+      - step: "prp_generation"
+        action: "Create PRP document based on complexity"
+        templates:
+          simple: ".claude/output-styles/templates/prp-simple.md"
+          medium: ".claude/output-styles/templates/prp-medium.md"
+          complex: ".claude/output-styles/templates/prp-complex.md"
+        content:
+          - "Implementation summary"
+          - "Rules compliance validation"
+          - "Specialist patterns used"
+          - "Dutch market features added"
+          - "Competitive moats enhanced"
+          - "Future optimization opportunities"
+      
+      - step: "competitive_moat_tracking"
+        action: "Document how this implementation strengthens our position"
+        areas:
+          data_collection:
+            - "What new data points are we collecting?"
+            - "How does this improve our AI training?"
+            - "What customer insights are gained?"
+          
+          netherlands_advantage:
+            - "Dutch-specific features added"
+            - "Local market compliance improved"
+            - "Amsterdam customer experience enhanced"
+          
+          learning_velocity:
+            - "How does this accelerate our knowledge growth?"
+            - "What patterns can be reused for other plumbers?"
+            - "Network effect potential"
+      
+      - step: "pattern_distribution"
+        action: "Update specialist pattern files with new learnings"
+        process:
+          - "Extract successful patterns from implementation"
+          - "Update relevant specialist pattern files"
+          - "Share learnings across specialist agents"
+          - "Update context cache for future sessions"
+      
+      - step: "distributed_file_updates"
+        action: "Update specific distributed documentation files"
+        auto_update_targets:
+          t3_architecture:
+            file: "C:/Users/styry/plumber-saas/dashboard/T3_STACK_ARCHITECTURE.md"
+            triggers: ["next", "trpc", "typescript", "architecture"]
+            sections: ["Implementation patterns", "Performance optimizations", "Best practices"]
+          
+          api_patterns:
+            file: "C:/Users/styry/plumber-saas/dashboard/API_PATTERNS.md"
+            triggers: ["api", "trpc", "endpoint", "mutation", "query"]
+            sections: ["New tRPC procedures", "Error handling", "Type safety"]
+          
+          database_integration:
+            file: "C:/Users/styry/plumber-saas/dashboard/DATABASE_INTEGRATION.md"
+            triggers: ["supabase", "prisma", "database", "migration", "rls"]
+            sections: ["RLS policies", "Query optimizations", "Multi-tenant patterns"]
+          
+          supabase_architecture:
+            file: "C:/Users/styry/plumber-saas/dashboard/SUPABASE_ARCHITECTURE.md"
+            triggers: ["supabase", "real-time", "rls", "storage"]
+            sections: ["Architecture updates", "Performance patterns", "Real-time implementations"]
+          
+          business_partner_ai:
+            file: "C:/Users/styry/plumber-saas/dashboard/BUSINESS_PARTNER_AI.md"
+            triggers: ["ai", "business partner", "personality", "prompts"]
+            sections: ["AI personality evolution", "Prompt improvements", "Business intelligence"]
+        
+        update_format: |
+          ## Updated: {timestamp}
+          ### Implementation: {feature_name}
+          {new_patterns}
+          
+          **Why this pattern works:**
+          {explanation}
+          
+          **Competitive advantage:**
+          {moat_impact}
+          
+          **Dutch market application:**
+          {dutch_specific}
+      
+      - step: "feedback_collection"
+        action: "Set up for continuous improvement"
+        tracking:
+          - "Implementation success metrics"
+          - "Rule compliance effectiveness"
+          - "Dutch market feature adoption"
+          - "Competitive advantage gains"
+
+error_handling:
+  rule_violations:
+    action: "Stop implementation and fix violation"
+    notification: "Alert user to rule violation"
+    recovery: "Guide user through proper implementation"
+  
+  mcp_failures:
+    action: "Fallback to cached patterns with warning"
+    notification: "Alert user to MCP connectivity issues"
+    recovery: "Suggest manual verification steps"
+  
+  specialist_conflicts:
+    action: "Present options to user for resolution"
+    prioritization: "Project requirements > Specialist recommendations"
+    documentation: "Record resolution for future reference"
+
+success_metrics:
+  implementation_quality:
+    - "Zero rule violations"
+    - "All MCP tools used successfully"
+    - "Specialist patterns integrated"
+    - "Dutch market features included"
+  
+  competitive_advantage:
+    - "Data collection opportunities identified"
+    - "Netherlands differentiation strengthened"
+    - "Learning velocity improved"
+    - "Network effects enhanced"
+  
+  development_velocity:
+    - "Implementation time within estimates"
+    - "No rework required"
+    - "Reusable patterns created"
+    - "Future development accelerated"

@@ -1,0 +1,605 @@
+# Post-Implementation Validation Checks for Plumber SaaS PRP
+version: "2.0.0"
+enforcement: "comprehensive"
+
+# Final Rule Compliance Validation
+final_rule_validation:
+  rule_1_no_mock_data:
+    description: "Comprehensive check for mock data usage"
+    
+    validation_steps:
+      - name: "Code scan for mock patterns"
+        scan_patterns:
+          - "mockData"
+          - "fakeData"
+          - "dummyData"
+          - "placeholder"
+          - "TODO.*real.*API"
+        severity: "critical"
+      
+      - name: "API integration verification"
+        checks:
+          - "All data comes from tRPC calls"
+          - "Error states properly handled"
+          - "Loading states implemented"
+          - "No hardcoded fallback data"
+        validation_method: "Playwright MCP testing"
+      
+      - name: "Data flow verification"
+        checks:
+          - "Real API responses displayed"
+          - "Error messages shown to users"
+          - "Loading indicators function properly"
+        test_scenarios:
+          - "API success response"
+          - "API error response"
+          - "Network timeout scenario"
+    
+    success_criteria: "Zero mock data patterns found + All API calls functional"
+    failure_action: "Require mock data removal before completion"
+  
+  rule_2_legacy_deletion:
+    description: "Verify all legacy code has been removed"
+    
+    validation_steps:
+      - name: "Legacy pattern scan"
+        scan_patterns:
+          - "pages/_app.tsx"
+          - "pages/api/"
+          - "class.*Component"
+          - "componentDidMount"
+          - "fetch('/api/"
+          - "var "
+        severity: "critical"
+      
+      - name: "T3 pattern verification"
+        checks:
+          - "Only App Router patterns used"
+          - "Only tRPC for API calls"
+          - "Only functional components"
+          - "Only modern React patterns"
+        validation_method: "Static code analysis"
+      
+      - name: "Architecture compliance"
+        checks:
+          - "File structure follows T3 conventions"
+          - "Import paths use T3 aliases"
+          - "No deprecated packages used"
+    
+    success_criteria: "Zero legacy patterns found + Full T3 compliance"
+    failure_action: "Require legacy code removal and T3 migration"
+  
+  rule_3_smart_comments:
+    description: "Validate comment quality and usefulness"
+    
+    validation_steps:
+      - name: "Comment quality analysis"
+        acceptable_patterns:
+          - "// === SECTION MARKERS ==="
+          - "/**\\n \\* @param"
+          - "/**\\n \\* @returns"
+          - "// WHY:"
+          - "// NOTE:"
+        
+        forbidden_patterns:
+          - "// increment.*"
+          - "// set.*"
+          - "// call.*"
+          - "// obvious.*"
+      
+      - name: "JSDoc coverage check"
+        requirements:
+          - "All exported functions have JSDoc"
+          - "All component props documented"
+          - "All tRPC procedures documented"
+        validation_method: "TypeScript compiler + custom analysis"
+      
+      - name: "Documentation usefulness"
+        criteria:
+          - "Comments explain WHY not WHAT"
+          - "Complex logic properly explained"
+          - "Section markers for major code blocks"
+    
+    success_criteria: "All comments useful + Complete JSDoc coverage"
+    failure_action: "Improve comment quality and documentation"
+  
+  rule_4_type_safety:
+    description: "Comprehensive type safety validation"
+    
+    validation_steps:
+      - name: "TypeScript compilation"
+        requirements:
+          - "Zero TypeScript errors"
+          - "Strict mode compliance"
+          - "No 'any' types used"
+        validation_method: "TypeScript compiler strict mode"
+      
+      - name: "tRPC integration verification"
+        checks:
+          - "All API calls use tRPC"
+          - "End-to-end type safety maintained"
+          - "Proper error typing"
+        validation_method: "Code analysis + runtime testing"
+      
+      - name: "Prisma type usage"
+        checks:
+          - "Database operations use Prisma types"
+          - "No raw SQL queries"
+          - "Proper type imports from @prisma/client"
+    
+    success_criteria: "Zero TypeScript errors + Full type safety"
+    failure_action: "Fix type safety issues before completion"
+  
+  rule_5_shared_components:
+    description: "Validate component reusability and sharing"
+    
+    validation_steps:
+      - name: "Component duplication analysis"
+        scan_for:
+          - "Duplicate component patterns"
+          - "Similar UI logic across files"
+          - "Repeated styling patterns"
+        validation_method: "Static code analysis"
+      
+      - name: "Import path verification"
+        requirements:
+          - "Components imported from ~/components"
+          - "No relative imports for shared components"
+          - "Proper barrel exports from index files"
+      
+      - name: "Reusability assessment"
+        criteria:
+          - "Components designed for multiple use cases"
+          - "Props interface supports flexibility"
+          - "No hard-coded values in shared components"
+    
+    success_criteria: "No duplicate components + Proper sharing patterns"
+    failure_action: "Consolidate duplicate components into shared ones"
+  
+  rule_6_mcp_tools:
+    description: "Verify MCP tools were used for implementation"
+    
+    validation_steps:
+      - name: "Knowledge freshness verification"
+        checks:
+          - "Latest library versions used"
+          - "Current best practices implemented"
+          - "Recent documentation patterns followed"
+        validation_method: "Context7 MCP verification"
+      
+      - name: "Implementation pattern verification"
+        checks:
+          - "Working examples from Firecrawl MCP used"
+          - "Database operations tested with Supabase MCP"
+          - "Browser functionality tested with Playwright MCP"
+      
+      - name: "Documentation accuracy"
+        checks:
+          - "Implementation matches current documentation"
+          - "Deprecated patterns avoided"
+          - "Latest API usage implemented"
+    
+    success_criteria: "Current patterns used + MCP tool verification successful"
+    failure_action: "Update implementation with current patterns"
+  
+  rule_7_t3_conventions:
+    description: "Comprehensive T3 Stack convention compliance"
+    
+    validation_steps:
+      - name: "File structure validation"
+        requirements:
+          - "src/app/ for pages (App Router)"
+          - "src/components/ for shared components"
+          - "src/server/api/ for tRPC routers"
+          - "src/lib/ for utilities"
+        validation_method: "File system analysis"
+      
+      - name: "Pattern adherence verification"
+        checks:
+          - "tRPC routers for all API functionality"
+          - "Prisma for all database operations"
+          - "Clerk for authentication"
+          - "Tailwind for styling"
+        validation_method: "Code pattern analysis"
+      
+      - name: "Best practices compliance"
+        criteria:
+          - "Server/client components properly separated"
+          - "Proper error boundaries implemented"
+          - "Optimistic updates where appropriate"
+    
+    success_criteria: "Full T3 convention compliance"
+    failure_action: "Align implementation with T3 best practices"
+  
+  rule_8_real_errors:
+    description: "Validate real error handling implementation"
+    
+    validation_steps:
+      - name: "Error handling coverage"
+        test_scenarios:
+          - "API failures"
+          - "Network timeouts"
+          - "Authentication errors"
+          - "Validation failures"
+        validation_method: "Playwright MCP error simulation"
+      
+      - name: "User experience validation"
+        checks:
+          - "Meaningful error messages displayed"
+          - "Error recovery options provided"
+          - "No fake success states shown"
+          - "Appropriate error styling implemented"
+      
+      - name: "Error logging verification"
+        requirements:
+          - "Errors logged for debugging"
+          - "Error context captured"
+          - "User privacy maintained in logs"
+    
+    success_criteria: "Comprehensive error handling + Good UX"
+    failure_action: "Improve error handling and user experience"
+  
+  rule_9_context_engineering:
+    description: "Validate clarifying questions were addressed"
+    
+    validation_steps:
+      - name: "Requirements fulfillment"
+        checks:
+          - "All clarifying questions answered"
+          - "Scope boundaries respected"
+          - "Integration requirements met"
+          - "Dutch market needs addressed"
+        validation_method: "Requirements traceability"
+      
+      - name: "Context integration verification"
+        checks:
+          - "Specialist patterns incorporated"
+          - "Project context maintained"
+          - "Competitive advantages considered"
+      
+      - name: "Planning quality assessment"
+        criteria:
+          - "Thorough analysis completed"
+          - "Risks identified and mitigated"
+          - "Future considerations documented"
+    
+    success_criteria: "All requirements met + Context properly integrated"
+    failure_action: "Address missing requirements and context"
+  
+  rule_10_proactive_patterns:
+    description: "Validate proactive suggestions were implemented"
+    
+    validation_steps:
+      - name: "Improvement opportunities identified"
+        categories:
+          - "Performance optimizations"
+          - "Feature enhancements"
+          - "Competitive advantages"
+          - "Technical debt reduction"
+        validation_method: "Review of suggestions made and implemented"
+      
+      - name: "Innovation assessment"
+        checks:
+          - "New patterns created"
+          - "Reusable solutions developed"
+          - "Knowledge captured for future use"
+      
+      - name: "Competitive advantage enhancement"
+        criteria:
+          - "Data collection opportunities utilized"
+          - "Netherlands advantages strengthened"
+          - "Learning velocity improved"
+    
+    success_criteria: "Meaningful improvements identified and implemented"
+    failure_action: "Implement key improvement suggestions"
+
+# Comprehensive Quality Validation
+quality_validation:
+  performance_testing:
+    description: "Validate performance meets standards"
+    
+    test_scenarios:
+      - name: "Lighthouse performance audit"
+        requirements:
+          desktop: ">95 score"
+          mobile: ">90 score"
+        validation_method: "Playwright MCP Lighthouse testing"
+      
+      - name: "Bundle size analysis"
+        requirements:
+          - "Initial bundle <500KB"
+          - "Page-specific bundles <200KB"
+          - "Proper code splitting implemented"
+        validation_method: "Next.js build analysis"
+      
+      - name: "API performance testing"
+        requirements:
+          - "tRPC calls <100ms average"
+          - "Database queries <50ms average"
+          - "Real-time updates <500ms"
+        validation_method: "Performance monitoring tools"
+    
+    success_criteria: "All performance benchmarks met"
+    failure_action: "Optimize performance bottlenecks"
+  
+  accessibility_testing:
+    description: "Validate WCAG 2.1 AA compliance"
+    
+    test_scenarios:
+      - name: "Automated accessibility testing"
+        tools: "Playwright MCP accessibility testing"
+        requirements:
+          - "Zero accessibility violations"
+          - "Proper ARIA attributes"
+          - "Semantic HTML structure"
+      
+      - name: "Keyboard navigation testing"
+        requirements:
+          - "All interactive elements keyboard accessible"
+          - "Logical tab order maintained"
+          - "Focus indicators visible"
+      
+      - name: "Screen reader compatibility"
+        requirements:
+          - "Content properly announced"
+          - "Form labels associated"
+          - "Error messages accessible"
+    
+    success_criteria: "Full WCAG 2.1 AA compliance achieved"
+    failure_action: "Fix accessibility issues before completion"
+  
+  security_testing:
+    description: "Validate security implementation"
+    
+    test_scenarios:
+      - name: "Authentication testing"
+        checks:
+          - "Protected routes require authentication"
+          - "Unauthorized access prevented"
+          - "Session management secure"
+        validation_method: "Playwright MCP security testing"
+      
+      - name: "Data protection testing"
+        checks:
+          - "RLS policies prevent data leakage"
+          - "Input validation prevents injection"
+          - "Sensitive data properly encrypted"
+      
+      - name: "GDPR compliance verification"
+        requirements:
+          - "Data collection consent obtained"
+          - "Data deletion capabilities implemented"
+          - "Privacy policy compliance"
+    
+    success_criteria: "No security vulnerabilities found"
+    failure_action: "Address security issues immediately"
+
+# Dutch Market Validation
+dutch_market_validation:
+  btw_compliance_testing:
+    description: "Validate Dutch tax compliance"
+    
+    test_scenarios:
+      - name: "BTW calculation verification"
+        test_cases:
+          - "21% standard rate calculation"
+          - "9% reduced rate calculation"
+          - "0% exempt rate calculation"
+          - "Mixed rate invoice calculation"
+        validation_method: "Automated calculation testing"
+      
+      - name: "BTW display formatting"
+        requirements:
+          - "Dutch currency format (€12,34)"
+          - "BTW amounts clearly separated"
+          - "Total including BTW prominent"
+      
+      - name: "Invoice compliance"
+        checks:
+          - "Required Dutch invoice elements present"
+          - "BTW numbers properly displayed"
+          - "Legal compliance maintained"
+    
+    success_criteria: "Full Dutch BTW compliance"
+    failure_action: "Fix BTW compliance issues"
+  
+  localization_testing:
+    description: "Validate Dutch localization quality"
+    
+    test_scenarios:
+      - name: "Terminology accuracy"
+        validation:
+          - "Professional Dutch plumbing terms used"
+          - "Consistent terminology throughout"
+          - "Cultural appropriateness maintained"
+      
+      - name: "User experience localization"
+        checks:
+          - "Date/time formats Dutch standard"
+          - "Address formats Dutch standard"
+          - "Communication style appropriate"
+      
+      - name: "Amsterdam market optimization"
+        requirements:
+          - "Amsterdam-specific features functional"
+          - "Local service integration working"
+          - "Geographic targeting accurate"
+    
+    success_criteria: "High-quality Dutch localization"
+    failure_action: "Improve localization quality"
+  
+  payment_integration_testing:
+    description: "Validate Dutch payment preferences"
+    
+    test_scenarios:
+      - name: "iDEAL integration testing"
+        requirements:
+          - "iDEAL prominently featured"
+          - "Payment flow optimized for Dutch users"
+          - "Mollie integration functional"
+        validation_method: "Playwright MCP payment flow testing"
+      
+      - name: "Payment UX testing"
+        checks:
+          - "Payment options match Dutch preferences"
+          - "Conversion funnel optimized"
+          - "Error handling appropriate"
+    
+    success_criteria: "Optimal Dutch payment experience"
+    failure_action: "Optimize payment integration"
+
+# Competitive Advantage Validation
+competitive_validation:
+  data_collection_assessment:
+    description: "Validate competitive data advantages"
+    
+    validation_steps:
+      - name: "Data collection implementation"
+        checks:
+          - "User interaction data captured"
+          - "AI training data properly stored"
+          - "Analytics implementation functional"
+        requirements:
+          - "Privacy compliance maintained"
+          - "Data quality assured"
+          - "Learning opportunities maximized"
+      
+      - name: "AI improvement potential"
+        assessment:
+          - "Data volume sufficient for training"
+          - "Data quality appropriate for learning"
+          - "Feedback loops implemented"
+    
+    success_criteria: "Strong data collection for competitive advantage"
+    failure_action: "Enhance data collection implementation"
+  
+  netherlands_advantage_assessment:
+    description: "Validate Netherlands market positioning"
+    
+    validation_steps:
+      - name: "Local market optimization"
+        checks:
+          - "Netherlands-specific features implemented"
+          - "Local compliance exceeded"
+          - "Cultural adaptation successful"
+      
+      - name: "Competitive differentiation"
+        assessment:
+          - "Features unavailable to international competitors"
+          - "Local market advantages leveraged"
+          - "Switching costs increased"
+    
+    success_criteria: "Strong Netherlands market positioning"
+    failure_action: "Strengthen local market advantages"
+
+# Final PRP Generation
+prp_generation:
+  documentation_creation:
+    description: "Generate comprehensive PRP documentation"
+    
+    content_requirements:
+      - "Implementation summary"
+      - "Rule compliance report"
+      - "Quality metrics achieved"
+      - "Dutch market features delivered"
+      - "Competitive advantages gained"
+      - "Future optimization opportunities"
+    
+    file_generation:
+      location: "C:/Users/styry/plumber-saas/context/prp-active/"
+      filename: "prp_{timestamp}_{complexity}.md"
+      format: "Selected template with actual data"
+  
+  pattern_extraction:
+    description: "Extract successful patterns for future use"
+    
+    pattern_categories:
+      - "Component implementation patterns"
+      - "API integration patterns"
+      - "Dutch market feature patterns"
+      - "Performance optimization patterns"
+      - "Security implementation patterns"
+    
+    distribution:
+      - "Update specialist pattern files"
+      - "Share with relevant specialist agents"
+      - "Update context cache"
+  
+  learning_capture:
+    description: "Capture learnings for continuous improvement"
+    
+    success_patterns:
+      - "What worked well and why"
+      - "Effective implementation strategies"
+      - "Successful Dutch market adaptations"
+    
+    improvement_opportunities:
+      - "What could be done better"
+      - "Process improvements needed"
+      - "Additional competitive advantages possible"
+
+# Post-Implementation Success Metrics
+success_metrics:
+  rule_compliance:
+    target: "100% compliance with all 10 golden rules"
+    measurement: "Automated validation + manual review"
+  
+  quality_standards:
+    performance: "Lighthouse scores >90 mobile, >95 desktop"
+    accessibility: "WCAG 2.1 AA compliance 100%"
+    security: "Zero vulnerabilities found"
+  
+  dutch_market_optimization:
+    btw_compliance: "100% accuracy in tax calculations"
+    localization_quality: "Professional Dutch terminology and UX"
+    payment_optimization: "iDEAL-first payment experience"
+  
+  competitive_advantage:
+    data_collection: "Meaningful data captured for AI improvement"
+    netherlands_positioning: "Local market advantages strengthened"
+    learning_velocity: "Patterns created for future acceleration"
+
+# Final Validation Report Template
+validation_report_template: |
+  # Post-Implementation Validation Report
+  
+  ## 🎯 Overall Success Score: {overall_score}/100
+  
+  ## ✅ 10 Golden Rules Compliance
+  {rule_compliance_detailed}
+  
+  ## 🚀 Quality Standards Achievement
+  {quality_standards_detailed}
+  
+  ## 🇳🇱 Dutch Market Optimization
+  {dutch_market_detailed}
+  
+  ## 🏰 Competitive Advantages Gained
+  {competitive_advantages_detailed}
+  
+  ## 📊 Performance Metrics
+  {performance_metrics_detailed}
+  
+  ## 🔒 Security Validation
+  {security_validation_detailed}
+  
+  ## 🎨 Accessibility Compliance
+  {accessibility_compliance_detailed}
+  
+  ## 🚀 Proactive Improvements Implemented
+  {proactive_improvements_detailed}
+  
+  ## 📈 Success Metrics Summary
+  {success_metrics_summary}
+  
+  ## 🎯 Next Steps and Recommendations
+  {next_steps_recommendations}
+  
+  ## 📝 PRP Generated
+  - **Location**: {prp_file_location}
+  - **Patterns Extracted**: {patterns_count}
+  - **Learning Captured**: {learning_items_count}
+  
+  **Implementation Status**: {final_status}
+  **Ready for Production**: {production_ready}
+  **Competitive Moats Enhanced**: {moats_enhanced}

@@ -1,0 +1,191 @@
+# OPTIMIZED SPECIALIST CONFIGURATION - Production Ready
+version: "2.0.0"
+auto_activation: true
+
+# CORE SPECIALISTS (8 total)
+specialists:
+  ui-specialist-agent:
+    keywords: ["ui", "component", "tailwind", "schedule-x", "mobile", "calendar", "design"]
+    confidence_threshold: 0.70
+    file_patterns: ["*UI*.md", "*COMPONENT*.md", "*DESIGN*.md"]
+    tools: ["Context7 MCP", "Firecrawl MCP", "Playwright MCP"]
+    focus: "Schedule-X calendar, shadcn/ui, mobile-first design"
+    
+  t3-specialist-agent:
+    keywords: ["dashboard", "component", "form", "data", "save", "load", "page", "feature", "system", "integration", "backend", "frontend", "database", "api", "next", "trpc", "typescript", "react", "prisma", "t3"]
+    confidence_threshold: 0.50  # Lower threshold - should activate for most features
+    file_patterns: ["*T3*.md", "*API*.md", "*ARCHITECTURE*.md", "*COMPONENT*.md", "*FORM*.md"]
+    tools: ["Context7 MCP", "Playwright MCP"]
+    focus: "Next.js latest App Router, tRPC current, TypeScript latest strict mode, fundamental architecture decisions"
+    auto_activate_for:
+      - "any dashboard functionality"
+      - "data saving or loading"
+      - "form submissions"
+      - "new features requiring backend integration" 
+      - "component creation that needs data"
+    business_language_triggers:
+      - "save customer information"
+      - "load job data" 
+      - "create invoice"
+      - "booking form"
+      - "customer management"
+      - "job scheduling"
+      - "invoice system"
+      - "user authentication"
+    
+  database-specialist-agent:
+    keywords: ["supabase", "prisma", "rls", "migration", "postgresql", "query"]
+    confidence_threshold: 0.70
+    file_patterns: ["*DATABASE*.md", "*SUPABASE*.md", "*RLS*.md"]
+    tools: ["Supabase MCP", "Context7 MCP"]
+    focus: "Multi-tenant RLS, query optimization, GDPR compliance"
+    
+  ai-instruction-agent:
+    keywords: ["gpt", "claude", "prompt", "ai", "chat", "voice", "personality"]
+    confidence_threshold: 0.70
+    file_patterns: ["*AI*.md", "*PROMPT*.md", "*CHAT*.md"]
+    tools: ["Context7 MCP", "Firecrawl MCP"]
+    focus: "Dutch AI personality, GPT-5 + Claude dual-model"
+    
+  auth-specialist-agent:
+    keywords: ["clerk", "auth", "organization", "permission", "user", "security"]
+    confidence_threshold: 0.70
+    file_patterns: ["*AUTH*.md", "*SECURITY*.md", "*USER*.md"]
+    tools: ["Clerk MCP", "Context7 MCP"]
+    focus: "Multi-tenant organizations, middleware, security"
+    
+  payment-specialist-agent:
+    keywords: ["mollie", "ideal", "payment", "invoice", "btw", "billing"]
+    confidence_threshold: 0.70
+    file_patterns: ["*PAYMENT*.md", "*INVOICE*.md", "*BTW*.md"]
+    tools: ["Context7 MCP", "Firecrawl MCP"]
+    focus: "Mollie iDEAL, Dutch BTW compliance, invoicing"
+    
+  ux-design-agent:
+    keywords: ["conversion", "psychology", "journey", "booking", "funnel"]
+    confidence_threshold: 0.70
+    file_patterns: ["*UX*.md", "*CONVERSION*.md", "*JOURNEY*.md"]
+    tools: ["Context7 MCP", "Firecrawl MCP", "Playwright MCP"]
+    focus: "Dutch customer psychology, booking optimization"
+    
+  testing-specialist-agent:
+    keywords: ["test", "validation", "e2e", "playwright", "automation"]
+    confidence_threshold: 0.70
+    file_patterns: ["*TEST*.md", "*VALIDATION*.md"]
+    tools: ["Playwright MCP"]
+    focus: "Browser automation, NO test file creation"
+
+# ACTIVATION RULES
+activation:
+  strategy: "fuzzy_match"
+  threshold: 0.70
+  max_concurrent: 4
+  emergency_mode:
+    keywords: ["urgent", "quick", "fast", "asap", "emergency"]
+    max_specialists: 2
+    analysis_depth: "surface_level"
+
+# COORDINATION with Smart Conflict Prevention
+coordination:
+  conflict_resolution: "present_options_to_user_with_recommendations"
+  update_frequency: "after_successful_implementation"
+  parallel_updates: true
+  max_concurrent_updates: 3
+  
+  smart_conflict_prevention:
+    enabled: true
+    
+    pre_assignment_checks:
+      content_overlap_threshold: 0.4  # If 40%+ content overlap, flag potential conflict
+      file_section_mapping:
+        enabled: true
+        strategy: "assign_different_sections_to_different_specialists"
+        
+    area_isolation_rules:
+      dashboard_specialists: ["t3-specialist-agent", "ui-specialist-agent", "database-specialist-agent", "auth-specialist-agent"]
+      widget_specialists: ["ui-specialist-agent", "ux-design-agent", "ai-instruction-agent"]
+      ai_core_specialists: ["ai-instruction-agent", "ux-design-agent"]
+      marketplace_specialists: ["ux-design-agent", "database-specialist-agent"]
+      cross_area_specialists: ["testing-specialist-agent", "payment-specialist-agent"]  # Can work across areas
+      
+    cross_area_coordination:
+      enabled: true
+      multi_area_detection:
+        keywords_that_trigger:
+          - "integration between" 
+          - "widget and dashboard"
+          - "ai chat on dashboard"
+          - "marketplace overflow"
+          - "cross-platform"
+          - "end-to-end flow"
+        
+      coordination_strategies:
+        widget_dashboard_integration:
+          primary_area: "widget"
+          secondary_area: "dashboard"
+          shared_specialists: ["ui-specialist-agent", "t3-specialist-agent"]
+          coordination_pattern: "widget_leads_dashboard_adapts"
+          
+        ai_personality_everywhere:
+          areas: ["widget", "dashboard", "ai-core"]
+          lead_specialist: "ai-instruction-agent"
+          support_specialists: ["ux-design-agent"]
+          coordination_pattern: "consistent_personality_across_touchpoints"
+          
+        payment_flow_complete:
+          areas: ["widget", "dashboard", "marketplace"]
+          lead_specialist: "payment-specialist-agent"
+          support_specialists: ["ux-design-agent", "database-specialist-agent"]
+          coordination_pattern: "end_to_end_payment_experience"
+          
+        emergency_dispatch_system:
+          areas: ["widget", "dashboard", "marketplace", "ai-core"]
+          coordination_type: "real_time_data_flow"
+          specialists: ["ai-instruction-agent", "database-specialist-agent", "ux-design-agent"]
+      
+      coordination_workflow:
+        1: "detect_multi_area_requirement"
+        2: "identify_lead_area_and_specialist"
+        3: "activate_supporting_areas_and_specialists"
+        4: "establish_coordination_channels"
+        5: "synchronized_implementation_with_handoffs"
+        6: "cross_area_validation_and_testing"
+      
+    specialist_expertise_boundaries:
+      ui-specialist-agent:
+        owns: ["component design", "responsive layouts", "calendar integration"]
+        collaborates_on: ["user experience patterns", "mobile optimization"]
+        defers_to: "t3-specialist-agent for tRPC integration"
+        
+      t3-specialist-agent:
+        owns: ["architecture decisions", "tRPC procedures", "TypeScript patterns"]
+        collaborates_on: ["API design", "database integration"]
+        defers_to: "database-specialist-agent for RLS policies"
+        
+      database-specialist-agent:
+        owns: ["RLS policies", "query optimization", "migration strategies"]
+        collaborates_on: ["data modeling", "performance tuning"]
+        defers_to: "auth-specialist-agent for user permissions"
+        
+      ai-instruction-agent:
+        owns: ["prompt engineering", "AI personality", "model coordination"]
+        collaborates_on: ["user experience", "chat optimization"]
+        defers_to: "ux-design-agent for conversion psychology"
+        
+    conflict_resolution_hierarchy:
+      1: "user_always_decides_on_conflicts"
+      2: "business_requirements_over_technical_preferences"
+      3: "dutch_market_requirements_over_generic_solutions"
+      4: "performance_over_convenience"
+      5: "type_safety_over_quick_fixes"
+  
+  proactive_suggestions:
+    intensity: "high"  # Testing phase
+    timing: "between_major_steps"
+    conflict_aware: true  # Don't suggest if will cause specialist conflicts
+    
+# PERFORMANCE
+performance:
+  pattern_cache: "24h"
+  specialist_prep_time: "<8s"
+  emergency_mode_prep: "<5s"

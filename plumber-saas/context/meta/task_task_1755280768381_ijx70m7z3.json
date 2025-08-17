@@ -1,0 +1,69 @@
+{
+  "id": "task_1755280768381_ijx70m7z3",
+  "title": "Complete Workflow Test",
+  "description": "Implement Schedule-X calendar with drag-drop job scheduling",
+  "complexity": "medium",
+  "specialists": {
+    "required": [
+      "ui-specialist-agent",
+      "t3-specialist-agent"
+    ],
+    "triggered": [],
+    "completed": [],
+    "results": {}
+  },
+  "status": "completed",
+  "createdAt": "2025-08-15T17:59:28.381Z",
+  "updatedAt": "2025-08-15T17:59:28.381Z",
+  "progress": {
+    "phase": "analysis",
+    "completed": 100,
+    "total": 100,
+    "steps": []
+  },
+  "knowledge": {
+    "patternsLoaded": [
+      "UI_PATTERNS.md",
+      "T3_BEST_PRACTICES.md",
+      "TESTING_PATTERNS.md"
+    ],
+    "patternsUpdated": [],
+    "freshness": {
+      "UI_PATTERNS.md": {
+        "exists": true,
+        "needsUpdate": false,
+        "daysSinceUpdate": 0,
+        "lastModified": "2025-08-15T13:41:41.036Z",
+        "reason": "Pattern is fresh",
+        "urgency": "low"
+      },
+      "T3_BEST_PRACTICES.md": {
+        "exists": true,
+        "needsUpdate": false,
+        "daysSinceUpdate": 0,
+        "lastModified": "2025-08-15T16:28:28.675Z",
+        "reason": "Pattern is fresh",
+        "urgency": "low"
+      },
+      "TESTING_PATTERNS.md": {
+        "exists": true,
+        "needsUpdate": false,
+        "daysSinceUpdate": 0,
+        "lastModified": "2025-08-15T13:46:20.649Z",
+        "reason": "Pattern is fresh",
+        "urgency": "low"
+      }
+    },
+    "confidence": 0
+  },
+  "completedAt": "2025-08-15T17:59:28.383Z",
+  "results": {
+    "workflow_test": true,
+    "patterns_loaded": [
+      "UI_PATTERNS.md",
+      "T3_BEST_PRACTICES.md",
+      "TESTING_PATTERNS.md"
+    ],
+    "total_tokens": 12000
+  }
+}

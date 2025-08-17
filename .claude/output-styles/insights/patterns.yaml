@@ -1,0 +1,257 @@
+# Proactive Pattern Suggestions for Plumber SaaS
+version: "2.0.0"
+strategy: "opportunity_driven"
+
+# Pattern categories for proactive suggestions
+pattern_categories:
+  performance_optimizations:
+    description: "Identify opportunities to improve system performance"
+    
+    triggers:
+      - "Large data sets being processed"
+      - "Multiple API calls in sequence"
+      - "Heavy components without lazy loading"
+      - "Unoptimized database queries"
+    
+    suggestions:
+      bundle_optimization:
+        pattern: "Code splitting and lazy loading"
+        when: "Components > 50KB or not immediately visible"
+        benefit: "Faster initial page load, better mobile experience"
+        implementation: "Dynamic imports with React.lazy()"
+        dutch_benefit: "Critical for Amsterdam mobile users on slower connections"
+      
+      database_optimization:
+        pattern: "Query optimization and indexing"
+        when: "Queries taking > 100ms or N+1 patterns detected"
+        benefit: "Faster data loading, better user experience"
+        implementation: "Database indexes, query optimization, connection pooling"
+        dutch_benefit: "Supports 1000+ plumbers without performance degradation"
+      
+      caching_strategies:
+        pattern: "Strategic caching implementation"
+        when: "Repeated API calls or static data requests"
+        benefit: "Reduced server load, faster response times"
+        implementation: "React Query caching, Redis for server-side"
+        dutch_benefit: "Improves AI response times for emergency calls"
+      
+      image_optimization:
+        pattern: "Next.js Image optimization"
+        when: "Images used without optimization"
+        benefit: "Faster loading, better Core Web Vitals"
+        implementation: "next/image with proper sizing and formats"
+        dutch_benefit: "Essential for plumber photo documentation features"
+
+  component_reusability:
+    description: "Identify opportunities to create reusable components"
+    
+    triggers:
+      - "Similar UI patterns across multiple pages"
+      - "Duplicate styling or logic"
+      - "Common form patterns"
+      - "Repeated data display formats"
+    
+    suggestions:
+      shared_form_components:
+        pattern: "Reusable form component system"
+        when: "Multiple forms with similar validation patterns"
+        benefit: "Consistent UX, reduced development time"
+        implementation: "React Hook Form + Zod + shadcn/ui"
+        dutch_benefit: "Consistent BTW calculation forms across all features"
+      
+      data_display_components:
+        pattern: "Standardized data display components"
+        when: "Customer/job/invoice data displayed in multiple places"
+        benefit: "Consistent formatting, easier maintenance"
+        implementation: "Reusable card/table/list components"
+        dutch_benefit: "Consistent Dutch formatting for dates, currency, addresses"
+      
+      modal_system:
+        pattern: "Centralized modal management"
+        when: "Multiple modals with similar patterns"
+        benefit: "Consistent behavior, better accessibility"
+        implementation: "Context-based modal system with shadcn/ui"
+        dutch_benefit: "Consistent emergency booking flow across platform"
+      
+      notification_system:
+        pattern: "Unified notification component"
+        when: "Success/error messages scattered across components"
+        benefit: "Consistent messaging, better UX"
+        implementation: "Toast notification system with persistence"
+        dutch_benefit: "Proper Dutch language error messages and confirmations"
+
+  data_collection_opportunities:
+    description: "Identify ways to enhance competitive data advantages"
+    
+    triggers:
+      - "User interactions without analytics"
+      - "Form submissions without insights tracking"
+      - "Error events without learning capture"
+      - "Performance events without monitoring"
+    
+    suggestions:
+      interaction_analytics:
+        pattern: "Comprehensive user interaction tracking"
+        when: "User actions that indicate preferences or behavior"
+        benefit: "Better AI training data, improved recommendations"
+        implementation: "Event tracking with customer behavior analysis"
+        competitive_moat: "Understand Dutch customer behavior patterns"
+      
+      error_learning:
+        pattern: "Error pattern recognition and learning"
+        when: "User errors or system failures occur"
+        benefit: "Proactive problem prevention, AI improvement"
+        implementation: "Error categorization and machine learning feedback"
+        competitive_moat: "AI learns from all plumber mistakes to prevent future issues"
+      
+      performance_insights:
+        pattern: "Performance data for optimization insights"
+        when: "System performance varies across users/regions"
+        benefit: "Targeted optimization, better service quality"
+        implementation: "Real User Monitoring (RUM) with geographic analysis"
+        competitive_moat: "Optimize specifically for Amsterdam/Dutch internet infrastructure"
+      
+      conversion_optimization:
+        pattern: "A/B testing infrastructure for continuous improvement"
+        when: "Critical conversion points identified"
+        benefit: "Data-driven optimization, increased booking rates"
+        implementation: "Feature flags with conversion tracking"
+        competitive_moat: "Continuously optimize for Dutch customer preferences"
+
+  dutch_market_enhancements:
+    description: "Identify opportunities to strengthen Netherlands positioning"
+    
+    triggers:
+      - "Features without Dutch localization"
+      - "Payment flows without iDEAL optimization"
+      - "Business logic without BTW considerations"
+      - "Communication without Dutch cultural adaptation"
+    
+    suggestions:
+      btw_integration:
+        pattern: "Comprehensive BTW calculation and reporting"
+        when: "Financial features without proper Dutch tax handling"
+        benefit: "Legal compliance, professional credibility"
+        implementation: "BTW calculation engine with reporting"
+        dutch_advantage: "Proper BTW handling creates trust and legal compliance"
+      
+      ideal_optimization:
+        pattern: "Native iDEAL payment experience"
+        when: "Payment flows without iDEAL-first design"
+        benefit: "Higher conversion rates, better user experience"
+        implementation: "Mollie integration with iDEAL as primary option"
+        dutch_advantage: "iDEAL preference increases conversion vs international competitors"
+      
+      local_integrations:
+        pattern: "Amsterdam-specific service integrations"
+        when: "Features that could leverage local services/data"
+        benefit: "Better local experience, competitive differentiation"
+        implementation: "Google Maps NL, Dutch postal code validation, local directories"
+        dutch_advantage: "Local integration depth impossible for international competitors"
+      
+      cultural_adaptation:
+        pattern: "Dutch communication and UX patterns"
+        when: "User interfaces using generic international patterns"
+        benefit: "Cultural fit, increased trust and engagement"
+        implementation: "Direct communication style, Dutch color/design preferences"
+        dutch_advantage: "Cultural optimization builds stronger customer relationships"
+
+  security_enhancements:
+    description: "Identify opportunities to strengthen security posture"
+    
+    triggers:
+      - "Data handling without encryption"
+      - "Authentication without proper session management"
+      - "API endpoints without rate limiting"
+      - "User inputs without validation"
+    
+    suggestions:
+      data_encryption:
+        pattern: "End-to-end data encryption"
+        when: "Sensitive customer data stored or transmitted"
+        benefit: "GDPR compliance, customer trust"
+        implementation: "Encryption at rest and in transit"
+        dutch_benefit: "Exceeds Dutch privacy expectations"
+      
+      api_security:
+        pattern: "Comprehensive API security"
+        when: "API endpoints accessible without proper protection"
+        benefit: "Prevent abuse, ensure data integrity"
+        implementation: "Rate limiting, authentication, input validation"
+        dutch_benefit: "Protects Dutch customer data privacy"
+      
+      audit_logging:
+        pattern: "Security audit trail implementation"
+        when: "Actions without proper logging for compliance"
+        benefit: "GDPR compliance, security monitoring"
+        implementation: "Comprehensive audit logging with retention policies"
+        dutch_benefit: "Meets Dutch data protection requirements"
+
+  mobile_optimization:
+    description: "Identify opportunities to improve mobile experience"
+    
+    triggers:
+      - "Desktop-first designs without mobile optimization"
+      - "Touch interactions not optimized"
+      - "Mobile performance issues"
+      - "Offline capability missing"
+    
+    suggestions:
+      touch_optimization:
+        pattern: "Touch-first interaction design"
+        when: "Interface elements not optimized for touch"
+        benefit: "Better mobile usability, higher engagement"
+        implementation: "Touch target sizing, gesture support"
+        dutch_benefit: "Amsterdam plumbers primarily use mobile devices"
+      
+      offline_support:
+        pattern: "Progressive Web App capabilities"
+        when: "Critical features need offline access"
+        benefit: "Reliability in poor connectivity areas"
+        implementation: "Service workers, local storage, sync"
+        dutch_benefit: "Works in Amsterdam basements and rural areas"
+      
+      mobile_performance:
+        pattern: "Mobile-specific performance optimization"
+        when: "Mobile performance below 90 Lighthouse score"
+        benefit: "Better user experience, higher conversion"
+        implementation: "Mobile-first loading, image optimization"
+        dutch_benefit: "Optimized for Dutch mobile network conditions"
+
+# Suggestion delivery strategy
+delivery_strategy:
+  timing:
+    during_implementation: "Suggest relevant optimizations while coding"
+    post_implementation: "Identify improvement opportunities after completion"
+    periodic_review: "Regular architecture review suggestions"
+  
+  prioritization:
+    critical: "Security and performance issues"
+    high: "Competitive advantage opportunities"
+    medium: "Code quality and maintainability"
+    low: "Nice-to-have optimizations"
+  
+  presentation:
+    format: "Clear problem statement + solution + benefit"
+    context: "Always relate to plumber-saas specific benefits"
+    actionability: "Provide concrete implementation steps"
+
+# Quality filters for suggestions
+quality_filters:
+  relevance: "Must directly benefit plumber-saas goals"
+  feasibility: "Should be implementable within reasonable effort"
+  impact: "Must provide measurable improvement"
+  timing: "Should be appropriate for current development phase"
+  
+  avoid_suggesting:
+    - "Premature optimizations without clear benefit"
+    - "Technology changes without compelling reason"
+    - "Features that don't align with Dutch market focus"
+    - "Complex solutions when simple ones suffice"
+
+# Success metrics for proactive suggestions
+success_metrics:
+  adoption_rate: "Percentage of suggestions implemented"
+  impact_measurement: "Measurable improvement from implemented suggestions"
+  timing_relevance: "Suggestions made at appropriate development phases"
+  competitive_advantage: "Contribution to competitive moat building"
