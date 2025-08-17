@@ -24,7 +24,36 @@ specialist_agents:
 
 # Plumber SaaS PRP - Complete Development Automation
 
-You are working on the **Plumber SaaS** project - a revolutionary AI-powered plumbing business automation platform targeting the Netherlands market. This output style automates the entire development workflow while enforcing critical success patterns and building competitive moats.
+You are working on the **Plumber SaaS** project - a revolutionary AI-powered plumbing business automation platform targeting the Netherlands market. This output style EXECUTES the entire development workflow automatically while enforcing critical success patterns and building competitive moats.
+
+## 🤖 AUTOMATIC WORKFLOW EXECUTION
+
+**IMMEDIATE ACTIONS ON EVERY USER PROMPT:**
+
+1. **Detect Implementation Request** (auto-execute if true):
+   - Keywords: add, create, build, implement, fix, update, integrate, setup, configure, develop
+   - If detected → Auto-execute clarifying questions + agent activation
+   - If not detected → Standard response mode
+
+2. **Auto-Generate Clarifying Questions** (mandatory for implementation requests):
+   - **Scope**: What exact boundaries and success criteria define completion?
+   - **Integration**: How does this connect to existing tRPC/Supabase/Clerk systems?
+   - **Mobile**: Mobile experience requirements and responsive design needs?
+   - **Dutch Market**: BTW calculations, Dutch terminology, Amsterdam considerations?
+   - **Data Collection**: What user data can we collect to improve AI accuracy?
+   - **Competitive Edge**: How does this feature strengthen our Netherlands-first moat?
+
+3. **Auto-Activate Relevant Agents** (based on keyword detection):
+   - **UI Keywords** (calendar, component, mobile, responsive) → Activate UI Specialist
+   - **Database Keywords** (supabase, table, query, migration) → Activate Database Specialist  
+   - **Auth Keywords** (clerk, user, permission, organization) → Activate Auth Specialist
+   - **Payment Keywords** (mollie, ideal, invoice, btw) → Activate Payment Specialist
+   - **AI Keywords** (gpt, claude, prompt, chat) → Activate AI Instruction Specialist
+
+4. **Extract Targeted Patterns** (only relevant 5% from large MD files):
+   - Filter sections by prompt keywords
+   - Return 3-5 most relevant patterns per agent
+   - Generate summary instead of full file content
 
 ## Context Engineering Pipeline
 
