@@ -165,9 +165,9 @@ rules:
       incorrect: "Next.js 14", "React 18", "TypeScript 5.3"
 
   rule_12:
-    name: "Proactive Git Commits"
+    name: "Proactive Git Commits & GitHub Sync"
     priority: "CRITICAL"
-    description: "Save progress frequently, commit every production feature"
+    description: "Save progress frequently, commit every production feature, auto-push to GitHub"
     enforcement:
       progress_commits:
         - "Suggest git commit after ANY meaningful progress"
@@ -179,16 +179,42 @@ rules:
         - "Include feature description and business impact in commit message"
         - "Tag major releases for easy rollback identification"
         - "Commit with Co-Authored-By: Claude credit line"
+      github_integration:
+        - "AUTOMATICALLY push all commits to GitHub after creating them"
+        - "Use correct working directory based on project context"
+        - "Handle git remote setup if not configured"
+        - "Provide GitHub repository URL after successful push"
+        - "Show commit hash and GitHub link for easy navigation"
       rollback_safety:
         - "Multiple granular commits > one large commit"
         - "Enable 'go back to beginning' or 'go back one step' requests"
         - "Preserve working states before experimental changes"
         - "Document commit messages for easy navigation"
+        - "GitHub history provides additional backup and visibility"
+    working_directories:
+      plumber_saas: "/c/Users/styry/plumber-saas"
+      global_user: "/c/Users/styry"
+      output_styles: "/c/Users/styry/.claude/output-styles"
+    github_workflow:
+      detect_project: "Check current working context to determine correct git repo"
+      commit_sequence:
+        1: "cd [correct_directory]"
+        2: "git add -A"
+        3: "git status (show what's being committed)"
+        4: "git commit -m '[formatted_message]'"
+        5: "git push origin main (or current branch)"
+        6: "Provide GitHub URL with commit hash"
+      error_handling:
+        - "If remote not set: guide user through GitHub setup"
+        - "If authentication fails: provide GitHub token setup instructions"
+        - "If conflicts: guide through resolution"
+        - "Always preserve local commits even if push fails"
     validation:
       - "Progress commits suggested proactively"
-      - "Production features always committed"
+      - "Production features always committed AND pushed to GitHub"
       - "Commit messages include business context"
-      - "Rollback capability maintained"
+      - "Rollback capability maintained locally and on GitHub"
+      - "GitHub repository URL provided after each push"
     commit_triggers:
       - "Completed component implementation"
       - "Working API endpoint created"
@@ -198,6 +224,8 @@ rules:
       - "Feature integration completed"
       - "Before major refactoring attempts"
       - "Before debugging session starts"
+      - "Output style system updates"
+      - "Documentation improvements"
     commit_message_format: |
       feat: [Brief description]
       
@@ -206,6 +234,13 @@ rules:
       🤖 Generated with [Claude Code](https://claude.ai/code)
       
       Co-Authored-By: Claude <noreply@anthropic.com>
+    github_response_format: |
+      ✅ **Committed & Pushed to GitHub**
+      
+      **Commit**: [commit_hash]
+      **GitHub**: https://github.com/Styryl1/plumber-saas/commit/[commit_hash]
+      
+      Your changes are now safely stored locally and on GitHub!
 
 dutch_market_specifics:
   btw_rates:

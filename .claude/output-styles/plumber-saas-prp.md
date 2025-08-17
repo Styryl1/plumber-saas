@@ -37,6 +37,7 @@ You are working on the **Plumber SaaS** project - a revolutionary AI-powered plu
 - **Dashboard Keywords** → Load dashboard patterns and UI components
 - **Widget Keywords** → Load chat prompts, booking optimization, conversion patterns
 - **AI Keywords** → Load prompt engineering patterns and AI personality systems
+- **Security Keywords** → Load security patterns, GDPR compliance, Semgrep rules
 
 ## 12 Golden Rules Enforcement
 
@@ -75,6 +76,7 @@ You are working on the **Plumber SaaS** project - a revolutionary AI-powered plu
 - **Context7 MCP**: Latest library documentation
 - **Firecrawl MCP**: Scrape working examples
 - **Playwright MCP**: Browser testing (NO test file creation)
+- **Semgrep MCP**: Security scanning and vulnerability detection
 - **NEVER** manually guess API responses or documentation
 
 ### Rule #7: T3 Conventions
@@ -114,6 +116,7 @@ You are working on the **Plumber SaaS** project - a revolutionary AI-powered plu
 - Enable easy rollback with "go back to beginning" or "go back one step"
 - Multiple granular commits better than one large commit
 
+
 ## Output Structure Template
 
 ### PRP Analysis Section
@@ -124,6 +127,7 @@ You are working on the **Plumber SaaS** project - a revolutionary AI-powered plu
 - **Competitive Moats**: [opportunities identified]
 - **Dutch Market**: [specific considerations: BTW, terminology, Amsterdam focus]
 ```
+
 
 ### Clarifying Questions (Plan Mode)
 ```markdown
@@ -195,6 +199,7 @@ You are working on the **Plumber SaaS** project - a revolutionary AI-powered plu
 - **Mobile Optimization**: {touch_responsive_advantages}
 - **Reliability Features**: {uptime_performance_benefits}
 
+
 ### Competitive Intelligence
 - **Market Gap Exploited**: {weakness_in_competitors_addressed}
 - **Barrier to Entry**: {how_this_makes_copying_harder}
@@ -202,12 +207,25 @@ You are working on the **Plumber SaaS** project - a revolutionary AI-powered plu
 - **Data Moat Depth**: {proprietary_data_advantage}
 ```
 
-### Git Commit Integration
+### Git Commit & GitHub Integration
 ```markdown
-## 💾 Rule #12: Proactive Git Commits (CRITICAL)
+## 💾 Rule #12: Proactive Git Commits & GitHub Sync (CRITICAL)
 **BEFORE starting implementation**: "Should we commit current progress first?"
 **DURING implementation**: Suggest commits at natural breakpoints
-**AFTER production features**: "Let's commit this feature - it's production ready!"
+**AFTER production features**: "Let's commit this feature and push to GitHub!"
+
+### Automatic GitHub Workflow:
+1. **Detect Working Directory**: Auto-determine if plumber-saas or output-styles
+2. **Stage Changes**: `git add -A` in correct directory
+3. **Show Status**: Display what's being committed
+4. **Create Commit**: Formatted message with business impact
+5. **Push to GitHub**: Automatic push to origin/main
+6. **Provide Links**: GitHub commit URL for easy access
+
+### Working Directory Detection:
+- **Plumber SaaS Features**: `/c/Users/styry/plumber-saas`
+- **Output Style Updates**: `/c/Users/styry` (for .claude/output-styles)
+- **Documentation Changes**: Auto-detect based on file paths
 
 ### Commit Triggers:
 - Component working correctly
@@ -216,6 +234,8 @@ You are working on the **Plumber SaaS** project - a revolutionary AI-powered plu
 - Bug fix verified
 - Before attempting risky refactoring
 - Before complex debugging sessions
+- Output style system updates
+- Documentation improvements
 
 ### Commit Message Format:
 feat: [Brief description]
@@ -225,6 +245,14 @@ feat: [Brief description]
 🤖 Generated with [Claude Code](https://claude.ai/code)
 
 Co-Authored-By: Claude <noreply@anthropic.com>
+
+### GitHub Response Format:
+✅ **Committed & Pushed to GitHub**
+
+**Commit**: [commit_hash]
+**GitHub**: https://github.com/Styryl1/plumber-saas/commit/[commit_hash]
+
+Your changes are now safely stored locally and on GitHub!
 ```
 
 ### Validation Checklist
@@ -241,7 +269,7 @@ Co-Authored-By: Claude <noreply@anthropic.com>
 - [ ] Rule #9: Clarifying questions asked (plan mode)
 - [ ] Rule #10: Proactive suggestions provided
 - [ ] Rule #11: Latest versions used (no hardcoded version numbers)
-- [ ] Rule #12: Git commits suggested/completed appropriately
+- [ ] Rule #12: Git commits suggested/completed and pushed to GitHub
 ```
 
 ## Dutch Market Specifics

@@ -25,22 +25,42 @@ phase_2_planning:
 
 # PHASE 3: Implementation (Variable)
 phase_3_implementation:
-  rule_enforcement: "strict_10_golden_rules"
+  rule_enforcement: "strict_12_golden_rules"
   mcp_tools: ["Context7", "Supabase", "Firecrawl", "Playwright", "Clerk"]
   patterns: "T3_only_no_vanilla_js"
   comments: "section_markers_and_jsdoc_only"
   components: "shared_in_components_folder"
   data: "real_api_or_loading_states_never_mock"
+  git_checkpoints:
+    - "Commit after component structure complete"
+    - "Commit after API integration working"
+    - "Commit before major refactoring attempts"
+    - "Auto-push all commits to GitHub immediately"
 
-# PHASE 4: Validation (15-30 min)
+# PHASE 4: Validation & GitHub Sync (15-30 min)
 phase_4_validation:
   automation: "playwright_mcp"
   checks:
     - "Component renders without errors"
     - "Mobile responsiveness works"
     - "API calls function correctly"
-    - "All 10 golden rules followed"
+    - "All 12 golden rules followed"
     - "Performance targets met (>90 Lighthouse)"
+  github_integration:
+    production_commit_trigger:
+      - "All validation checks pass"
+      - "Feature is production-ready"
+      - "No critical errors or warnings"
+    commit_process:
+      1: "Detect correct working directory"
+      2: "Stage all changes with git add -A"
+      3: "Create descriptive commit with business impact"
+      4: "Push to GitHub automatically"
+      5: "Provide GitHub URL with commit hash"
+    working_directory_detection:
+      plumber_saas_features: "/c/Users/styry/plumber-saas"
+      output_style_updates: "/c/Users/styry"
+      documentation_changes: "auto-detect based on file paths"
 
 # PHASE 5: Documentation & Updates (10-15 min)
 phase_5_documentation:
