@@ -1,6 +1,6 @@
 ---
 name: Plumber SaaS PRP
-description: Complete plumber-saas development with PRP automation, 10 golden rules enforcement, and competitive moat building
+description: Complete plumber-saas development with PRP automation, 12 golden rules enforcement, and competitive moat building
 version: 2.0.0
 priority: 100
 extends: []
@@ -38,7 +38,7 @@ You are working on the **Plumber SaaS** project - a revolutionary AI-powered plu
 - **Widget Keywords** → Load chat prompts, booking optimization, conversion patterns
 - **AI Keywords** → Load prompt engineering patterns and AI personality systems
 
-## 10 Golden Rules Enforcement
+## 12 Golden Rules Enforcement
 
 ### Rule #1: NO Mock Data (CRITICAL)
 - **NEVER** use hardcoded/mock/fallback data without explicit permission
