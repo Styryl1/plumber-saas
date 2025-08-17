@@ -1,0 +1,377 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Multi-tenant organization model (Enhanced with Dutch compliance)
+model Organization {
+  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  clerkOrgId  String    @unique @map("clerkOrgId")
+  name        String
+  slug        String    @unique
+  domain      String?   @unique
+  
+  // Dutch Business Registration (Enhanced)
+  kvkNumber   String?   @unique @map("kvkNumber") // Chamber of Commerce (8 digits)
+  btwNumber   String?   @unique @map("btwNumber") // VAT number (NL + 9 digits + B + 2 digits)
+  
+  // Dutch Address Format (Enhanced)
+  street      String?
+  houseNumber String?   @map("houseNumber")
+  houseNumberAddition String? @map("houseNumberAddition") // e.g., "A", "bis"
+  postalCode  String?   @map("postalCode") // Format: 1234AB
+  city        String?
+  province    String?
+  
+  // Localization (Enhanced)
+  timezone    String    @default("Europe/Amsterdam")
+  currency    String    @default("EUR")
+  preferredLanguage String @default("nl") @map("preferredLanguage") // nl, en
+  
+  // Subscription info
+  plan        String    @default("professional") // starter, professional, enterprise
+  status      String    @default("active")       // active, suspended, cancelled
+  
+  // AI Chat settings
+  chatEnabled Boolean   @default(true) @map("chatEnabled")
+  aiPersonality String  @default("friendly") @map("aiPersonality")
+  
+  createdAt   DateTime  @default(now()) @map("createdAt")
+  updatedAt   DateTime  @updatedAt @map("updatedAt")
+
+  // Relations
+  plumbers    Plumber[]
+  customers   Customer[]
+  jobs        Job[]
+  invoices    Invoice[]
+  chatLogs    ChatLog[]
+  feedback    Feedback[]
+  bookings    Booking[]
+
+  @@map("organizations")
+}
+
+model Plumber {
+  id             String       @id @default(cuid())
+  clerkUserId    String       @unique
+  organizationId String
+  
+  // Basic Info
+  firstName      String
+  lastName       String
+  email          String       @unique
+  phone          String?
+  
+  // Business Info
+  companyName    String?
+  hourlyRate     Decimal?     @db.Decimal(8,2)
+  emergencyRate  Decimal?     @db.Decimal(8,2)
+  specialties    String[]     @default([])
+  
+  // Location
+  city           String?
+  postalCode     String?
+  serviceRadius  Int?         @default(25) // km radius
+  
+  // Settings
+  isActive       Boolean      @default(true)
+  profileComplete Boolean     @default(false)
+  
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  jobs           Job[]
+  invoices       Invoice[]
+
+  @@map("plumbers")
+}
+
+model Customer {
+  id             String       @id @default(cuid())
+  organizationId String
+  
+  // Contact Info
+  name           String
+  email          String?
+  phone          String?
+  
+  // Address
+  streetAddress  String?
+  postalCode     String?
+  city           String?
+  
+  // Customer Type
+  customerType   String       @default("residential") // residential, commercial
+  preferredContact String     @default("phone")       // phone, email, whatsapp
+  
+  // Stats
+  totalJobs      Int          @default(0)
+  totalSpent     Decimal      @default(0) @db.Decimal(10,2)
+  
+  // Notes
+  notes          String?
+  
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  jobs           Job[]
+  invoices       Invoice[]
+
+  @@map("customers")
+}
+
+model Job {
+  id             String       @id @default(cuid())
+  organizationId String
+  plumberId      String
+  customerId     String?
+  
+  // Job Details
+  title          String
+  description    String?
+  jobType        String       @default("repair") // repair, installation, maintenance, emergency
+  priority       String       @default("normal") // low, normal, high, emergency
+  status         String       @default("scheduled") // scheduled, in_progress, completed, cancelled
+  
+  // Scheduling
+  scheduledAt    DateTime?
+  startTime      String?      // e.g., "09:00"
+  duration       Int?         // minutes
+  
+  // Location (from customer or manual)
+  address        String?
+  postalCode     String?
+  city           String?
+  
+  // Work Details
+  laborHours     Decimal?     @db.Decimal(5,2)
+  hourlyRate     Decimal?     @db.Decimal(8,2)
+  materialsUsed  String?
+  materialsCost  Decimal?     @db.Decimal(8,2)
+  
+  // Travel
+  travelTime     Int?         // minutes
+  travelDistance Decimal?     @db.Decimal(6,2) // km
+  
+  // Completion
+  completedAt    DateTime?
+  notes          String?
+  photos         String[]     @default([])
+  
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  plumber        Plumber      @relation(fields: [plumberId], references: [id], onDelete: Cascade)
+  customer       Customer?    @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  invoices       Invoice[]
+
+  @@index([organizationId, status]) // Multi-tenant job queries
+  @@index([organizationId, scheduledAt]) // Calendar queries
+  @@index([plumberId, scheduledAt]) // Plumber schedule
+  @@index([customerId]) // Customer job history
+  @@map("jobs")
+}
+
+model Invoice {
+  id             String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  organizationId String       @map("organization_id") @db.Uuid
+  plumberId      String       @map("plumber_id")
+  customerId     String?      @map("customer_id")
+  
+  // Invoice Details (Enhanced)
+  invoiceNumber  String       @unique @map("invoice_number")
+  invoiceDate    DateTime     @default(now()) @map("invoice_date")
+  dueDate        DateTime?    @map("due_date")
+  
+  // Amounts (Enhanced Dutch BTW system)
+  subtotal       Decimal      @db.Decimal(10,2)
+  btwRate        Decimal      @default(21) @db.Decimal(5,2) @map("btw_rate") // 21% standard, 9% reduced
+  btwAmount      Decimal      @db.Decimal(10,2) @map("btw_amount")
+  totalAmount    Decimal      @db.Decimal(10,2) @map("total_amount")
+  
+  // Enhanced Dutch Business Fields
+  serviceCategory String      @default("repair") @map("service_category") // repair=9%, installation=21%
+  customerType   String       @default("residential") @map("customer_type") // residential, commercial
+  btwExempt      Boolean      @default(false) @map("btw_exempt") // For EU B2B transactions
+  
+  // Payment (Enhanced)
+  status         String       @default("draft") // draft, sent, paid, overdue, cancelled
+  paymentMethod  String?      @map("payment_method") // ideal, bank_transfer, cash, card, mollie
+  paymentDate    DateTime?    @map("payment_date")
+  molliePaymentId String?     @map("mollie_payment_id") // Mollie payment reference
+  
+  // Notes
+  notes          String?
+  
+  createdAt      DateTime     @default(now()) @map("created_at")
+  updatedAt      DateTime     @updatedAt @map("updated_at")
+
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  plumber        Plumber      @relation(fields: [plumberId], references: [id], onDelete: Cascade)
+  customer       Customer?    @relation(fields: [customerId], references: [id], onDelete: SetNull)
+  jobs           Job[]
+
+  @@index([organizationId, status]) // Multi-tenant invoice queries
+  @@index([organizationId, invoiceDate]) // Date range queries
+  @@index([molliePaymentId]) // Payment processing lookup
+  @@map("invoices")
+}
+
+model ChatLog {
+  id             String       @id @default(cuid())
+  organizationId String
+  sessionId      String
+  
+  // Message
+  userMessage    String
+  aiResponse     String
+  messageNumber  Int
+  
+  // Context
+  language       String       @default("nl")
+  urgency        String       @default("info")     // info, normal, urgent, emergency
+  category       String[]     @default([])         // leak, heating, drain, etc
+  
+  // Customer Info (if known)
+  customerPhone  String?
+  customerName   String?
+  
+  // Location
+  location       String?
+  travelTime     Int?         // minutes if calculated
+  
+  // Cost Estimation
+  estimatedCost  Decimal?     @db.Decimal(8,2)
+  
+  createdAt      DateTime     @default(now())
+
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("chat_logs")
+}
+
+// Session for chat continuity
+model ChatSession {
+  id             String       @id @default(cuid())
+  sessionId      String       @unique
+  browserFingerprint String?
+  
+  // Session State
+  isActive       Boolean      @default(true)
+  totalMessages  Int          @default(0)
+  
+  // Customer Context
+  customerName   String?
+  customerPhone  String?
+  location       String?
+  preferredLanguage String    @default("nl")
+  
+  // Issue Tracking
+  currentIssues  String[]     @default([])
+  resolvedIssues String[]     @default([])
+  
+  createdAt      DateTime     @default(now())
+  lastActivity   DateTime     @default(now())
+
+  @@map("chat_sessions")
+}
+
+// Widget feedback system
+model Feedback {
+  id             String       @id @default(cuid())
+  organizationId String
+  sessionId      String?
+  
+  // Feedback Details
+  type           String       // helpful, not_helpful, suggestion, complaint
+  rating         Int?         // 1-5 stars
+  message        String?
+  category       String?      // ai_response, booking_process, general
+  
+  // Context
+  chatLogId      String?      // reference to specific chat interaction
+  pageUrl        String?      // where feedback was given
+  userAgent      String?
+  
+  // Contact (optional)
+  customerEmail  String?
+  customerPhone  String?
+  
+  // Internal
+  status         String       @default("new") // new, reviewed, resolved
+  adminNotes     String?
+  
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("feedback")
+}
+
+// Booking requests from widget
+model Booking {
+  id             String       @id @default(cuid())
+  organizationId String
+  sessionId      String?
+  
+  // Customer Info
+  customerName   String
+  customerPhone  String
+  customerEmail  String?
+  
+  // Service Details
+  serviceType    String       // leak_repair, boiler_service, drain_cleaning, etc
+  urgency        String       @default("normal") // normal, urgent, emergency
+  description    String?
+  
+  // Location
+  address        String
+  postalCode     String?
+  city           String?
+  
+  // Scheduling Preferences
+  preferredDate  DateTime?
+  preferredTime  String?      // "morning", "afternoon", "evening"
+  flexibleTiming Boolean      @default(false)
+  
+  // Estimated Details (from AI)
+  estimatedCost  Decimal?     @db.Decimal(8,2)
+  estimatedDuration Int?      // minutes
+  
+  // Status Tracking
+  status         String       @default("new") // new, confirmed, scheduled, completed, cancelled
+  jobId          String?      // linked job ID when scheduled
+  assignedPlumberId String?   // assigned plumber
+  
+  // Communication
+  language       String       @default("nl")
+  contactMethod  String       @default("phone") // phone, email, whatsapp
+  
+  // Internal Notes
+  adminNotes     String?
+  
+  createdAt      DateTime     @default(now())
+  updatedAt      DateTime     @updatedAt
+
+  // Relations
+  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+
+  @@map("bookings")
+}

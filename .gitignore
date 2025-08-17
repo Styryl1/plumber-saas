@@ -1,0 +1,124 @@
+# Dependencies
+/node_modules
+/.pnp
+.pnp.js
+
+# Testing
+/coverage
+/test-results/
+/playwright-report/
+/playwright/.cache/
+
+# Next.js
+/.next/
+/out/
+
+# Production
+/build
+/dist
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Diagnostic reports
+report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
+
+# Environment variables
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Temporary folders
+tmp/
+temp/
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS generated files
+Thumbs.db
+
+# Database
+*.db
+*.sqlite
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+lerna-debug.log*
+
+# Prisma
+/prisma/migrations/*
+!/prisma/migrations/migration_lock.toml
+
+# Supabase
+.supabase
+
+# Claude Code Output Styles (keep locally for development)
+/.claude/output-styles/
+/.claude/
+
+# Cache directories
+.cache/
+.parcel-cache/
+
+# TurboRepo
+.turbo
+
+# Vercel
+.vercel
+
+# TypeScript
+*.tsbuildinfo
+next-env.d.ts
+
+# PWA files
+**/public/sw.js
+**/public/workbox-*.js
+**/public/worker-*.js
+
+# Bundle analyzer
+.bundle-analyzer/
+
+# IDX
+.idx/
+
+# Local development files
+*.local.*
+local-*
+
+# AI generated files that change frequently
+/context/cache/
+/context/meta/
+/context/workflow-results/
+
+# Keep important documentation and patterns
+!/context/prp-active/
+!/context/specialists/
+!/context/prp-system/
+!/context/templates/
+!/dashboard/
+!/widget/
+!/ai-core/
+!/marketplace/
+
+# Keep root documentation
+!CLAUDE.md
+!README.md
+!ARCHITECTURE.md

@@ -1,0 +1,370 @@
+rules:
+  # =====================================
+  # API Security Rules
+  # =====================================
+  
+  - id: widget-api-key-required
+    languages: [typescript, javascript]
+    message: "Widget API endpoint missing API key validation"
+    severity: ERROR
+    patterns:
+      - pattern-either:
+          - pattern: |
+              export async function $METHOD(request: NextRequest) {
+                ...
+                !request.headers.get('X-API-Key')
+                ...
+              }
+          - pattern: |
+              app.$HTTP_METHOD('/api/widget/$ENDPOINT', async (req, res) => {
+                ...
+                !req.headers['x-api-key']
+                ...
+              }
+    paths:
+      include:
+        - "src/app/api/widget/**"
+        - "pages/api/widget/**"
+
+  - id: widget-domain-validation-missing
+    languages: [typescript, javascript]
+    message: "Widget API missing domain whitelist validation"
+    severity: ERROR
+    pattern: |
+      validateApiKey($KEY)
+      ...
+      !validateDomain(...)
+    paths:
+      include:
+        - "src/app/api/widget/**"
+
+  - id: rate-limiting-missing
+    languages: [typescript, javascript]
+    message: "API endpoint missing rate limiting"
+    severity: WARNING
+    pattern: |
+      export async function $METHOD(request: NextRequest) {
+        ...
+        !checkRateLimit(...)
+        ...
+      }
+    paths:
+      include:
+        - "src/app/api/**"
+
+  - id: cors-wildcard-dangerous
+    languages: [typescript, javascript]
+    message: "Dangerous CORS wildcard usage - should be organization-specific"
+    severity: ERROR
+    pattern: |
+      response.headers.set('Access-Control-Allow-Origin', '*')
+
+  # =====================================
+  # GDPR Compliance Rules
+  # =====================================
+
+  - id: gdpr-consent-required-user-data
+    languages: [typescript, javascript]
+    message: "User data collection requires GDPR consent tracking"
+    severity: ERROR
+    pattern-either:
+      - pattern: |
+          const userData = {
+            ...,
+            email: $EMAIL,
+            ...
+          }
+      - pattern: |
+          const userData = {
+            ...,
+            phone: $PHONE,
+            ...
+          }
+      - pattern: |
+          const userData = {
+            ...,
+            name: $NAME,
+            ...
+          }
+    pattern-not: |
+      const userData = {
+        ...,
+        consentGiven: true,
+        ...
+      }
+
+  - id: gdpr-data-retention-check
+    languages: [typescript, javascript]
+    message: "Data storage without retention period specification"
+    severity: WARNING
+    pattern: |
+      .insert({
+        ...,
+        $USER_DATA,
+        ...
+      })
+    pattern-not: |
+      .insert({
+        ...,
+        retentionDate: $DATE,
+        ...
+      })
+
+  - id: gdpr-personal-data-export
+    languages: [typescript, javascript]
+    message: "Potential personal data in logs or exports"
+    severity: WARNING
+    pattern-either:
+      - pattern: |
+          console.log(..., $EMAIL, ...)
+      - pattern: |
+          console.log(..., $PHONE, ...)
+      - pattern: |
+          console.error(..., $USER_DATA, ...)
+    metavariable-regex:
+      metavariable: $EMAIL
+      regex: '.*@.*'
+
+  # =====================================
+  # AI Security Rules
+  # =====================================
+
+  - id: ai-prompt-injection-risk
+    languages: [typescript, javascript]
+    message: "Direct user input to AI without sanitization - prompt injection risk"
+    severity: WARNING
+    pattern-either:
+      - pattern: |
+          $AI_CLIENT.complete({
+            prompt: $USER_INPUT,
+            ...
+          })
+      - pattern: |
+          openai.chat.completions.create({
+            messages: [{ content: $USER_INPUT }],
+            ...
+          })
+    pattern-not-either:
+      - pattern: |
+          $AI_CLIENT.complete({
+            prompt: sanitizePrompt($USER_INPUT),
+            ...
+          })
+      - pattern: |
+          openai.chat.completions.create({
+            messages: [{ content: sanitizePrompt($USER_INPUT) }],
+            ...
+          })
+
+  - id: ai-response-validation-missing
+    languages: [typescript, javascript]
+    message: "AI response not validated for sensitive data leaks"
+    severity: WARNING
+    pattern: |
+      const response = await $AI_CLIENT.complete(...)
+      ...
+      return response
+    pattern-not: |
+      const response = await $AI_CLIENT.complete(...)
+      ...
+      return validateAIResponse(response)
+
+  - id: ai-system-prompt-exposed
+    languages: [typescript, javascript]
+    message: "System prompt potentially exposed to user"
+    severity: ERROR
+    pattern-either:
+      - pattern: |
+          const systemPrompt = "..."
+          ...
+          return { ..., systemPrompt, ... }
+      - pattern: |
+          res.json({ ..., systemPrompt: $PROMPT, ... })
+
+  # =====================================
+  # Payment Security Rules
+  # =====================================
+
+  - id: payment-amount-validation-missing
+    languages: [typescript, javascript]
+    message: "Payment amount not validated - manipulation risk"
+    severity: ERROR
+    pattern: |
+      mollieClient.payments.create({
+        amount: {
+          value: $AMOUNT
+        },
+        ...
+      })
+    pattern-not: |
+      mollieClient.payments.create({
+        amount: {
+          value: validateAmount($AMOUNT)
+        },
+        ...
+      })
+
+  - id: mollie-api-key-hardcoded
+    languages: [typescript, javascript]
+    message: "Mollie API key should not be hardcoded"
+    severity: ERROR
+    pattern-either:
+      - pattern: |
+          apiKey: "test_$KEY"
+      - pattern: |
+          apiKey: "live_$KEY"
+    pattern-not: |
+      apiKey: process.env.MOLLIE_API_KEY
+
+  - id: payment-webhook-verification-missing
+    languages: [typescript, javascript]
+    message: "Payment webhook without signature verification"
+    severity: ERROR
+    pattern: |
+      export async function POST(request: NextRequest) {
+        const body = await request.json()
+        ...
+        !verifyWebhookSignature(...)
+        ...
+      }
+    paths:
+      include:
+        - "**/webhooks/mollie/**"
+
+  # =====================================
+  # Session Security Rules
+  # =====================================
+
+  - id: session-id-weak-generation
+    languages: [typescript, javascript]
+    message: "Weak session ID generation - use crypto.randomBytes"
+    severity: ERROR
+    pattern-either:
+      - pattern: |
+          const sessionId = Math.random().toString()
+      - pattern: |
+          const sessionId = Date.now().toString()
+    pattern-not: |
+      const sessionId = crypto.randomBytes($SIZE).toString('hex')
+
+  - id: session-without-expiration
+    languages: [typescript, javascript]
+    message: "Session created without expiration time"
+    severity: WARNING
+    pattern: |
+      .insert({
+        sessionId: $ID,
+        ...
+      })
+    pattern-not: |
+      .insert({
+        sessionId: $ID,
+        ...,
+        expiresAt: $DATE,
+        ...
+      })
+
+  # =====================================
+  # Input Validation Rules
+  # =====================================
+
+  - id: zod-validation-missing
+    languages: [typescript, javascript]
+    message: "API endpoint missing Zod input validation"
+    severity: WARNING
+    pattern: |
+      export async function $METHOD(request: NextRequest) {
+        const body = await request.json()
+        ...
+        !$SCHEMA.parse(body)
+        ...
+      }
+
+  - id: sql-injection-risk
+    languages: [typescript, javascript]
+    message: "Potential SQL injection risk - use parameterized queries"
+    severity: ERROR
+    pattern-either:
+      - pattern: |
+          supabase.rpc(`SELECT * FROM table WHERE id = '${$USER_INPUT}'`)
+      - pattern: |
+          query(`SELECT * FROM table WHERE id = '${$USER_INPUT}'`)
+
+  - id: xss-prevention-missing
+    languages: [typescript, javascript]
+    message: "User input returned without XSS sanitization"
+    severity: WARNING
+    pattern: |
+      return NextResponse.json({ message: $USER_INPUT })
+    pattern-not: |
+      return NextResponse.json({ message: sanitizeHtml($USER_INPUT) })
+
+  # =====================================
+  # Environment Security Rules
+  # =====================================
+
+  - id: hardcoded-secrets
+    languages: [typescript, javascript]
+    message: "Hardcoded secret or API key detected"
+    severity: ERROR
+    pattern-either:
+      - pattern: |
+          const apiKey = "sk_$KEY"
+      - pattern: |
+          const secret = "$SECRET"
+      - pattern: |
+          const password = "$PASSWORD"
+    metavariable-regex:
+      metavariable: $KEY
+      regex: '[a-zA-Z0-9]{20,}'
+
+  - id: debug-information-exposure
+    languages: [typescript, javascript]
+    message: "Debug information potentially exposed in production"
+    severity: WARNING
+    pattern-either:
+      - pattern: |
+          console.log($ERROR.stack)
+      - pattern: |
+          res.json({ error: $ERROR.message, stack: $ERROR.stack })
+
+  # =====================================
+  # Widget Embedding Security Rules
+  # =====================================
+
+  - id: widget-iframe-security-missing
+    languages: [typescript, javascript]
+    message: "Widget iframe missing security headers"
+    severity: WARNING
+    pattern: |
+      <iframe src=$SRC ...>
+    pattern-not: |
+      <iframe src=$SRC sandbox="..." ...>
+
+  - id: widget-csp-missing
+    languages: [typescript, javascript]
+    message: "Widget missing Content Security Policy headers"
+    severity: WARNING
+    pattern: |
+      response.headers.set('Content-Type', 'text/html')
+    pattern-not: |
+      response.headers.set('Content-Security-Policy', ...)
+
+  # =====================================
+  # Multi-tenant Security Rules
+  # =====================================
+
+  - id: tenant-isolation-missing
+    languages: [typescript, javascript]
+    message: "Query missing organization-based tenant isolation"
+    severity: ERROR
+    pattern: |
+      supabase.from($TABLE).select(...)
+    pattern-not-either:
+      - pattern: |
+          supabase.from($TABLE).select(...).eq('organizationId', $ORG_ID)
+      - pattern: |
+          supabase.rls($POLICY)
+    paths:
+      include:
+        - "src/app/api/**"
