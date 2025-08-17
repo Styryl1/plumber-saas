@@ -39,7 +39,7 @@ You are working on the **Plumber SaaS** project - a revolutionary AI-powered plu
 - **AI Keywords** → Load prompt engineering patterns and AI personality systems
 - **Security Keywords** → Load security patterns, GDPR compliance, Semgrep rules
 
-## 12 Golden Rules Enforcement
+## 13 Golden Rules Enforcement
 
 ### Rule #1: NO Mock Data (CRITICAL)
 - **NEVER** use hardcoded/mock/fallback data without explicit permission
@@ -116,6 +116,15 @@ You are working on the **Plumber SaaS** project - a revolutionary AI-powered plu
 - Enable easy rollback with "go back to beginning" or "go back one step"
 - Multiple granular commits better than one large commit
 
+### Rule #13: Security-First Development (CRITICAL)
+- **ALWAYS** run Semgrep security scan before committing
+- **NEVER** store sensitive data in code (API keys, passwords)
+- **VALIDATE** all user inputs with Zod schemas
+- **CHECK** GDPR compliance for all data operations
+- **SCAN** for AI prompt injection vulnerabilities
+- **ENFORCE** API authentication and rate limiting
+- **PROTECT** multi-tenant data isolation with RLS
+- **MONITOR** security patterns for competitive advantage
 
 ## Output Structure Template
 
@@ -128,6 +137,22 @@ You are working on the **Plumber SaaS** project - a revolutionary AI-powered plu
 - **Dutch Market**: [specific considerations: BTW, terminology, Amsterdam focus]
 ```
 
+### Security Analysis Section (Rule #13)
+```markdown
+## 🔒 Security Analysis (Rule #13)
+- **Semgrep Scan**: [PASS/ISSUES FOUND] - [X vulnerabilities detected]
+- **GDPR Compliance**: [COMPLIANT/NEEDS REVIEW] - [consent tracking, retention]
+- **AI Security**: [SECURE/RISKS DETECTED] - [prompt injection checks]
+- **API Security**: [AUTHENTICATED/MISSING AUTH] - [rate limiting, validation]
+- **Data Security**: [ENCRYPTED/VULNERABLE] - [sensitive data handling]
+- **Multi-Tenant Security**: [ISOLATED/VULNERABILITIES] - [RLS policy validation]
+
+### Security Recommendations
+- [List specific security improvements needed]
+- [GDPR compliance actions required]
+- [AI security measures to implement]
+- [Multi-tenant security enhancements]
+```
 
 ### Clarifying Questions (Plan Mode)
 ```markdown
@@ -199,6 +224,13 @@ You are working on the **Plumber SaaS** project - a revolutionary AI-powered plu
 - **Mobile Optimization**: {touch_responsive_advantages}
 - **Reliability Features**: {uptime_performance_benefits}
 
+### Security Excellence Moat (Rule #13)
+- **GDPR Compliance**: {full_dutch_privacy_law_adherence}
+- **AI Security**: {prompt_injection_prevention_unique_in_industry}
+- **Bank-Level Security**: {enterprise_security_certification}
+- **Audit Readiness**: {complete_compliance_documentation}
+- **Multi-Tenant RLS**: {18_month_development_barrier}
+- **Semgrep Automation**: {continuous_security_validation}
 
 ### Competitive Intelligence
 - **Market Gap Exploited**: {weakness_in_competitors_addressed}
@@ -257,7 +289,7 @@ Your changes are now safely stored locally and on GitHub!
 
 ### Validation Checklist
 ```markdown
-## ✅ 12 Golden Rules Validation
+## ✅ 13 Golden Rules Validation
 - [ ] Rule #1: No mock data used (real API or loading states)
 - [ ] Rule #2: Legacy code deletion confirmed with user
 - [ ] Rule #3: Smart comments (section markers + JSDoc only)
@@ -270,6 +302,7 @@ Your changes are now safely stored locally and on GitHub!
 - [ ] Rule #10: Proactive suggestions provided
 - [ ] Rule #11: Latest versions used (no hardcoded version numbers)
 - [ ] Rule #12: Git commits suggested/completed and pushed to GitHub
+- [ ] Rule #13: Security-first development (Semgrep + GDPR + AI security)
 ```
 
 ## Dutch Market Specifics
@@ -286,6 +319,8 @@ Your changes are now safely stored locally and on GitHub!
 - **Netherlands-First**: Local language, regulations, payment methods
 - **Learning Velocity**: Faster AI improvement through data collection
 - **Professional Trust**: Superior UX compared to DIY Facebook pages
+- **Security Excellence**: Bank-level security that competitors cannot match
+- **GDPR Compliance**: Full Dutch privacy law adherence blocking US competitors
 
 ## Context Loading Strategy
 
@@ -300,6 +335,7 @@ Your changes are now safely stored locally and on GitHub!
 - Firecrawl for working examples from competitors
 - Supabase MCP for direct database operations
 - Playwright MCP for browser automation validation
+- Semgrep MCP for continuous security scanning and GDPR compliance
 
 ## Implementation Workflow
 
@@ -311,12 +347,13 @@ Your changes are now safely stored locally and on GitHub!
 5. Identify legacy code for deletion (Rule #2)
 
 ### Phase 2: Implementation
-1. Enforce all 12 golden rules
+1. Enforce all 13 golden rules
 2. Use MCP tools for current knowledge
 3. Implement with T3 patterns only
 4. Add smart comments and JSDoc
 5. Build shared components
 6. **Suggest git commits** at progress milestones (Rule #12)
+7. **Run security scans** before committing (Rule #13)
 
 ### Phase 3: Moat Building
 1. Identify data collection opportunities
@@ -325,10 +362,11 @@ Your changes are now safely stored locally and on GitHub!
 4. Plan learning velocity improvements
 
 ### Phase 4: Validation & Commit
-1. Verify all 12 rules followed
+1. Verify all 13 rules followed
 2. Test with Playwright MCP
-3. Generate PRP documentation
-4. Update competitive moat tracking
-5. **MANDATORY git commit** for production features (Rule #12)
+3. Run final Semgrep security scan (Rule #13)
+4. Generate PRP documentation
+5. Update competitive moat tracking
+6. **MANDATORY git commit** for production features (Rule #12)
 
 **This output style automates the entire plumber-saas development workflow while ensuring every implementation strengthens our competitive position in the Netherlands plumbing market.**

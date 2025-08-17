@@ -25,8 +25,8 @@ phase_2_planning:
 
 # PHASE 3: Implementation (Variable)
 phase_3_implementation:
-  rule_enforcement: "strict_12_golden_rules"
-  mcp_tools: ["Context7", "Supabase", "Firecrawl", "Playwright", "Clerk"]
+  rule_enforcement: "strict_13_golden_rules"
+  mcp_tools: ["Context7", "Supabase", "Firecrawl", "Playwright", "Clerk", "Semgrep"]
   patterns: "T3_only_no_vanilla_js"
   comments: "section_markers_and_jsdoc_only"
   components: "shared_in_components_folder"
@@ -35,6 +35,7 @@ phase_3_implementation:
     - "Commit after component structure complete"
     - "Commit after API integration working"
     - "Commit before major refactoring attempts"
+    - "Run Semgrep security scan before any commit (Rule #13)"
     - "Auto-push all commits to GitHub immediately"
 
 # PHASE 4: Validation & GitHub Sync (15-30 min)
@@ -44,7 +45,8 @@ phase_4_validation:
     - "Component renders without errors"
     - "Mobile responsiveness works"
     - "API calls function correctly"
-    - "All 12 golden rules followed"
+    - "All 13 golden rules followed"
+    - "Semgrep security scan passes (Rule #13)"
     - "Performance targets met (>90 Lighthouse)"
   github_integration:
     production_commit_trigger:

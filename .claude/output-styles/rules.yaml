@@ -1,5 +1,5 @@
-# 12 Golden Rules for Plumber SaaS Development
-version: "2.0.0"
+# 13 Golden Rules for Plumber SaaS Development
+version: "2.1.0"
 enforcement_level: "strict"
 
 rules:
@@ -241,6 +241,84 @@ rules:
       **GitHub**: https://github.com/Styryl1/plumber-saas/commit/[commit_hash]
       
       Your changes are now safely stored locally and on GitHub!
+
+  rule_13:
+    name: "Security-First Development"
+    priority: "CRITICAL"
+    description: "Always run security scans, validate GDPR compliance, protect AI interactions"
+    enforcement:
+      security_scanning:
+        - "ALWAYS run Semgrep security scan before committing"
+        - "Custom security rules for plumbing SaaS patterns"
+        - "Vulnerability detection and remediation"
+        - "Performance impact analysis of security measures"
+      data_protection:
+        - "NEVER store sensitive data in code (API keys, passwords)"
+        - "VALIDATE all user inputs with Zod schemas"
+        - "CHECK GDPR compliance for all data operations"
+        - "Implement data retention policies (730 days)"
+        - "Right to be forgotten functionality"
+      ai_security:
+        - "SCAN for AI prompt injection vulnerabilities"
+        - "Sanitize all AI inputs and outputs"
+        - "Rate limiting per organization/AI model"
+        - "AI conversation logging for compliance"
+        - "Session hijacking prevention"
+      api_security:
+        - "ENFORCE API authentication and rate limiting"
+        - "Domain whitelist enforcement for widgets"
+        - "XSS and CSRF prevention"
+        - "Content Security Policy (CSP) implementation"
+      multi_tenant_security:
+        - "PROTECT multi-tenant data isolation with RLS"
+        - "Organization-based data isolation"
+        - "Cross-tenant security validation"
+        - "Privilege escalation prevention"
+        - "Audit logging for compliance"
+      competitive_moats:
+        - "MONITOR security patterns for competitive advantage"
+        - "Build 18+ month security barriers"
+        - "Dutch compliance blocking international competitors"
+        - "Enterprise security certification readiness"
+    validation:
+      - "Semgrep scan passes with zero critical vulnerabilities"
+      - "All user inputs validated with proper schemas"
+      - "GDPR compliance checked and documented"
+      - "AI security measures implemented and tested"
+      - "Multi-tenant isolation verified"
+      - "Security audit trail maintained"
+    mcp_integration:
+      semgrep_workflow:
+        - "Run security scans before every commit"
+        - "Create custom rules for business-specific patterns"
+        - "Analyze results and generate reports"
+        - "Filter and export security findings"
+        - "Compare security improvements over time"
+      firecrawl_research:
+        - "Search latest OWASP guidelines"
+        - "Monitor GDPR regulation updates"
+        - "Research AI security best practices"
+        - "Track competitor security weaknesses"
+      context7_updates:
+        - "Pull latest security library documentation"
+        - "Stay current with framework security features"
+        - "Monitor security patches and updates"
+    dutch_compliance_advantages:
+      gdpr_excellence:
+        - "Full European privacy regulation adherence"
+        - "Consent management and tracking"
+        - "Data breach notification automation"
+        - "Cross-border data transfer compliance"
+      dutch_legal_requirements:
+        - "BTW/VAT compliance validation (21%/9%)"
+        - "KVK number verification patterns"
+        - "Dutch business regulations compliance"
+        - "Professional licensing requirements"
+      competitive_barriers:
+        - "Security complexity US competitors cannot replicate"
+        - "GDPR automation blocking international expansion"
+        - "Dutch hosting and data residency requirements"
+        - "Local banking (iDEAL) security optimization"
 
 dutch_market_specifics:
   btw_rates:
