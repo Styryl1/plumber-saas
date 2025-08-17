@@ -149,7 +149,7 @@
 ### Technical Debt Reduction
 {technical_debt_suggestions}
 
-## ✅ 10 Golden Rules Validation
+## ✅ 12 Golden Rules Validation
 
 - [ ] **Rule #1**: No mock data used (real API or loading states)
 - [ ] **Rule #2**: Legacy code deletion confirmed with user
@@ -161,6 +161,8 @@
 - [ ] **Rule #8**: Real errors shown (no fake success)
 - [ ] **Rule #9**: Clarifying questions addressed
 - [ ] **Rule #10**: Proactive suggestions provided
+- [ ] **Rule #11**: Latest versions used (no hardcoded version numbers)
+- [ ] **Rule #12**: Git commits suggested/completed appropriately
 
 ## 📊 Implementation Metrics
 

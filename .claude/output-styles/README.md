@@ -2,7 +2,7 @@
 
 ## Overview
 
-The **plumber-saas-prp** output style is a comprehensive development automation system designed specifically for the Plumber SaaS project. It enforces the 10 Golden Rules, automates context loading, coordinates specialist agents, and builds competitive moats while focusing on the Netherlands market.
+The **plumber-saas-prp** output style is a comprehensive development automation system designed specifically for the Plumber SaaS project. It enforces the 12 Golden Rules, automates context loading, coordinates specialist agents, and builds competitive moats while focusing on the Netherlands market.
 
 ## 🚀 Quick Start
 
@@ -16,7 +16,7 @@ The **plumber-saas-prp** output style is a comprehensive development automation 
 2. **The system automatically:**
    - Loads project context from `CLAUDE.md`
    - Activates specialist agents based on your prompt keywords
-   - Enforces all 10 Golden Rules during implementation
+   - Enforces all 12 Golden Rules during implementation
    - Builds competitive moats and tracks Dutch market advantages
 
 ### Example Usage
@@ -37,7 +37,7 @@ The **plumber-saas-prp** output style is a comprehensive development automation 
 ### Core Configuration Files
 
 - **`plumber-saas-prp.md`** - Main output style configuration
-- **`rules.yaml`** - 10 Golden Rules definitions and enforcement
+- **`rules.yaml`** - 12 Golden Rules definitions and enforcement
 - **`specialists.yaml`** - Specialist agent configurations and activation
 - **`workflow.yaml`** - 5-phase automated workflow
 - **`context-loading.yaml`** - Intelligent context loading strategy
@@ -61,7 +61,7 @@ The **plumber-saas-prp** output style is a comprehensive development automation 
 - **`during-checks.yaml`** - Real-time compliance monitoring
 - **`post-checks.yaml`** - Comprehensive post-implementation validation
 
-## 🎯 The 10 Golden Rules
+## 🎯 The 12 Golden Rules
 
 ### Rule #1: NO Mock Data
 - **NEVER** use hardcoded/mock/fallback data without permission
@@ -114,6 +114,19 @@ The **plumber-saas-prp** output style is a comprehensive development automation 
 - Identify competitive advantage opportunities
 - Recommend data collection enhancements
 
+### Rule #11: Always Latest Versions
+- **NEVER** use hardcoded version numbers (Next.js 14, React 18, etc.)
+- Always reference "Next.js latest", "React current", "TypeScript latest"
+- Use Context7 MCP for current documentation, not outdated versions
+- Future-proof all patterns and configurations
+
+### Rule #12: Proactive Git Commits (CRITICAL)
+- **Suggest git commit** after ANY meaningful progress made
+- **Commit before risky changes** or major refactoring attempts
+- **MANDATORY commit** after EVERY production-level feature completion
+- Enable easy rollback with "go back to beginning" or "go back one step"
+- Multiple granular commits better than one large commit
+
 ## 🤖 Specialist Agent System
 
 ### Auto-Activation Based on Keywords
@@ -165,14 +178,14 @@ The **plumber-saas-prp** output style is a comprehensive development automation 
 3. **Moat Identification**: Identify competitive advantage opportunities
 
 ### Phase 3: Implementation & Build (Variable)
-1. **Rule Enforcement**: Strict adherence to all 10 golden rules
+1. **Rule Enforcement**: Strict adherence to all 12 golden rules
 2. **MCP Knowledge Gathering**: Use Context7, Firecrawl, Supabase MCPs
 3. **Dutch Integration**: Implement Netherlands-specific features
 4. **Shared Component Creation**: Build reusable components
 
 ### Phase 4: Testing & Quality Assurance (15-30 minutes)
 1. **Playwright Testing**: Browser automation validation
-2. **Rule Compliance Check**: Validate all 10 rules followed
+2. **Rule Compliance Check**: Validate all 12 rules followed
 3. **Performance Validation**: Lighthouse scores, bundle size
 4. **Accessibility Check**: WCAG 2.1 AA compliance
 
@@ -205,7 +218,7 @@ C:/Users/styry/plumber-saas/context/specialists/*.md
 ## 🎯 Success Metrics
 
 ### Rule Compliance:
-- **Target**: 100% compliance with all 10 golden rules
+- **Target**: 100% compliance with all 12 golden rules
 - **Measurement**: Automated validation + specialist review
 
 ### Quality Standards:
