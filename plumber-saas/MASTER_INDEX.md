@@ -42,6 +42,7 @@
 | **tailwind-patterns** | dashboard/patterns/tailwind-patterns.md | Component styling, responsive | 🟢 92% | 978 |
 | **ui-components** | dashboard/patterns/ui-components.md | Reusable component library | 🟢 95% | 1,567 |
 | **ux-psychology-patterns** | dashboard/patterns/ux-psychology-patterns.md | 4 persona optimization | 🟢 93% | 1,445 |
+| **ai-sdk-business-intelligence** | dashboard/patterns/ai-sdk-business-intelligence.md | Vercel AI SDK business insights and analytics | 🟢 92% | 2,145 |
 | **business-partner-ai** | dashboard/patterns/business-partner-ai.md | AI business intelligence | 🟡 87% | 2,234 |
 | **reference-patterns** | dashboard/patterns/reference-patterns.md | Implementation references | 🟢 91% | 834 |
 | **current-patterns** | dashboard/patterns/current-patterns.md | Active dashboard implementations | 🟡 88% | 756 |
