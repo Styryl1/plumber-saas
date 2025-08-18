@@ -18,7 +18,8 @@
 
 | Pattern | File | Purpose | Success | Tokens |
 |---------|------|---------|---------|--------|
-| **chat-prompts** | widget/patterns/chat-prompts.md | Dutch emergency detection, conversation optimization | 🟢 96% | 2,847 |
+| **ai-sdk-chat-widget** | widget/patterns/ai-sdk-chat-widget.md | Vercel AI SDK useChat() streaming widget | 🟢 92% | 2,234 |
+| **chat-prompts** | widget/patterns/chat-prompts.md | Dutch emergency detection, AI SDK conversation optimization | 🟢 96% | 2,847 |
 | **conversion-optimization** | widget/patterns/conversion-optimization.md | Customer psychology, booking funnels | 🟢 92% | 1,934 |
 | **visual-design-system** | widget/patterns/visual-design-system.md | Glass morphism, mobile-first UI | 🟢 94% | 1,673 |
 | **current-patterns** | widget/patterns/current-patterns.md | Active widget implementations | 🟡 89% | 892 |
