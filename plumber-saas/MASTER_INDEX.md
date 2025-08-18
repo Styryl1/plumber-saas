@@ -195,6 +195,7 @@
 
 ### **By Technology Stack**
 - **T3 Stack**: t3-stack-architecture.md, api-patterns.md, database-integration.md
+- **Vercel AI SDK**: ai-sdk-integration.md, dual-model-routing.md, conversation-streaming.md
 - **Supabase**: supabase-architecture.md, multi-tenant-patterns.md
 - **Clerk**: clerk-authentication.md, permission-patterns.md
 - **Mollie**: mollie-integration.md, dutch-compliance.md
