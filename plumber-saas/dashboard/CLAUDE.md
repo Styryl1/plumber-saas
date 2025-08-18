@@ -99,6 +99,7 @@ Working on dashboard? You need:
 **Research**: Agents handle all external research (Context7 + Firecrawl)
 
 ### Dashboard-Specific Agent Focus:
+- **AI Specialist**: AI SDK business intelligence, revenue optimization, scheduling suggestions
 - **UI Specialist**: Mobile-first dashboard, Schedule-X calendar, responsive grids
 - **UX Specialist**: 4 persona optimization (Jan/Mohammed/Lisa/Erik), conversion flow
 - **Database Specialist**: Multi-tenant data isolation, real-time job updates
