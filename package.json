@@ -7,6 +7,7 @@
     "build": "next build",
     "dev": "next dev",
     "lint": "next lint",
+    "lint:automation": "next lint --max-warnings=1000",
     "start": "next start",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
@@ -16,7 +17,7 @@
     "update-safe": "npx npm-check-updates -u --target patch",
     "update-minor": "npx npm-check-updates -u --target minor",
     "update-report": "npm run check-updates && npm run check-security",
-    "test-after-update": "npm run lint && npm run build",
+    "test-after-update": "npm run lint:automation && npm run build",
     "update-manager": "node scripts/manage-updates.js"
   },
   "dependencies": {

@@ -1,24 +1,24 @@
-import { TRPCReactProvider } from "~/trpc/react";
-import { headers } from "next/headers";
-import "~/styles/globals.css";
+import "~/app/globals.css";
 
-export const metadata = {
-  title: 'Plumber SaaS - Modern AI Chat Widget',
-  description: 'AI-powered chatbot widget for plumbing businesses with voice invoice generation',
-}
+import { GeistSans } from "geist/font/sans";
+import { type Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Plumber SaaS - AI-Powered Business Automation",
+  description: "Complete business automation platform for Dutch plumbers",
+  icons: [{ rel: "icon", url: "/favicon.ico" }],
+};
 
 export default function RootLayout({
   children,
-}: {
-  children: React.ReactNode
-}) {
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
-    <html lang="en">
+    <html lang="en" className={`${GeistSans.variable}`}>
       <body>
-        <TRPCReactProvider headers={headers()}>
-          {children}
-        </TRPCReactProvider>
+        {children}
       </body>
     </html>
-  )
+  );
 }
