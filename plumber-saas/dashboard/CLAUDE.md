@@ -62,10 +62,10 @@ API Endpoints:
 - **→ mobile**: Responsive design patterns
 
 ## 🏆 Competitive Advantages in This Domain
-- **vs ServiceM8**: Simpler onboarding, faster load times
-- **vs Jobber**: Dutch-first design, BTW compliance built-in
-- **vs Spreadsheets**: Professional appearance, automated workflows
-- **vs DIY Solutions**: Complete business management, not just scheduling
+- **vs ServiceM8**: AI SDK business intelligence vs basic management
+- **vs Jobber**: AI-powered revenue optimization vs manual processes
+- **vs Spreadsheets**: AI-driven insights vs static data
+- **vs DIY Solutions**: Complete AI business partner vs basic tools
 
 ## 📊 Current Metrics & Targets
 - Dashboard Load Time: 800ms → Target <500ms
