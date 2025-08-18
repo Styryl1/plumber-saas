@@ -24,7 +24,12 @@ jobs:
           cache: 'npm'
 
       - name: 📦 Install Dependencies
-        run: npm ci
+        run: |
+          npm ci
+          npm install -g npm-check-updates
+        env:
+          DATABASE_URL: "postgresql://test:test@localhost:5432/test"
+          DIRECT_URL: "postgresql://test:test@localhost:5432/test"
 
       - name: 🔍 Check for Safe Updates
         id: updates
@@ -37,6 +42,9 @@ jobs:
         run: |
           npm install
           npm run test-after-update
+        env:
+          DATABASE_URL: "postgresql://test:test@localhost:5432/test"
+          DIRECT_URL: "postgresql://test:test@localhost:5432/test"
 
       - name: 📝 Create Pull Request
         if: steps.updates.outputs.changes
@@ -84,6 +92,14 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
+
+      - name: 📦 Install Dependencies (Security Job)
+        run: |
+          npm ci
+          npm install -g npm-check-updates
+        env:
+          DATABASE_URL: "postgresql://test:test@localhost:5432/test"
+          DIRECT_URL: "postgresql://test:test@localhost:5432/test"
 
       - name: 🔒 Security Audit
         run: |
