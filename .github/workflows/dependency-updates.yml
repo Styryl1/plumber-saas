@@ -5,6 +5,11 @@ on:
     - cron: '0 9 * * 1'  # Every Monday at 9 AM
   workflow_dispatch:     # Manual trigger
 
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
 jobs:
   safe-updates:
     name: Safe Patch Updates
