@@ -6,372 +6,248 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
-// Multi-tenant organization model (Enhanced with Dutch compliance)
-model Organization {
-  id          String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  clerkOrgId  String    @unique @map("clerkOrgId")
-  name        String
-  slug        String    @unique
-  domain      String?   @unique
-  
-  // Dutch Business Registration (Enhanced)
-  kvkNumber   String?   @unique @map("kvkNumber") // Chamber of Commerce (8 digits)
-  btwNumber   String?   @unique @map("btwNumber") // VAT number (NL + 9 digits + B + 2 digits)
-  
-  // Dutch Address Format (Enhanced)
-  street      String?
-  houseNumber String?   @map("houseNumber")
-  houseNumberAddition String? @map("houseNumberAddition") // e.g., "A", "bis"
-  postalCode  String?   @map("postalCode") // Format: 1234AB
-  city        String?
-  province    String?
-  
-  // Localization (Enhanced)
-  timezone    String    @default("Europe/Amsterdam")
-  currency    String    @default("EUR")
-  preferredLanguage String @default("nl") @map("preferredLanguage") // nl, en
-  
-  // Subscription info
-  plan        String    @default("professional") // starter, professional, enterprise
-  status      String    @default("active")       // active, suspended, cancelled
-  
-  // AI Chat settings
-  chatEnabled Boolean   @default(true) @map("chatEnabled")
-  aiPersonality String  @default("friendly") @map("aiPersonality")
-  
-  createdAt   DateTime  @default(now()) @map("createdAt")
-  updatedAt   DateTime  @updatedAt @map("updatedAt")
+// === USER MANAGEMENT ===
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  // Relations
-  plumbers    Plumber[]
-  customers   Customer[]
-  jobs        Job[]
-  invoices    Invoice[]
-  chatLogs    ChatLog[]
-  feedback    Feedback[]
-  bookings    Booking[]
+  // Clerk integration
+  clerkId String @unique
 
-  @@map("organizations")
-}
-
-model Plumber {
-  id             String       @id @default(cuid())
-  clerkUserId    String       @unique
-  organizationId String
-  
-  // Basic Info
-  firstName      String
-  lastName       String
-  email          String       @unique
-  phone          String?
-  
-  // Business Info
+  // Dutch plumber profile
   companyName    String?
-  hourlyRate     Decimal?     @db.Decimal(8,2)
-  emergencyRate  Decimal?     @db.Decimal(8,2)
-  specialties    String[]     @default([])
-  
-  // Location
+  phone          String?
+  address        String?
   city           String?
   postalCode     String?
-  serviceRadius  Int?         @default(25) // km radius
+  kvkNumber      String? // Dutch Chamber of Commerce number
+  btgNumber      String? // Dutch VAT number
   
-  // Settings
-  isActive       Boolean      @default(true)
-  profileComplete Boolean     @default(false)
-  
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
-
-  // Relations
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+  // Relationships
   jobs           Job[]
+  customers      Customer[]
   invoices       Invoice[]
-
-  @@map("plumbers")
+  chatSessions   ChatSession[]
+  
+  @@map("users")
 }
 
+// === CUSTOMER MANAGEMENT ===
 model Customer {
-  id             String       @id @default(cuid())
-  organizationId String
-  
-  // Contact Info
-  name           String
-  email          String?
-  phone          String?
-  
-  // Address
-  streetAddress  String?
-  postalCode     String?
-  city           String?
-  
-  // Customer Type
-  customerType   String       @default("residential") // residential, commercial
-  preferredContact String     @default("phone")       // phone, email, whatsapp
-  
-  // Stats
-  totalJobs      Int          @default(0)
-  totalSpent     Decimal      @default(0) @db.Decimal(10,2)
-  
-  // Notes
-  notes          String?
-  
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  id        String   @id @default(cuid())
+  name      String
+  email     String?
+  phone     String?
+  address   String?
+  city      String?
+  postalCode String?
+  notes     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  // Relations
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  jobs           Job[]
-  invoices       Invoice[]
-
+  // Relationships
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobs   Job[]
+  
   @@map("customers")
 }
 
+// === JOB MANAGEMENT ===
 model Job {
-  id             String       @id @default(cuid())
-  organizationId String
-  plumberId      String
-  customerId     String?
-  
-  // Job Details
-  title          String
-  description    String?
-  jobType        String       @default("repair") // repair, installation, maintenance, emergency
-  priority       String       @default("normal") // low, normal, high, emergency
-  status         String       @default("scheduled") // scheduled, in_progress, completed, cancelled
+  id          String    @id @default(cuid())
+  title       String
+  description String?
+  status      JobStatus @default(SCHEDULED)
+  priority    Priority  @default(NORMAL)
   
   // Scheduling
-  scheduledAt    DateTime?
-  startTime      String?      // e.g., "09:00"
-  duration       Int?         // minutes
+  scheduledAt DateTime?
+  completedAt DateTime?
+  estimatedDuration Int? // minutes
   
-  // Location (from customer or manual)
-  address        String?
-  postalCode     String?
-  city           String?
+  // Location
+  address    String?
+  city       String?
+  postalCode String?
   
-  // Work Details
-  laborHours     Decimal?     @db.Decimal(5,2)
-  hourlyRate     Decimal?     @db.Decimal(8,2)
-  materialsUsed  String?
-  materialsCost  Decimal?     @db.Decimal(8,2)
+  // Emergency classification (Dutch market specific)
+  emergencyLevel Int @default(0) // 0=Normal, 1=Minor, 2=Urgent, 3=Emergency, 4=Critical
   
-  // Travel
-  travelTime     Int?         // minutes
-  travelDistance Decimal?     @db.Decimal(6,2) // km
+  // Pricing
+  estimatedPrice Decimal?
+  finalPrice     Decimal?
   
-  // Completion
-  completedAt    DateTime?
-  notes          String?
-  photos         String[]     @default([])
-  
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  // Relations
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  plumber        Plumber      @relation(fields: [plumberId], references: [id], onDelete: Cascade)
-  customer       Customer?    @relation(fields: [customerId], references: [id], onDelete: SetNull)
-  invoices       Invoice[]
-
-  @@index([organizationId, status]) // Multi-tenant job queries
-  @@index([organizationId, scheduledAt]) // Calendar queries
-  @@index([plumberId, scheduledAt]) // Plumber schedule
-  @@index([customerId]) // Customer job history
+  // Relationships
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  customerId String
+  customer   Customer @relation(fields: [customerId], references: [id], onDelete: Cascade)
+  invoices   Invoice[]
+  
   @@map("jobs")
 }
 
+enum JobStatus {
+  SCHEDULED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+enum Priority {
+  LOW
+  NORMAL
+  HIGH
+  URGENT
+}
+
+// === INVOICING & BILLING ===
 model Invoice {
-  id             String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  organizationId String       @map("organization_id") @db.Uuid
-  plumberId      String       @map("plumber_id")
-  customerId     String?      @map("customer_id")
+  id          String        @id @default(cuid())
+  invoiceNumber String      @unique
+  status      InvoiceStatus @default(DRAFT)
   
-  // Invoice Details (Enhanced)
-  invoiceNumber  String       @unique @map("invoice_number")
-  invoiceDate    DateTime     @default(now()) @map("invoice_date")
-  dueDate        DateTime?    @map("due_date")
+  // Dutch tax compliance
+  subtotal    Decimal
+  btgAmount   Decimal // 21% or 9% Dutch VAT
+  btgRate     Decimal // 0.21 or 0.09
+  total       Decimal
   
-  // Amounts (Enhanced Dutch BTW system)
-  subtotal       Decimal      @db.Decimal(10,2)
-  btwRate        Decimal      @default(21) @db.Decimal(5,2) @map("btw_rate") // 21% standard, 9% reduced
-  btwAmount      Decimal      @db.Decimal(10,2) @map("btw_amount")
-  totalAmount    Decimal      @db.Decimal(10,2) @map("total_amount")
+  // Payment
+  dueDate     DateTime
+  paidAt      DateTime?
+  paymentMethod String? // "ideal", "banktransfer", "cash"
+  molliePaymentId String? // Mollie payment reference
   
-  // Enhanced Dutch Business Fields
-  serviceCategory String      @default("repair") @map("service_category") // repair=9%, installation=21%
-  customerType   String       @default("residential") @map("customer_type") // residential, commercial
-  btwExempt      Boolean      @default(false) @map("btw_exempt") // For EU B2B transactions
+  // PDF generation
+  pdfUrl      String?
   
-  // Payment (Enhanced)
-  status         String       @default("draft") // draft, sent, paid, overdue, cancelled
-  paymentMethod  String?      @map("payment_method") // ideal, bank_transfer, cash, card, mollie
-  paymentDate    DateTime?    @map("payment_date")
-  molliePaymentId String?     @map("mollie_payment_id") // Mollie payment reference
-  
-  // Notes
-  notes          String?
-  
-  createdAt      DateTime     @default(now()) @map("created_at")
-  updatedAt      DateTime     @updatedAt @map("updated_at")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 
-  // Relations
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-  plumber        Plumber      @relation(fields: [plumberId], references: [id], onDelete: Cascade)
-  customer       Customer?    @relation(fields: [customerId], references: [id], onDelete: SetNull)
-  jobs           Job[]
-
-  @@index([organizationId, status]) // Multi-tenant invoice queries
-  @@index([organizationId, invoiceDate]) // Date range queries
-  @@index([molliePaymentId]) // Payment processing lookup
+  // Relationships
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  jobId  String
+  job    Job    @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  
   @@map("invoices")
 }
 
-model ChatLog {
-  id             String       @id @default(cuid())
-  organizationId String
-  sessionId      String
-  
-  // Message
-  userMessage    String
-  aiResponse     String
-  messageNumber  Int
-  
-  // Context
-  language       String       @default("nl")
-  urgency        String       @default("info")     // info, normal, urgent, emergency
-  category       String[]     @default([])         // leak, heating, drain, etc
-  
-  // Customer Info (if known)
-  customerPhone  String?
-  customerName   String?
-  
-  // Location
-  location       String?
-  travelTime     Int?         // minutes if calculated
-  
-  // Cost Estimation
-  estimatedCost  Decimal?     @db.Decimal(8,2)
-  
-  createdAt      DateTime     @default(now())
-
-  // Relations
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-
-  @@map("chat_logs")
+enum InvoiceStatus {
+  DRAFT
+  SENT
+  PAID
+  OVERDUE
+  CANCELLED
 }
 
-// Session for chat continuity
+// === AI CHAT SYSTEM ===
 model ChatSession {
-  id             String       @id @default(cuid())
-  sessionId      String       @unique
-  browserFingerprint String?
+  id        String   @id @default(cuid())
+  sessionId String   @unique // Browser fingerprint + timestamp
   
-  // Session State
-  isActive       Boolean      @default(true)
-  totalMessages  Int          @default(0)
+  // Customer context
+  customerPhone String?
+  customerEmail String?
+  customerName  String?
+  location      String? // Dutch postal code or address
   
-  // Customer Context
-  customerName   String?
-  customerPhone  String?
-  location       String?
-  preferredLanguage String    @default("nl")
+  // Emergency detection
+  emergencyLevel Int @default(0)
+  urgencyScore   Float @default(0.0)
   
-  // Issue Tracking
-  currentIssues  String[]     @default([])
-  resolvedIssues String[]     @default([])
+  // Session metadata
+  userAgent     String?
+  ipAddress     String?
+  widgetSource  String? // Which website embedded the widget
   
-  createdAt      DateTime     @default(now())
-  lastActivity   DateTime     @default(now())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
+  // Relationships
+  userId   String?
+  user     User?        @relation(fields: [userId], references: [id], onDelete: SetNull)
+  messages ChatMessage[]
+  
   @@map("chat_sessions")
 }
 
-// Widget feedback system
-model Feedback {
-  id             String       @id @default(cuid())
-  organizationId String
-  sessionId      String?
+model ChatMessage {
+  id        String      @id @default(cuid())
+  role      MessageRole
+  content   String
   
-  // Feedback Details
-  type           String       // helpful, not_helpful, suggestion, complaint
-  rating         Int?         // 1-5 stars
-  message        String?
-  category       String?      // ai_response, booking_process, general
+  // AI metadata
+  aiModel   String? // "gpt-5", "claude-opus-4.1"
+  reasoning String? // AI's reasoning process
+  confidence Float? // AI confidence score
   
-  // Context
-  chatLogId      String?      // reference to specific chat interaction
-  pageUrl        String?      // where feedback was given
-  userAgent      String?
+  // Dutch language processing
+  detectedLanguage String @default("nl")
+  plumbingTermsDetected String[] // Detected Dutch plumbing terminology
   
-  // Contact (optional)
-  customerEmail  String?
-  customerPhone  String?
-  
-  // Internal
-  status         String       @default("new") // new, reviewed, resolved
-  adminNotes     String?
-  
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+  createdAt DateTime @default(now())
 
-  // Relations
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
-
-  @@map("feedback")
+  // Relationships
+  sessionId String
+  session   ChatSession @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  
+  @@map("chat_messages")
 }
 
-// Booking requests from widget
-model Booking {
-  id             String       @id @default(cuid())
-  organizationId String
-  sessionId      String?
-  
-  // Customer Info
-  customerName   String
-  customerPhone  String
-  customerEmail  String?
-  
-  // Service Details
-  serviceType    String       // leak_repair, boiler_service, drain_cleaning, etc
-  urgency        String       @default("normal") // normal, urgent, emergency
-  description    String?
-  
-  // Location
-  address        String
-  postalCode     String?
-  city           String?
-  
-  // Scheduling Preferences
-  preferredDate  DateTime?
-  preferredTime  String?      // "morning", "afternoon", "evening"
-  flexibleTiming Boolean      @default(false)
-  
-  // Estimated Details (from AI)
-  estimatedCost  Decimal?     @db.Decimal(8,2)
-  estimatedDuration Int?      // minutes
-  
-  // Status Tracking
-  status         String       @default("new") // new, confirmed, scheduled, completed, cancelled
-  jobId          String?      // linked job ID when scheduled
-  assignedPlumberId String?   // assigned plumber
-  
-  // Communication
-  language       String       @default("nl")
-  contactMethod  String       @default("phone") // phone, email, whatsapp
-  
-  // Internal Notes
-  adminNotes     String?
-  
-  createdAt      DateTime     @default(now())
-  updatedAt      DateTime     @updatedAt
+enum MessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
+}
 
-  // Relations
-  organization   Organization @relation(fields: [organizationId], references: [id], onDelete: Cascade)
+// === WIDGET ANALYTICS ===
+model WidgetAnalytics {
+  id        String   @id @default(cuid())
+  
+  // Widget performance
+  domain       String
+  pageUrl      String
+  sessionCount Int @default(1)
+  
+  // Conversion tracking
+  chatStarted     Boolean @default(false)
+  bookingStarted  Boolean @default(false)
+  bookingCompleted Boolean @default(false)
+  phoneRevealed   Boolean @default(false)
+  
+  // Dutch market metrics
+  cityDetected    String?
+  postalCodeDetected String?
+  emergencyDetected Boolean @default(false)
+  
+  date      DateTime @default(now())
+  
+  @@map("widget_analytics")
+}
 
-  @@map("bookings")
+// === AUTOMATION LOGS ===
+model AutomationLog {
+  id        String   @id @default(cuid())
+  type      String   // "dependency_update", "security_scan", "backup"
+  status    String   // "success", "failed", "in_progress"
+  message   String?
+  metadata  Json?    // Additional data
+  
+  createdAt DateTime @default(now())
+  
+  @@map("automation_logs")
 }
