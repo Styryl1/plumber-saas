@@ -23,12 +23,42 @@
 | multi-tenant-auth | patterns/clerk-isolation.md | Organization-based security | 🟢 97% |
 | mobile-dashboard | patterns/responsive-grid.md | Mobile-first layout | 🟡 87% |
 
+## 🏗️ **AI SDK TECH STACK (PRODUCTION-READY)**
+
+### **Dashboard AI Framework**
+```typescript
+Vercel AI SDK v5:
+  - Business intelligence with GPT-4o
+  - Revenue optimization with Claude 3.5 Sonnet
+  - Real-time suggestions and insights
+  - Type-safe tRPC integration
+
+Dashboard Architecture:
+  - Next.js App Router - Server-side business logic
+  - React Query - Optimistic UI updates
+  - Schedule-X Calendar - AI-optimized scheduling
+  - Multi-tenant RLS - Organization isolation
+```
+
+### **AI Business Intelligence for Dashboard**
+```typescript
+Smart Dashboard AI:
+  - openai('gpt-4o') // BTW-compliant quote generation
+  - anthropic('claude-3-5-sonnet-20241022') // Business analysis
+  - openai('gpt-4o-mini') // Quick insights and suggestions
+
+API Endpoints:
+  - /api/trpc/ai.businessInsights - Revenue optimization
+  - /api/trpc/ai.generateQuote - BTW-compliant pricing
+  - /api/trpc/ai.scheduleOptimization - Calendar intelligence
+```
+
 ## 🤝 Integration Points
-- **→ calendar**: Schedule-X integration for job scheduling
+- **→ calendar**: Schedule-X integration with AI optimization
 - **→ payments**: Mollie invoice generation and payments
 - **→ auth**: Clerk organization management
-- **← widget**: Receive new job bookings automatically
-- **→ ai-core**: Business intelligence and suggestions
+- **← widget**: Receive new job bookings automatically via AI SDK
+- **→ ai-core**: Business intelligence and AI-powered suggestions
 - **→ mobile**: Responsive design patterns
 
 ## 🏆 Competitive Advantages in This Domain
