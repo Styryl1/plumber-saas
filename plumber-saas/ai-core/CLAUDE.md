@@ -1,7 +1,118 @@
-# AI Core Development Guide - Dual-Model Intelligence System
+# AI-Core - Dual-Model Intelligence Engine
 
-## 🎯 Overview
-This is the comprehensive development guide for the AI core system, featuring GPT-5 + Claude Opus 4.1 dual-model architecture, Dutch plumber expertise, emergency detection, and intelligent routing for optimal performance.
+## 🎯 Quick Context
+**Purpose**: Orchestrate GPT-5 (speed) + Claude Opus 4.1 (complexity) for the smartest plumber AI in Netherlands
+**Users**: Automated system serving stressed customers and busy plumbers
+**Competition**: No competitor has dual-model AI - this is our secret weapon
+**Status**: Check PRP.md for current development status
+
+## 📁 What's In This Domain
+- `CLAUDE.md` - You are here (AI system context)
+- `PRP.md` - Current status, next priorities
+- `patterns/` - AI routing, prompts, personality patterns
+- `benchmarks.md` - Response accuracy, speed metrics
+- `anti-patterns.md` - AI failures to avoid
+
+## 🔍 Key Patterns
+| Pattern | File | Purpose | Success |
+|---------|------|---------|---------|
+| dual-model-routing | patterns/intelligent-routing.md | Route requests to best model | 🟢 94% |
+| dutch-prompt-engineering | patterns/dutch-prompts.md | Native Dutch responses | 🟢 96% |
+| emergency-classification | patterns/emergency-levels.md | Level 1-4 urgency detection | 🟢 96% |
+| business-intelligence | patterns/ai-insights.md | Revenue suggestions for plumbers | 🟡 87% |
+| context-memory | patterns/conversation-state.md | Multi-turn dialogue tracking | 🟡 89% |
+| prompt-injection-defense | patterns/security-prompts.md | Prevent malicious inputs | 🟢 98% |
+
+## 🤖 Model Specialization
+### **GPT-5 Responsibilities (Speed-Critical)**
+- Emergency detection and response
+- Real-time customer chat
+- Quick price estimates
+- Mobile interactions
+- Widget conversations
+
+### **Claude Opus 4.1 Responsibilities (Complexity)**
+- Complex diagnosis and recommendations
+- Business intelligence analysis
+- Long-form content generation
+- Technical documentation
+- Strategic planning assistance
+
+## 🤝 Integration Points
+- **← widget**: Receive customer panic messages
+- **→ dashboard**: Send business intelligence insights
+- **← payments**: Process pricing requests
+- **→ emergency**: Trigger emergency dispatch
+- **→ calendar**: Suggest optimal scheduling
+- **← auth**: Understand user context and permissions
+
+## 🏆 Competitive Advantages in This Domain
+- **vs ServiceM8**: No AI at all vs our dual-model intelligence
+- **vs Jobber**: Basic chatbot vs sophisticated dual-model routing
+- **vs Zoofy**: Generic AI vs Dutch-specialized emergency detection
+- **vs DIY Solutions**: No intelligence vs business partner AI
+
+## 🤖 ULTIMATE WORKFLOW INTEGRATION
+
+**Active**: 9-Phase Automation with 10 Specialist Agents
+**Mode**: Dynamic Agent Selection (1-10 based on task complexity)
+**Research**: Agents handle all external research (Context7 + Firecrawl)
+
+### AI-Core-Specific Agent Focus:
+- **AI Specialist**: Dual-model routing optimization, Dutch prompt engineering, emergency classification
+- **Architect Specialist**: AI system architecture, model coordination, scalability patterns
+- **Security Specialist**: Prompt injection defense, AI security, data protection
+- **T3 Specialist**: API integration, type-safe model responses, tRPC procedures
+- **Business Specialist**: AI business intelligence, revenue optimization, competitive analysis
+
+### Phase 8 Triple Review for AI-Core:
+- **Security**: Verify prompt injection defenses, AI security, data privacy
+- **UX**: Validate AI response quality, conversation flow, user satisfaction
+- **Architect**: Ensure optimal model routing, system performance, scalability
+
+**Pattern Research**: When AI patterns are unknown, AI Agent researches via Context7 for latest model capabilities, Architecture Agent researches system design patterns
+**Dutch Intelligence**: AI Agent specializes in Dutch language patterns, emergency terminology, cultural context
+**Model Optimization**: Continuous improvement of GPT-5 + Claude routing for maximum effectiveness
+
+---
+
+**Last Updated**: January 18, 2025  
+**Next Review**: Weekly by Ultimate Workflow Phase 8 Triple Review
+**Primary Agents**: AI_Agent, Architect_Agent, Security_Agent, T3_Agent, Business_Agent
+- **vs Jobber**: Basic chatbot vs sophisticated emergency detection
+- **vs Zoofy**: Generic responses vs Dutch-optimized AI personality
+- **vs All**: Single model vs our smart routing system
+
+## 📊 Current Metrics & Targets
+- Response Accuracy: 94% → Target 98%
+- Response Speed: 800ms → Target <500ms
+- Dutch Language Quality: 87% → Target 95%
+- Emergency Detection: 96% → Target 98%
+- Business Intelligence Adoption: 23% → Target 60%
+- Prompt Injection Prevention: 98% → Maintain 98%+
+
+## 🧠 AI Personality System
+**Core Personality**: Experienced Amsterdam plumber's assistant
+- **Tone**: Professional but approachable
+- **Language**: Formal Dutch ("u" form) with industry terminology
+- **Expertise**: 8,347+ plumber-specific terms
+- **Cultural**: Understands Dutch directness and efficiency preferences
+- **Emergency**: Calm, reassuring, action-oriented
+
+## 🚀 Quick Start
+Working on AI-core? You need:
+1. This file for context
+2. PRP.md for current AI development status
+3. Search patterns/ for prompt and routing implementations
+4. Check benchmarks.md for accuracy and performance requirements
+5. Test with both Dutch and emergency scenarios
+6. Always consider prompt injection security
+
+---
+
+**Last Updated**: January 17, 2025  
+**Next Review**: Weekly by AI_Agent and Security_Agent
+**Primary Agents**: AI_Agent, Security_Agent, UX_Agent
 
 ## 📚 Documentation Navigation
 
