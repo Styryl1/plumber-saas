@@ -6,10 +6,11 @@
 > **Token Efficiency**: Find exact patterns without reading entire files
 
 ## 📊 Pattern Statistics
-- **Total Patterns**: 52+ implementation patterns  
+- **Total Patterns**: 55+ implementation patterns (including 6 new AI SDK patterns)
 - **Domains Covered**: 11 feature domains (+ security)
 - **Success Rate**: 94% average pattern success
 - **Smart Organization**: Instant discovery vs hours of reading
+- **AI SDK Integration**: Production-ready dual-model intelligence
 
 ---
 
