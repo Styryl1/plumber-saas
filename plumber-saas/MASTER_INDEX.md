@@ -26,7 +26,7 @@
 | **payment-flows** | widget/patterns/payment-flows.md | Emergency deposit, mobile checkout | 🟡 87% | 1,245 |
 | **widget-validation-patterns** | widget/patterns/widget-validation-patterns.md | Input validation, security | 🟢 96% | 756 |
 
-**Widget Quick Search Terms**: emergency-detection, dutch-prompts, panic-interface, mobile-booking, trust-signals, glass-morphism
+**Widget Quick Search Terms**: ai-sdk-streaming, vercel-ai-sdk-chat, emergency-detection, dutch-prompts, panic-interface, mobile-booking, trust-signals, glass-morphism
 
 ---
 
