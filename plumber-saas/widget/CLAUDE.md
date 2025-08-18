@@ -89,7 +89,7 @@ Working on widget? You need:
 **Research**: Agents handle all external research (Context7 + Firecrawl)
 
 ### Widget-Specific Agent Focus:
-- **AI Specialist**: GPT-5 + Claude dual-model routing, Dutch emergency detection, panic term recognition
+- **AI Specialist**: AI SDK dual-model routing (GPT-4o + Claude 3.5), Dutch emergency detection, panic term recognition
 - **UX Specialist**: Panic-to-calm conversion flow, mobile-first design, trust building
 - **UI Specialist**: One-thumb operations, chat interface, mobile responsiveness
 - **Security Specialist**: GDPR compliance, session security, cross-domain protection
