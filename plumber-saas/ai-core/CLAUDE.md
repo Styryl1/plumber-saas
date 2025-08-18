@@ -23,20 +23,65 @@
 | context-memory | patterns/conversation-state.md | Multi-turn dialogue tracking | 🟡 89% |
 | prompt-injection-defense | patterns/security-prompts.md | Prevent malicious inputs | 🟢 98% |
 
-## 🤖 Model Specialization
-### **GPT-5 Responsibilities (Speed-Critical)**
-- Emergency detection and response
-- Real-time customer chat
-- Quick price estimates
-- Mobile interactions
-- Widget conversations
+## 🏗️ **AI SDK TECH STACK (PRODUCTION-READY)**
 
-### **Claude Opus 4.1 Responsibilities (Complexity)**
-- Complex diagnosis and recommendations
-- Business intelligence analysis
-- Long-form content generation
-- Technical documentation
-- Strategic planning assistance
+### **Core AI Framework**
+```typescript
+AI SDK v5 (Vercel):
+  - generateText(), streamText() - Real-time responses
+  - generateObject(), streamObject() - Structured output
+  - Tool calling with Dutch plumbing functions
+  - Multi-provider support (OpenAI + Anthropic)
+
+Frontend Integration:
+  - useChat() hook - Streaming chat widget
+  - useCompletion() - Text completion
+  - useObject() - Structured data streaming
+  - React Query - Optimistic updates
+
+Backend Architecture:
+  - tRPC integration - Type-safe AI endpoints
+  - Next.js App Router - Server-side AI processing
+  - Supabase - Real-time conversation storage
+  - Prisma ORM - Type-safe data models
+```
+
+### **AI Provider Configuration**
+```typescript
+Smart Model Routing:
+  - anthropic('claude-3-5-sonnet-20241022') // Complex reasoning
+  - openai('gpt-4o') // Structured output & analysis  
+  - openai('gpt-4o-mini') // Fast responses & cost optimization
+
+API Endpoints:
+  - /api/chat - Streaming widget conversations
+  - /api/trpc/ai.triageEmergency - Emergency classification
+  - /api/trpc/ai.chatCompletion - Business chat
+  - /api/trpc/ai.businessInsights - Intelligence analysis
+  - /api/trpc/ai.generateQuote - BTW-compliant pricing
+```
+
+## 🤖 Model Specialization
+### **Claude 3.5 Sonnet (Complex Reasoning)**
+- Emergency triage and critical decision-making
+- Dutch cultural context and nuanced communication
+- Complex business intelligence analysis
+- Multi-step problem solving and diagnosis
+- Strategic planning and recommendations
+
+### **GPT-4o (Structured Output & Analysis)**
+- BTW-compliant quote generation with structured schemas
+- Booking optimization and scheduling logic
+- Technical documentation and knowledge base
+- Integration with existing business systems
+- Performance analytics and reporting
+
+### **GPT-4o Mini (Speed & Efficiency)**
+- Real-time customer chat responses
+- Quick emergency detection and classification
+- Mobile widget interactions
+- Simple query handling and FAQ responses
+- Cost-optimized frequent operations
 
 ## 🤝 Integration Points
 - **← widget**: Receive customer panic messages
