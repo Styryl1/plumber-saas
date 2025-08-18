@@ -48,7 +48,7 @@
 | **current-patterns** | dashboard/patterns/current-patterns.md | Active dashboard implementations | 🟡 88% | 756 |
 | **ui-patterns** | dashboard/patterns/ui-patterns.md | UI component specifications | 🟢 94% | 1,123 |
 
-**Dashboard Quick Search Terms**: schedule-x-calendar, jobs-table, customer-management, invoice-btw, multi-tenant-auth, mobile-dashboard
+**Dashboard Quick Search Terms**: ai-sdk-business-intelligence, schedule-x-calendar, jobs-table, customer-management, invoice-btw, multi-tenant-auth, mobile-dashboard
 
 ---
 
