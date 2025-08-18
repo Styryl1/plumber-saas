@@ -21,8 +21,38 @@
 | mobile-booking | patterns/one-thumb-flow.md | Glove-friendly forms | 🟡 89% |
 | chat-interface | patterns/ai-chat-flow.md | AI SDK streaming chat (GPT-4o + Claude 3.5) | 🟢 92% |
 | conversion-flow | patterns/panic-to-booking.md | 3-click booking process | 🟡 87% |
+## 🏗️ **AI SDK TECH STACK (PRODUCTION-READY)**
+
+### **Widget AI Framework**
+```typescript
+Vercel AI SDK v5:
+  - useChat() hook - Real-time streaming chat widget
+  - Emergency detection with Claude 3.5 Sonnet
+  - Fast responses with GPT-4o Mini
+  - Type-safe tRPC integration
+
+Widget Architecture:
+  - Next.js App Router - Server-side AI processing
+  - React streaming - Optimistic UI updates
+  - Mobile-first PWA - One-thumb operations
+  - GDPR-compliant data handling
+```
+
+### **AI Model Routing for Widget**
+```typescript
+Smart Widget Routing:
+  - anthropic('claude-3-5-sonnet-20241022') // Emergency triage
+  - openai('gpt-4o-mini') // Fast customer chat
+  - openai('gpt-4o') // Complex scheduling logic
+
+API Endpoints:
+  - /api/chat - Streaming widget conversations
+  - /api/trpc/ai.triageEmergency - Emergency classification
+  - /api/trpc/ai.chatCompletion - Customer support
+```
+
 ## 🤝 Integration Points
-- **→ ai-core**: Emergency detection routing to GPT-5
+- **→ ai-core**: Emergency detection via AI SDK streaming
 - **→ payments**: Trigger emergency deposits via Mollie  
 - **→ dashboard**: Create job in plumber's calendar
 - **← mobile**: Receive touch optimization patterns
