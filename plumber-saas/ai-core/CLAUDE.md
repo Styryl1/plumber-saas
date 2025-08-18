@@ -1,10 +1,10 @@
 # AI-Core - Dual-Model Intelligence Engine
 
 ## 🎯 Quick Context
-**Purpose**: Orchestrate GPT-5 (speed) + Claude Opus 4.1 (complexity) for the smartest plumber AI in Netherlands
+**Purpose**: Orchestrate GPT-4o + Claude 3.5 Sonnet via Vercel AI SDK for the smartest plumber AI in Netherlands
 **Users**: Automated system serving stressed customers and busy plumbers
-**Competition**: No competitor has dual-model AI - this is our secret weapon
-**Status**: Check PRP.md for current development status
+**Competition**: No competitor has AI SDK-powered dual-model intelligence - this is our secret weapon
+**Status**: ✅ **FULLY IMPLEMENTED** - Production-ready AI SDK integration with complete T3 Stack
 
 ## 📁 What's In This Domain
 - `CLAUDE.md` - You are here (AI system context)
