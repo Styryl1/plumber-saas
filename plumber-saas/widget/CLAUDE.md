@@ -59,10 +59,10 @@ API Endpoints:
 - **→ auth**: Customer session management
 
 ## 🏆 Competitive Advantages in This Domain
-- **vs ServiceM8**: AI chat vs no chat at all
-- **vs Jobber**: Native Dutch vs Google Translate
-- **vs Zoofy**: Direct customer relationship vs platform control
-- **vs DIY Facebook**: Professional panic interface vs amateur posts
+- **vs ServiceM8**: AI SDK streaming chat vs no chat at all
+- **vs Jobber**: AI SDK dual-model intelligence vs basic forms
+- **vs Zoofy**: Direct AI relationship vs platform control
+- **vs DIY Facebook**: Professional AI panic interface vs amateur posts
 
 ## 📊 Current Metrics & Targets
 - Widget Load Time: 1.2s → Target <1s
