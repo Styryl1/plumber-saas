@@ -50,17 +50,22 @@
 
 ---
 
-## 🧠 **AI-CORE PATTERNS** (Dual-Model Intelligence)
-*GPT-5 (speed) + Claude Opus 4.1 (complexity) = Netherlands' smartest plumber AI*
+## 🧠 **AI-CORE PATTERNS** (AI SDK Dual-Model Intelligence)
+*Vercel AI SDK v5 + Claude 3.5 Sonnet + GPT-4o + GPT-4o Mini = Production-ready Netherlands' smartest plumber AI*
 
 | Pattern | File | Purpose | Success | Tokens |
 |---------|------|---------|---------|--------|
+| **ai-sdk-integration** | ai-core/patterns/ai-sdk-integration.md | Vercel AI SDK streaming, tool calling | 🟢 94% | 2,134 |
+| **dual-model-routing** | ai-core/patterns/dual-model-routing.md | Claude 3.5 + GPT-4o routing logic | 🟢 92% | 1,789 |
 | **ai-instructions** | ai-core/patterns/ai-instructions.md | Model routing, decision tree | 🟢 96% | 1,789 |
 | **ai-personality-system** | ai-core/patterns/ai-personality-system.md | Dutch personality, evolution roadmap | 🟢 94% | 2,456 |
-| **prompt-engineering-patterns** | ai-core/patterns/prompt-engineering-patterns.md | Emergency prompts, tool calling | 🟢 96% | 3,234 |
-| **current-patterns** | ai-core/patterns/current-patterns.md | Active AI implementations | 🟡 89% | 945 |
+| **prompt-engineering-patterns** | ai-core/patterns/prompt-engineering-patterns.md | Emergency prompts, AI SDK tool calling | 🟢 96% | 3,234 |
+| **emergency-classification** | ai-core/patterns/emergency-classification.md | Level 1-4 Dutch emergency detection via AI SDK | 🟢 96% | 1,567 |
+| **business-intelligence** | ai-core/patterns/business-intelligence.md | AI SDK business insights and analytics | 🟡 87% | 1,845 |
+| **conversation-streaming** | ai-core/patterns/conversation-streaming.md | Real-time streaming with useChat() hook | 🟢 92% | 1,234 |
+| **current-patterns** | ai-core/patterns/current-patterns.md | Active AI SDK implementations | 🟡 89% | 945 |
 
-**AI-Core Quick Search Terms**: dual-model-routing, dutch-prompt-engineering, emergency-classification, business-intelligence, context-memory
+**AI-Core Quick Search Terms**: ai-sdk-streaming, vercel-ai-sdk, claude-3.5-sonnet, gpt-4o-routing, dual-model-intelligence, dutch-prompt-engineering, emergency-classification, business-intelligence, conversation-streaming, tool-calling
 
 ---
 
