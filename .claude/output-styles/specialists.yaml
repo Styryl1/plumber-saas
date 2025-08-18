@@ -38,11 +38,11 @@ specialists:
     patterns_context: ["mollie-integration", "dutch-compliance", "payment-patterns"]
     unique_insights: ["dutch-payment-psychology", "compliance-moats", "revenue-optimization", "tax-edge-cases"]
     
-  ai-instruction-agent:
-    triggers: ["ai", "gpt", "claude", "prompt", "chat", "conversation", "personality", "instructions"]
+  ai-specialist-agent:
+    triggers: ["ai", "ai-sdk", "vercel-ai", "gpt-4o", "claude-3.5", "dual-model", "streaming", "chat", "conversation", "emergency", "business-insights"]
     threshold: 0.70
-    patterns_context: ["prompt-engineering-patterns", "ai-personality-system", "ai-instructions"]
-    unique_insights: ["prompt-psychology", "model-routing", "conversation-optimization", "emergency-detection"]
+    patterns_context: ["ai-sdk-integration", "dual-model-routing", "prompt-engineering-patterns", "ai-personality-system", "emergency-classification"]
+    unique_insights: ["ai-sdk-optimization", "model-selection-logic", "dutch-emergency-detection", "business-intelligence", "conversation-streaming"]
     
   testing-specialist-agent:
     triggers: ["test", "testing", "playwright", "validation", "automation", "browser", "e2e"]
