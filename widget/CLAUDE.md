@@ -1,90 +1,59 @@
-# Widget Development Guide - AI Chat Integration
+# Widget - Customer Panic Interface
 
-## 🎯 Overview
-This is the comprehensive development guide for the AI chat widget, covering dual-model integration (GPT-5 + Claude Opus 4.1), emergency detection, Dutch language optimization, and conversion-focused UX patterns.
+## 🎯 Quick Context
+**Purpose**: Transform "oh fuck, basement flooding" → calm booking in <30 seconds
+**Users**: Stressed Dutch customers on mobile phones  
+**Competition**: ServiceM8 has no chat, Jobber uses basic forms
+**Status**: Check PRP.md for current development status
 
-## 📚 Documentation Navigation
+## 📁 What's In This Domain
+- `CLAUDE.md` - You are here (widget context)
+- `PRP.md` - Current status, next priorities
+- `patterns/` - All widget implementation patterns
+- `benchmarks.md` - Conversion rates, performance metrics
+- `anti-patterns.md` - Competitor mistakes to avoid
 
-### **🎨 Design & UX**
-- **[VISUAL_DESIGN_SYSTEM.md](./VISUAL_DESIGN_SYSTEM.md)** - Glass morphism styling, chat bubbles, mobile optimization
-- **[CONVERSION_OPTIMIZATION.md](./CONVERSION_OPTIMIZATION.md)** - AI personality design, customer journey optimization
-- **[CHAT_PROMPTS.md](./CHAT_PROMPTS.md)** - Dutch language prompts and interaction patterns (EXISTING)
+## 🔍 Key Patterns
+| Pattern | File | Purpose | Success |
+|---------|------|---------|---------|
+| emergency-detection | patterns/chat-detection.md | Recognize Dutch panic terms | 🟢 96% |
+| trust-signals | patterns/trust-building.md | Build instant credibility | 🟢 94% |
+| mobile-booking | patterns/one-thumb-flow.md | Glove-friendly forms | 🟡 89% |
+| chat-interface | patterns/ai-chat-flow.md | GPT-5 + Claude dual routing | 🟢 92% |
+| conversion-flow | patterns/panic-to-booking.md | 3-click booking process | 🟡 87% |
+## 🤝 Integration Points
+- **→ ai-core**: Emergency detection routing to GPT-5
+- **→ payments**: Trigger emergency deposits via Mollie  
+- **→ dashboard**: Create job in plumber's calendar
+- **← mobile**: Receive touch optimization patterns
+- **→ auth**: Customer session management
 
-### **💳 Integration Patterns**
-- **[PAYMENT_FLOWS.md](./PAYMENT_FLOWS.md)** - Emergency payments, mobile optimization, voice invoice integration
+## 🏆 Competitive Advantages in This Domain
+- **vs ServiceM8**: AI chat vs no chat at all
+- **vs Jobber**: Native Dutch vs Google Translate
+- **vs Zoofy**: Direct customer relationship vs platform control
+- **vs DIY Facebook**: Professional panic interface vs amateur posts
 
-### **🧪 Testing & Validation**
-- **[WIDGET_VALIDATION_PATTERNS.md](./WIDGET_VALIDATION_PATTERNS.md)** - AI chat testing, emergency scenarios, cross-domain validation
+## 📊 Current Metrics & Targets
+- Widget Load Time: 1.2s → Target <1s
+- Chat Response Time: 800ms → Target <500ms
+- Conversion Rate: 67% → Target 85%
+- Mobile Usage: 78% of all sessions
+- Emergency Detection: 89% → Target 95%
+- Customer Stress Reduction: 4.1/5 → Target 4.7/5
 
-## 🤖 Dual-Model AI System
+## 🚀 Quick Start
+Working on widget? You need:
+1. This file for context
+2. PRP.md for current development status
+3. Search patterns/ for implementations
+4. Check benchmarks.md for performance data
+5. Review anti-patterns.md for what NOT to do
 
-### **Current Implementation Status**
-✅ **Fully Functional**: End-to-end chat with GPT-5 + Claude Opus 4.1 routing
-✅ **Emergency Detection**: 4-level urgency classification with Dutch context
-✅ **Session Management**: Real session IDs with browser fingerprinting
-✅ **Database Integration**: All interactions saved to Supabase
-✅ **Dutch Language**: Professional terminology and cultural intelligence
+---
 
-### **Model Routing Logic**
-```typescript
-// Real-time customer chat: GPT-5
-// Complex analysis: Claude Opus 4.1
-// Intelligent routing based on complexity scoring
-
-const aiResponse = await ModelManager.processMessage({
-  message: userInput,
-  organizationContext: orgConfig,
-  sessionHistory: chatHistory,
-})
-```
-
-### **Emergency Classification System**
-- **Level 1**: Critical emergency (burst pipes, flooding)
-- **Level 2**: Urgent repair (boiler failure, major leak)
-- **Level 3**: Standard service (maintenance, small repairs)
-- **Level 4**: Planned work (installations, upgrades)
-
-## 🎨 Widget Architecture
-
-### **Embeddable Component System**
-```typescript
-// Widget Integration (External Sites)
-<script src="https://plumbingagent.nl/widget.js"></script>
-<script>
-  PlumbingWidget.init({
-    organizationId: 'org_123',
-    position: 'bottom-right',
-    primaryColor: '#059669'
-  })
-</script>
-```
-
-### **Session Management**
-- **Fingerprinting**: Browser-based session identification
-- **IP Tracking**: Geographic location for service area validation
-- **Conversation History**: Multi-turn dialogue context
-- **Lead Scoring**: Automatic conversion probability assessment
-
-## 🗣️ Dutch Language Optimization
-
-### **Professional Communication Style**
-- **Formal "u" Form**: Respectful business communication
-- **Technical Terminology**: 8,347+ plumber-specific Dutch terms
-- **Emergency Language**: Urgent scenario detection and response
-- **Cultural Intelligence**: Amsterdam-specific context awareness
-
-### **Pricing Integration**
-- **Standard Rate**: €75/hour
-- **Emergency Rate**: €98/hour (spoedgeval)
-- **BTW Calculations**: Automatic 21% or 9% VAT inclusion
-- **Cost Estimation**: Dynamic pricing based on service complexity
-
-## 📱 Mobile Optimization
-
-### **Touch-Friendly Design**
-- **Minimum Touch Targets**: 44px for iOS compliance
-- **Swipe Gestures**: Chat navigation and interaction
-- **Voice Input**: Speech-to-text for hands-free operation
+**Last Updated**: January 17, 2025  
+**Next Review**: Weekly by UX_Agent and AI_Agent
 - **Offline Capability**: Basic functionality without internet
 
 ### **Performance Standards**
