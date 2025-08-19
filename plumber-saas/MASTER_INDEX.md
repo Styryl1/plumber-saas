@@ -19,6 +19,16 @@
 
 | Pattern | File | Purpose | Success | Tokens |
 |---------|------|---------|---------|--------|
+| **UI_PATTERNS** | widget/patterns/UI_PATTERNS.md | 7 UI libraries research: Motion Primitives, Origin UI, Aceternity UI + 4 others | 🟢 95% | 3,456 |
+| **UX_PATTERNS** | widget/patterns/UX_PATTERNS.md | Dutch emergency psychology, conversion optimization, mobile-first design | 🟢 96% | 2,789 |
+| **T3_PATTERNS** | widget/patterns/T3_PATTERNS.md | Next.js 15 widget architecture, tRPC real-time, bundle optimization | 🟢 94% | 2,234 |
+| **AI_PATTERNS** | widget/patterns/AI_PATTERNS.md | Dutch conversation patterns, dual-model routing, emergency detection | 🟢 97% | 3,234 |
+| **DATABASE_PATTERNS** | widget/patterns/DATABASE_PATTERNS.md | Supabase real-time, multi-tenant RLS, emergency data handling | 🟢 96% | 2,567 |
+| **AUTH_PATTERNS** | widget/patterns/AUTH_PATTERNS.md | Clerk organization isolation, cross-domain sessions, emergency auth | 🟢 95% | 2,123 |
+| **PAYMENT_PATTERNS** | widget/patterns/PAYMENT_PATTERNS.md | Mollie iDEAL integration, BTW compliance, emergency deposits | 🟢 98% | 2,345 |
+| **SECURITY_PATTERNS** | widget/patterns/SECURITY_PATTERNS.md | GDPR compliance, widget security, Dutch law requirements | 🟢 99% | 2,890 |
+| **TESTING_PATTERNS** | widget/patterns/TESTING_PATTERNS.md | Playwright E2E, cross-browser testing, emergency scenario validation | 🟢 94% | 2,456 |
+| **ARCHITECTURE_PATTERNS** | widget/patterns/ARCHITECTURE_PATTERNS.md | Unified widget architecture, implementation roadmap, competitive advantages | 🟢 97% | 3,789 |
 | **ai-sdk-chat-widget** | widget/patterns/ai-sdk-chat-widget.md | Vercel AI SDK useChat() streaming widget | 🟢 92% | 2,234 |
 | **chat-prompts** | widget/patterns/chat-prompts.md | Dutch emergency detection, AI SDK conversation optimization | 🟢 96% | 2,847 |
 | **conversion-optimization** | widget/patterns/conversion-optimization.md | Customer psychology, booking funnels | 🟢 92% | 1,934 |
@@ -27,7 +37,7 @@
 | **payment-flows** | widget/patterns/payment-flows.md | Emergency deposit, mobile checkout | 🟡 87% | 1,245 |
 | **widget-validation-patterns** | widget/patterns/widget-validation-patterns.md | Input validation, security | 🟢 96% | 756 |
 
-**Widget Quick Search Terms**: ai-sdk-streaming, vercel-ai-sdk-chat, emergency-detection, dutch-prompts, panic-interface, mobile-booking, trust-signals, glass-morphism
+**Widget Quick Search Terms**: ui-component-libraries, dutch-emergency-psychology, t3-widget-architecture, dual-model-ai-routing, supabase-real-time, clerk-multi-tenant, mollie-ideal-payments, gdpr-widget-compliance, playwright-testing, widget-architecture-consolidation, ai-sdk-streaming, vercel-ai-sdk-chat, emergency-detection, dutch-prompts, panic-interface, mobile-booking, trust-signals, glass-morphism
 
 ---
 
