@@ -4,7 +4,7 @@
 ## 🎯 Project Vision & Strategy
 
 ### **Dual Revenue Stream Platform:**
-1. **Widget SaaS**: AI receptionist for individual plumber websites (competing with Jobber's AI)
+1. **Widget SaaS**: AI business partner for plumbers - a chatbot and dashboard fully automated
 2. **Marketplace**: "Treatwell for plumbers" - seamless customer overflow and emergency dispatch
 
 **Target Market**: Netherlands (Amsterdam → Rotterdam → Utrecht → Den Haag)
@@ -25,8 +25,8 @@
 Core Framework:
   - Next.js (App Router) with T3 Stack
   - TypeScript (strict mode)
-  - tRPC (end-to-end type safety)
-  - Prisma ORM (type-safe database)
+  - tRPC + Zod (end-to-end type safety)
+  - Supabase Direct (no ORM complexity)
   
 Database & Backend:
   - Supabase (PostgreSQL + Real-time + Storage)
@@ -34,7 +34,7 @@ Database & Backend:
   - Real-time subscriptions built-in
   
 Authentication:
-  - Clerk (simpler than NextAuth, multi-tenant ready)
+  - Clerk (multi-tenant ready via MCP)
   - Organization-based isolation
   
 UI & Calendar:
@@ -59,12 +59,16 @@ Revolutionary Development System:
   - Pattern Creation: Agents research → validate → add to database
   - No Guesswork Policy: Never research directly, always delegate
 
-MCP Tools (Agent-Controlled):
-  - Supabase MCP: Database operations via Database Agent
-  - Context7 MCP: Latest docs via specialist agents for research
-  - Firecrawl MCP: Working examples via UI/Business agents
-  - Playwright MCP: Browser testing via Testing Agent
-  - Semgrep MCP: Security scanning via Security Agent
+Archon Setup (All 9 MCP Servers Configured):
+  - Supabase: Database operations + RLS management
+  - Context7: Latest documentation research  
+  - Firecrawl: Working examples + Dutch market research
+  - Playwright: Browser testing + E2E automation
+  - Semgrep: Security scanning + vulnerability detection
+  - shadcn: UI components + design system
+  - Clerk: Authentication + multi-tenant management
+  - Exa: Advanced search + competitive intelligence
+  - Archon: Task management + knowledge base
 ```
 
 # 13 Golden Rules - NEVER VIOLATE THESE
@@ -88,10 +92,10 @@ MCP Tools (Agent-Controlled):
 - Focus on WHY, not WHAT
 
 ## Rule #4: Type Safety
-- **tRPC ONLY** for all API calls (automatic types)
+- **Supabase + tRPC + Zod** for end-to-end type safety
 - **NEVER** use `any` types
-- Prisma generates types from database
-- End-to-end type safety from DB to UI
+- Supabase generates database types, Zod validates runtime data
+- Complete type safety from database to UI
 
 ## Rule #5: Shared Components
 - **NEVER** duplicate code - import from `~/components`
@@ -100,14 +104,12 @@ MCP Tools (Agent-Controlled):
 - Create domain-specific components in `/components`
 
 ## Rule #6: Agent Research Delegation (REVOLUTIONARY)
-- **NEVER** research directly - ALWAYS delegate to specialist agents
-- **UI Agent**: Researches website transitions, animations via Firecrawl + Context7
-- **T3 Agent**: Researches implementation patterns via Context7
-- **Security Agent**: Researches vulnerabilities, GDPR compliance via Context7
-- **Business Agent**: Researches Dutch market requirements via Firecrawl
-- **Agents create validated patterns** with success/failure notes
-- **Massive context window savings** through intelligent delegation
-- **Perfect pattern creation** → automatically added to database
+- **ALWAYS** delegate research to save context windows + get validated patterns
+- **UI Agent**: Website transitions, animations via Firecrawl + Context7
+- **T3 Agent**: Implementation patterns via Context7
+- **Security Agent**: Vulnerabilities, GDPR compliance via Context7
+- **Business Agent**: Dutch market requirements via Firecrawl
+- **Result**: Perfect patterns created + massive context savings
 
 ## Rule #7: T3 Conventions
 - **NO** vanilla JS patterns ever
@@ -145,6 +147,7 @@ MCP Tools (Agent-Controlled):
 - **Suggest git commit** after ANY meaningful progress made
 - **Commit before risky changes** or major refactoring attempts
 - **MANDATORY commit** after EVERY production-level feature completion
+- **Document failure patterns** to prevent repeated mistakes
 - Enable easy rollback with "go back to beginning" or "go back one step"
 - Multiple granular commits better than one large commit
 
@@ -159,59 +162,31 @@ MCP Tools (Agent-Controlled):
 - **MONITOR** security patterns for competitive advantage
 
 ## 🎯 **Current Mission Status**
-Transform every stressed "oh fuck, I need a plumber" moment into confident "let me check with my AI expert" - while enabling any apprentice to become a successful business owner from day one with AI as their pocket business partner.
+Transform every stressed "oh fuck, I need a plumber" moment into confident "let me book one in under 30 seconds" 
 
-## 🤖 **ULTIMATE WORKFLOW 9-PHASE SYSTEM (OPERATIONAL)**
+## 🏆 **COMPETITIVE ADVANTAGES**
 
-**Status**: ✅ **FULLY IMPLEMENTED & TESTED** - Ready for production use
+### **🤖 Archon Intelligence (UNBEATABLE)**
+- **10 Specialist Agents**: Dynamic selection (1-10 based on complexity)
+- **Agent Research Delegation**: Massive context window savings  
+- **All 9 MCP Servers**: Supabase, Context7, Firecrawl, Playwright, Semgrep, shadcn, Clerk, Exa
+- **Perfect Pattern Creation**: Agents research → validate → archon database
 
-### **Revolutionary Automation Features:**
+### **🇳🇱 Netherlands-First Moat (IMPOSSIBLE TO REPLICATE)**
+- **AI Sophistication**: Dual-model system no competitor has
+- **Dutch Cultural Intelligence**: Down-to-earth plumber mentality built-in
+- **GDPR + iDEAL Integration**: 95% Dutch payment preference covered
+- **Emergency Classification**: Amsterdam-specific crisis management
 
-**🔥 Agent Research Delegation** (Context Window Revolution):
-- **UI Agent**: Website transitions, animations, component patterns
-- **T3 Agent**: Implementation approaches, API design, type safety  
-- **Security Agent**: Vulnerabilities, GDPR compliance, auth patterns
-- **Database Agent**: Schema patterns, RLS policies, multi-tenant strategies
-- **AI Agent**: Dual-model routing, Dutch emergency detection
-- **Payment Agent**: Mollie integration, iDEAL, Dutch tax compliance
-- **Testing Agent**: Playwright automation, E2E validation
-- **Business Agent**: Dutch market requirements, competitive analysis  
-- **Architect Agent**: System design, scalability, pattern governance
-- **Security Agent**: Authentication flows, privacy compliance
+### **⚡ Technical Lead (18-24 MONTHS AHEAD)**
+- **Development Velocity**: Agent automation = 10x faster than competitors
+- **Security Fortress**: Automated scanning blocks US competitors  
+- **Type Safety**: Supabase + tRPC + Zod prevents all major bugs
+- **Real-time Architecture**: Scalable to 10,000+ Dutch plumbers
 
-**⚡ Dynamic Agent Selection**:
-- **Simple tasks (1-2 agents)**: UI tweaks, text changes, styling
-- **Medium tasks (3-5 agents)**: Features, integrations, forms
-- **Complex tasks (6-10 agents)**: Architecture, full features, systems
-
-**🛡️ Phase 8 Triple-Agent Review**:
-- **Security Agent**: Vulnerability scan, GDPR compliance, auth validation
-- **UX Agent**: User flow validation, mobile responsiveness, accessibility  
-- **Architect Agent**: Pattern compliance, technical debt, structure review
-
-**🔄 9-Phase Automation Workflow**:
-1. **Context Discovery** - Intelligent domain-specific pattern loading
-2. **Requirement Analysis** - Extract explicit + implicit Dutch requirements  
-3. **Dynamic Team Assembly** - Select optimal 1-10 specialist agents
-4. **Pattern Matching + Research** - Use existing or delegate research to agents
-5. **Implementation Planning** - Step-by-step blueprint with checkpoints
-6. **Automated Execution** - Sequential implementation with specialist expertise
-7. **Quality Assurance** - Automated testing + Dutch market validation
-8. **Triple-Agent Review** - Parallel Security + UX + Architect validation
-9. **Pattern Learning** - Document success/failure, update pattern database
-
-### **Competitive Advantages Automated:**
-- **18-24 month technical lead** through intelligent development acceleration
-- **Netherlands-first optimization** with cultural and regulatory intelligence
-- **Zero context waste** through agent research delegation
-- **Perfect pattern creation** and reuse for maximum velocity
-- **Bulletproof quality** through triple-agent review system
+**🎯 Result**: While competitors struggle with basic features, we deliver bulletproof AI-powered solutions at Netherlands speed.
 
 ---
 
-**🚀 ULTIMATE WORKFLOW IS NOW YOUR PRIMARY DEVELOPMENT INTERFACE**  
-Every task triggers intelligent automation, agent coordination, and competitive advantage building.
-
-**Last Updated**: January 18, 2025 - Ultimate Workflow 9-Phase System Operational  
-**Next Enhancement**: Real-world validation and pattern database expansion
+**Last Updated**: January 20, 2025 - Archon Intelligence + Netherlands-First Strategy Operational
 

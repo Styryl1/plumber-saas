@@ -1,0 +1,129 @@
+# OPTIMIZED WORKFLOW - 9-Phase Process with Pattern Tracking
+version: "3.0.0"
+automation_level: "assisted_intelligence"
+
+# 9-PHASE INTEGRATION
+nine_phase_support:
+  enabled: true
+  phase_tracking: true
+  pattern_transparency: true
+  violation_detection: true
+
+# NEW 9-PHASE WORKFLOW INTEGRATION
+phases:
+  phase_1_plan_mode:
+    activities: ["Understand request", "Ask clarifying questions", "Identify complexity"]
+    output: "Clear understanding and questions answered"
+    
+  phase_2_research:
+    activities: ["Search Archon knowledge base", "Delegate to agents via Task tool", "Use MCP tools"]
+    tools: ["Context7", "Firecrawl", "Task tool for agent delegation"] 
+    output: "All patterns and knowledge needed"
+    
+  phase_3_prp:
+    activities: ["Create/update PRP", "Document patterns identified", "Plan implementation steps"]
+    decision: "Create new | Update existing | Skip for simple tasks"
+    output: "Documented plan with validated patterns"
+    
+  phase_4_implementation:
+    activities: ["Use ONLY validated patterns", "Stop when unsure", "Show patterns in use"]
+    rule_enforcement: "strict_13_golden_rules"
+    violation_detection: "dramatic_alerts"
+    patterns: "archon_sourced_only"
+    data: "real_api_or_loading_states_never_mock"
+    
+  phase_5_test_loop:
+    activities: ["Playwright MCP testing", "Validate until working", "Loop until verified"]
+    tools: ["Playwright MCP"]
+    automation: "test_until_pass"
+    output: "Working, tested feature"
+    
+  phase_6_debug:
+    activities: ["Pattern-based fixes only", "Max 3 attempts", "Escalate after 3 failures"]
+    max_attempts: 3
+    escalation: "detailed_summary_and_ask_user"
+    
+  phase_7_update_prp:
+    activities: ["Document what actually worked", "Note pattern modifications", "Capture lessons"]
+    output: "Updated PRP with real implementation details"
+    
+  phase_8_update_patterns:
+    activities: ["Add successful patterns", "Update success rates", "Document failures"]
+    tracking: "pattern_success_rates_and_failure_combinations"
+    
+  phase_9_commit:
+    activities: ["Git commit stable points", "Push to GitHub", "Create rollback points"]
+    git_checkpoints:
+      - "After each successful phase"
+      - "Before risky changes"
+      - "Every 15 minutes of stable work"
+    security_scan: "semgrep_before_every_commit"
+
+# ERROR HANDLING - Fix-First Approach
+error_handling:
+  rule_violations: 
+    action: "stop_and_fix_immediately"
+    message: "⚠️ Golden Rule violation detected - stopping to fix"
+    
+  mcp_failures:
+    strategy: "fix_first_then_fallback"
+    steps:
+      1: "identify_specific_mcp_error"
+      2: "attempt_automatic_fix"
+      3: "if_fix_fails_notify_user_with_fix_suggestion"
+      4: "only_fallback_to_cache_if_truly_unfixable"
+    
+    common_fixes:
+      connection_timeout:
+        fix: "retry_with_exponential_backoff"
+        attempts: 3
+        message: "🔧 MCP connection timeout - retrying..."
+        
+      rate_limit:
+        fix: "wait_and_retry_with_delay"
+        delay: "60s"
+        message: "⏱️ MCP rate limit hit - waiting 60s before retry"
+        
+      authentication_error:
+        fix: "refresh_api_keys_and_retry"
+        message: "🔑 MCP auth error - refreshing credentials and retrying"
+        
+      service_unavailable:
+        fix: "retry_after_delay"
+        delay: "30s"
+        attempts: 2
+        message: "🔄 MCP service unavailable - retrying in 30s"
+        
+      invalid_request:
+        fix: "validate_request_format_and_retry"
+        message: "📝 MCP request format error - fixing and retrying"
+    
+    fallback_conditions:
+      - "all_retry_attempts_exhausted"
+      - "service_permanently_down"
+      - "authentication_permanently_invalid"
+      - "user_chooses_to_proceed_without_mcp"
+    
+    fallback_behavior:
+      action: "use_cached_patterns_with_notification"
+      message: |
+        ⚠️ **MCP Service Issue - Using Cached Patterns**
+        
+        Issue: {error_description}
+        Attempted fixes: {fixes_tried}
+        
+        Proceeding with cached patterns for now.
+        Recommend fixing MCP connection before next session.
+        
+        Continue with implementation? [Y/N]
+  
+  specialist_conflicts: "present_user_options_with_recommendations"
+  context_overflow: "compress_older_content_automatically"
+  performance_issues: "apply_emergency_optimizations"
+
+# SUCCESS METRICS
+success_metrics:
+  implementation_quality: "zero_rule_violations"
+  dutch_market_features: "included_where_relevant"
+  competitive_advantage: "moats_identified_and_built"
+  development_velocity: "reusable_patterns_created"

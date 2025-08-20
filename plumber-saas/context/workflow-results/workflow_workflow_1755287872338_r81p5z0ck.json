@@ -1,0 +1,11 @@
+{
+  "id": "workflow_1755287872338_r81p5z0ck",
+  "startTime": 1755287872338,
+  "userPrompt": "Add Schedule-X calendar integration to jobs page with drag-drop functionality",
+  "planModeOutput": "\n# Implementation Plan\n1. Install Schedule-X dependencies\n2. Create calendar component\n3. Integrate with job data via tRPC\n4. Add drag-drop functionality\n5. Test mobile responsiveness\n",
+  "steps": {},
+  "success": false,
+  "learnings": [],
+  "error": "this.identifyRequiredPatterns is not a function",
+  "endTime": 1755287872340
+}
