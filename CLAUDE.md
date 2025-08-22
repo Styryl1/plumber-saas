@@ -161,6 +161,16 @@ Archon Setup (All 9 MCP Servers Configured):
 - **PROTECT** multi-tenant data isolation with RLS
 - **MONITOR** security patterns for competitive advantage
 
+## Rule #14: Pattern Search First, Agent Research Second (CRITICAL)
+- **STEP 1**: Search LOCAL research/ files FIRST using Grep tool
+- **STEP 2**: IF no patterns found locally, THEN search Archon knowledge base
+- **STEP 3**: IF still no patterns, THEN delegate to specialist agent to research & extract patterns
+- **NEVER** write code from scratch if patterns exist anywhere
+- **AGENTS MUST**: Add new patterns to appropriate research file with ⚠️ NEEDS TESTING
+- **MARK** all tested patterns: ✅ WORKS / ❌ DEPRECATED / ⚠️ NEEDS FIXES  
+- **UPLOAD** updated research files to Archon after each task session
+- **VIOLATION CHECK**: If you start coding without 3-step pattern search, STOP and restart
+
 ## 🎯 **Current Mission Status**
 Transform every stressed "oh fuck, I need a plumber" moment into confident "let me book one in under 30 seconds" 
 
