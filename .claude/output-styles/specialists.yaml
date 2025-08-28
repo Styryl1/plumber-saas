@@ -1,6 +1,27 @@
-# OPTIMIZED SPECIALIST CONFIGURATION - Production Ready
-version: "2.0.0"
+# RESEARCH-ONLY SPECIALIST CONFIGURATION v4.0 - ChatGPT Integration
+version: "4.0.0"
 auto_activation: true
+research_only_mode: true  # NEW: Agents do research only, no implementation
+
+# ChatGPT COLLABORATION MODEL
+collaboration_model:
+  chatgpt_responsibilities: ["PRP planning", "super prompts", "TypeScript error resolution", "architecture decisions"]
+  claude_responsibilities: ["implementation execution", "file management", "MCP integration", "code execution"]
+  agent_responsibilities: ["documentation lookup", "pattern research", "examples only"]
+  
+# RESEARCH TRANSPARENCY & SOURCE SELECTION
+research_transparency:
+  enabled: true
+  show_process: true
+  explain_source_selection: true
+  research_only_warning: true  # NEW: Remind that agents only research
+  
+  output_format: |
+    🤖 DELEGATING TO: {agent_name} (RESEARCH ONLY)
+    📍 Agent searching: {source_name}
+    🎯 Why selected: {selection_reason}
+    📝 Found: {findings_summary}
+    ⚠️  Note: Agent provides research only - implementation via Claude following ChatGPT super prompt
 
 # CORE SPECIALISTS (8 total)
 specialists:
@@ -8,72 +29,177 @@ specialists:
     keywords: ["ui", "component", "tailwind", "schedule-x", "mobile", "calendar", "design"]
     confidence_threshold: 0.70
     file_patterns: ["*UI*.md", "*COMPONENT*.md", "*DESIGN*.md"]
-    tools: ["Context7 MCP", "Firecrawl MCP", "Playwright MCP"]
-    focus: "Schedule-X calendar, shadcn/ui, mobile-first design"
+    tools: ["Context7 MCP", "Firecrawl MCP", "Playwright MCP", "shadcn MCP"]
+    focus: "RESEARCH ONLY - shadcn/ui component examples, Dutch UX patterns, Schedule-X documentation"
+    mode: "research_only"  # NEW: Explicit research-only mode
+    
+    research_behavior:
+      show_process: true
+      explain_source_selection: true
+      research_only_mode: true  # NEW: No implementation suggestions
+      source_priority:
+        1: "shadcn MCP for UI component documentation"
+        2: "Context7 for latest Tailwind/React patterns"  
+        3: "Firecrawl for working Schedule-X examples"
+      selection_reasoning:
+        shadcn: "Documentation for standardized UI components"
+        context7: "Latest framework documentation research"
+        firecrawl: "Working examples from production sites for reference"
+      output_format: "documentation_and_examples_only"  # NEW: No implementation advice
     
   t3-specialist-agent:
     keywords: ["dashboard", "component", "form", "data", "save", "load", "page", "feature", "system", "integration", "backend", "frontend", "database", "api", "next", "trpc", "typescript", "react", "prisma", "t3"]
     confidence_threshold: 0.50  # Lower threshold - should activate for most features
     file_patterns: ["*T3*.md", "*API*.md", "*ARCHITECTURE*.md", "*COMPONENT*.md", "*FORM*.md"]
-    tools: ["Context7 MCP", "Playwright MCP"]
-    focus: "Next.js latest App Router, tRPC current, TypeScript latest strict mode, fundamental architecture decisions"
-    auto_activate_for:
-      - "any dashboard functionality"
-      - "data saving or loading"
-      - "form submissions"
-      - "new features requiring backend integration" 
-      - "component creation that needs data"
-    business_language_triggers:
-      - "save customer information"
-      - "load job data" 
-      - "create invoice"
-      - "booking form"
-      - "customer management"
-      - "job scheduling"
-      - "invoice system"
-      - "user authentication"
+    tools: ["Context7 MCP", "Playwright MCP", "Supabase MCP"]
+    focus: "RESEARCH ONLY - Next.js App Router docs, tRPC documentation lookup, TypeScript pattern examples"
+    mode: "research_only"  # NEW: Explicit research-only mode
+    
+    research_behavior:
+      show_process: true
+      explain_source_selection: true
+      research_only_mode: true  # NEW: No implementation suggestions
+      source_priority:
+        1: "Context7 for Next.js latest App Router documentation"
+        2: "Context7 for tRPC current documentation"
+        3: "Supabase MCP for database integration examples"
+      selection_reasoning:
+        context7_nextjs: "Latest Next.js App Router documentation research"
+        context7_trpc: "Current tRPC patterns and API reference"
+        supabase_mcp: "Database integration documentation lookup"
+      output_format: "documentation_and_examples_only"  # NEW: No implementation advice
+    research_triggers_for:  # NEW: Research triggers instead of implementation
+      - "dashboard functionality documentation needed"
+      - "data patterns research required"
+      - "form implementation examples needed"
+      - "backend integration documentation lookup" 
+      - "component patterns research"
+    business_research_triggers:  # NEW: Business context research
+      - "customer management patterns"
+      - "job scheduling examples" 
+      - "invoice system documentation"
+      - "booking form patterns"
+      - "authentication flow examples"
     
   database-specialist-agent:
     keywords: ["supabase", "prisma", "rls", "migration", "postgresql", "query"]
     confidence_threshold: 0.70
     file_patterns: ["*DATABASE*.md", "*SUPABASE*.md", "*RLS*.md"]
     tools: ["Supabase MCP", "Context7 MCP"]
-    focus: "Multi-tenant RLS, query optimization, GDPR compliance"
+    focus: "RESEARCH ONLY - Supabase docs, RLS policy examples, GDPR compliance patterns"
+    mode: "research_only"
     
-  ai-instruction-agent:
-    keywords: ["gpt", "claude", "prompt", "ai", "chat", "voice", "personality"]
+    research_behavior:
+      show_process: true
+      explain_source_selection: true
+      research_only_mode: true
+      source_priority:
+        1: "Supabase MCP for database documentation"
+        2: "Context7 for PostgreSQL optimization examples"
+      selection_reasoning:
+        supabase_mcp: "Database schema and RLS policy documentation"
+        context7: "PostgreSQL and optimization pattern research"
+      output_format: "documentation_and_examples_only"
+    
+  ai-specialist-agent:
+    keywords: ["gpt", "claude", "prompt", "ai", "chat", "voice", "personality", "vercel", "ai-sdk"]
     confidence_threshold: 0.70
     file_patterns: ["*AI*.md", "*PROMPT*.md", "*CHAT*.md"]
     tools: ["Context7 MCP", "Firecrawl MCP"]
-    focus: "Dutch AI personality, GPT-5 + Claude dual-model"
+    focus: "RESEARCH ONLY - Vercel AI SDK documentation, Dutch AI examples, emergency detection patterns"
+    mode: "research_only"
+    
+    research_behavior:
+      show_process: true
+      explain_source_selection: true
+      research_only_mode: true
+      source_priority:
+        1: "Context7 for Vercel AI SDK documentation"
+        2: "Firecrawl for AI chat implementation examples"
+      selection_reasoning:
+        context7_ai: "Vercel AI SDK documentation and pattern research"
+        firecrawl_examples: "AI chat implementation examples for reference"
+      output_format: "documentation_and_examples_only"
     
   auth-specialist-agent:
     keywords: ["clerk", "auth", "organization", "permission", "user", "security"]
     confidence_threshold: 0.70
     file_patterns: ["*AUTH*.md", "*SECURITY*.md", "*USER*.md"]
     tools: ["Clerk MCP", "Context7 MCP"]
-    focus: "Multi-tenant organizations, middleware, security"
+    focus: "RESEARCH ONLY - Clerk documentation, multi-tenant patterns, Dutch business validation"
+    mode: "research_only"
+    
+    research_behavior:
+      show_process: true
+      explain_source_selection: true
+      research_only_mode: true
+      source_priority:
+        1: "Clerk MCP for authentication documentation"
+        2: "Context7 for Clerk middleware examples"
+      selection_reasoning:
+        clerk_mcp: "Clerk organization and user management documentation"
+        context7_auth: "Clerk middleware and security pattern research"
+      output_format: "documentation_and_examples_only"
     
   payment-specialist-agent:
     keywords: ["mollie", "ideal", "payment", "invoice", "btw", "billing"]
     confidence_threshold: 0.70
     file_patterns: ["*PAYMENT*.md", "*INVOICE*.md", "*BTW*.md"]
     tools: ["Context7 MCP", "Firecrawl MCP"]
-    focus: "Mollie iDEAL, Dutch BTW compliance, invoicing"
+    focus: "RESEARCH ONLY - Mollie API docs, BTW compliance examples, invoicing patterns"
+    mode: "research_only"
+    
+    research_behavior:
+      show_process: true
+      explain_source_selection: true
+      research_only_mode: true
+      source_priority:
+        1: "Context7 for Mollie API documentation"
+        2: "Firecrawl for Dutch payment implementation examples"
+      selection_reasoning:
+        context7_mollie: "Mollie API and iDEAL integration documentation"
+        firecrawl_dutch: "Dutch BTW compliance examples for reference"
+      output_format: "documentation_and_examples_only"
     
   ux-design-agent:
     keywords: ["conversion", "psychology", "journey", "booking", "funnel"]
     confidence_threshold: 0.70
     file_patterns: ["*UX*.md", "*CONVERSION*.md", "*JOURNEY*.md"]
     tools: ["Context7 MCP", "Firecrawl MCP", "Playwright MCP"]
-    focus: "Dutch customer psychology, booking optimization"
+    focus: "RESEARCH ONLY - Dutch UX research, conversion examples, behavioral patterns"
+    mode: "research_only"
+    
+    research_behavior:
+      show_process: true
+      explain_source_selection: true
+      research_only_mode: true
+      source_priority:
+        1: "Firecrawl for Dutch customer journey examples"
+        2: "Context7 for conversion optimization documentation"
+        3: "Playwright for user behavior research"
+      selection_reasoning:
+        firecrawl_dutch: "Dutch customer psychology examples for reference"
+        context7_conversion: "Conversion optimization pattern research"
+        playwright_testing: "User journey validation examples"
+      output_format: "documentation_and_examples_only"
     
   testing-specialist-agent:
     keywords: ["test", "validation", "e2e", "playwright", "automation"]
     confidence_threshold: 0.70
     file_patterns: ["*TEST*.md", "*VALIDATION*.md"]
     tools: ["Playwright MCP"]
-    focus: "Browser automation, NO test file creation"
+    focus: "RESEARCH ONLY - Playwright examples, E2E patterns, zero-file testing"
+    mode: "research_only"
+    
+    research_behavior:
+      show_process: true
+      explain_source_selection: true
+      research_only_mode: true
+      source_priority:
+        1: "Playwright MCP for browser automation documentation"
+      selection_reasoning:
+        playwright_mcp: "Browser automation and E2E testing pattern research"
+      output_format: "documentation_and_examples_only"
 
 # ACTIVATION RULES
 activation:

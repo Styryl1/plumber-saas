@@ -1,202 +1,104 @@
 # 🚀 Professional Plumber Business-in-a-Box
-*Complete AI-Powered Business Automation Platform*
+*Netherlands-First AI-Powered Emergency Dispatch Platform*
 
-## 🎯 Project Vision & Strategy
+## 🚨 CRITICAL VIOLATIONS = IMMEDIATE STOP
 
-### **Dual Revenue Stream Platform:**
-1. **Widget SaaS**: AI business partner for plumbers - a chatbot and dashboard fully automated
-2. **Marketplace**: "Treatwell for plumbers" - seamless customer overflow and emergency dispatch
+### Rule #1: 9-PHASE WORKFLOW MANDATORY
+**STOP after each of 9 phases** → Show "⏸️ Phase X complete. Continue?"
+**VIOLATION**: "🚨 SKIPPED PHASE STOP - Reverting to checkpoint"
 
-**Target Market**: Netherlands (Amsterdam → Rotterdam → Utrecht → Den Haag)
-**Business Model**: €799 setup + €149/month for complete business automation
-**Competition**: ServiceM8, Jobber, Zoofy, Angi - but with Netherlands-first advantage
+### Rule #2: EXPERT AGENT DELEGATION FIRST  
+**Research via 10 specialist agents only** → Never direct research (wastes context)
+**VIOLATION**: "🚨 DIRECT RESEARCH - Delegating to specialist agent"
 
-## 💔 Core Problem We Solve
-**The "Oh Fuck" Moment**: Universal stress when needing a plumber
-- **Gemiste oproepen**: 40% lost revenue (€3,200/month) from missed calls during work
-- **Administratie chaos**: 10 hours/week lost on manual scheduling, invoicing, callbacks  
-- **Vergeten materialen**: €500-800/month "forgotten" materials not invoiced
-- **No professional presence**: DIY Facebook pages vs established competitors
+### Rule #3: NO MOCK DATA EVER
+**Real API responses only** → Show actual errors, not fake success  
+**VIOLATION**: "🚨 MOCK DATA DETECTED - Using real implementation"
 
-## 🏗️ ARCHITECTURE DECISION 2025 - T3 Stack + MCP
+### Rule #4: QUESTIONS FIRST IN PLAN MODE
+**Always ask clarifying questions** → Dutch requirements, scope, edge cases
+**VIOLATION**: "🚨 NO QUESTIONS ASKED - Entering plan mode"
 
-### **FINAL TECH STACK (Production-Ready):**
-```yaml
-Core Framework:
-  - Next.js (App Router) with T3 Stack
-  - TypeScript (strict mode)
-  - tRPC + Zod (end-to-end type safety)
-  - Supabase Direct (no ORM complexity)
-  
-Database & Backend:
-  - Supabase (PostgreSQL + Real-time + Storage)
-  - Row Level Security for multi-tenancy
-  - Real-time subscriptions built-in
-  
-Authentication:
-  - Clerk (multi-tenant ready via MCP)
-  - Organization-based isolation
-  
-UI & Calendar:
-  - Tailwind CSS + shadcn/ui components
-  - Schedule-X calendar (free, drag-drop, modern)
-  
-Payments & Integrations:
-  - Mollie (iDEAL for Dutch market)
-  - WhatsApp via Twilio
-  
-Hosting:
-  - Railway (everything in one platform)
-```
+### Rule #5: MCP TOOLS INTEGRATION
+**Use MCP servers for all external operations** → Context7, Supabase, Clerk, Playwright
+**VIOLATION**: "🚨 BYPASSING MCP - Using direct API calls"
 
-### **ULTIMATE WORKFLOW 9-PHASE AUTOMATION (ACTIVE):**
-```yaml
-Revolutionary Development System:
-  - 10 Specialist Agents: Dynamic selection (1-10 based on complexity)
-  - Agent Research Delegation: Agents handle ALL external research
-  - Phase 8 Triple Review: Security + UX + Architect parallel validation
-  - Auto-Hook System: Automated workflow triggers and checkpoints
-  - Pattern Creation: Agents research → validate → add to database
-  - No Guesswork Policy: Never research directly, always delegate
+### Rule #6: PATTERN TRANSPARENCY REQUIRED
+**Always display agent patterns used** → Show confidence, validation status
+**VIOLATION**: "🚨 HIDDEN PATTERN USAGE - Must show agent attribution"
 
-Archon Setup (All 9 MCP Servers Configured):
-  - Supabase: Database operations + RLS management
-  - Context7: Latest documentation research  
-  - Firecrawl: Working examples + Dutch market research
-  - Playwright: Browser testing + E2E automation
-  - Semgrep: Security scanning + vulnerability detection
-  - shadcn: UI components + design system
-  - Clerk: Authentication + multi-tenant management
-  - Exa: Advanced search + competitive intelligence
-  - Archon: Task management + knowledge base
-```
+## 🎯 PROJECT MISSION
+Transform "oh fuck, I need a plumber" → "let me book one in 30 seconds"
 
-# 13 Golden Rules - NEVER VIOLATE THESE
+**Target**: Netherlands plumber market (Amsterdam → Rotterdam → Utrecht)
+**Stack**: T3 + Supabase + Clerk + Mollie + Playwright + 10 Expert Agents
 
-## Rule #1: NO Mock Data (CRITICAL)
-- **NEVER** use hardcoded/mock/fallback data without explicit permission
-- Always show real errors instead of fake success states
-- Use actual API responses or display loading/error states
-- Exception: Only with user permission for prototyping
+## 🤖 10 EXPERT AGENTS (300-500 lines each)
+- **T3** (253) - tRPC, Next.js App Router patterns
+- **UI** (341) - shadcn/ui, Dutch UX patterns
+- **Database** (412) - Supabase RLS, multi-tenant GDPR
+- **Auth** (450) - Clerk multi-tenant organizations
+- **Testing** (542) - Playwright zero-file E2E
+- **Payment** (549) - Mollie iDEAL, BTW compliance
+- **AI** (430) - Dual-model emergency detection
+- **Security** (512) - GDPR, AI injection prevention  
+- **UX** (505) - Behavioral psychology, conversion
+- **Architect** (707) - Multi-tenant scaling, events
 
-## Rule #2: Smart Legacy Delete
-- **ASK** before deleting any existing code
-- Explain WHY code is outdated and what replaces it
-- Show the improvement gained from deletion
-- Get confirmation before removing legacy patterns
+## 📋 EXPERT AGENT DELEGATION PROTOCOL
 
-## Rule #3: Smart Comments
-- ✅ **Section markers**: `// === DASHBOARD HEADER ===`
-- ✅ **JSDoc for functions**: Document parameters and return types
-- ❌ **Redundant comments**: No obvious explanations like `// increment counter`
-- Focus on WHY, not WHAT
+### When uncertain about ANY implementation:
 
-## Rule #4: Type Safety
-- **Supabase + tRPC + Zod** for end-to-end type safety
-- **NEVER** use `any` types
-- Supabase generates database types, Zod validates runtime data
-- Complete type safety from database to UI
+**📋 DELEGATING TO EXPERT: {agent_name}**
+- **Mode**: Quick Lookup | PRP Enhancement
+- **Query**: {specific_technical_question}
+- **Expected**: Complete working implementation
+- **Context**: Dutch plumber SaaS, multi-tenant, emergency services
 
-## Rule #5: Shared Components
-- **NEVER** duplicate code - import from `~/components`
-- If it appears on multiple pages, it MUST be a shared component
-- Use shadcn/ui for base components
-- Create domain-specific components in `/components`
+### Agent Quick Reference Guide:
+- **T3 patterns** → T3 Specialist
+- **UI/UX implementation** → UI + UX Specialists  
+- **Database queries/schemas** → Database Specialist
+- **Authentication/GDPR** → Auth + Security Specialists
+- **Testing/E2E flows** → Testing Specialist
+- **Payments/Dutch compliance** → Payment Specialist
+- **AI features/classification** → AI Specialist
+- **Security/vulnerabilities** → Security Specialist
+- **Conversion/psychology** → UX Specialist
+- **Architecture/scaling** → Architect Specialist
 
-## Rule #6: Agent Research Delegation (REVOLUTIONARY)
-- **ALWAYS** delegate research to save context windows + get validated patterns
-- **UI Agent**: Website transitions, animations via Firecrawl + Context7
-- **T3 Agent**: Implementation patterns via Context7
-- **Security Agent**: Vulnerabilities, GDPR compliance via Context7
-- **Business Agent**: Dutch market requirements via Firecrawl
-- **Result**: Perfect patterns created + massive context savings
+## 🔧 MCP SERVER REQUIREMENTS
 
-## Rule #7: T3 Conventions
-- **NO** vanilla JS patterns ever
-- App Router only (not Pages Router)
-- Complete replacement - delete old code entirely
-- Follow T3 Stack best practices religiously
+### Required MCP Tools:
+- **Context7** (current documentation - used by all agents)
+- **Firecrawl** (production examples - used by all agents)
+- **Supabase** (database operations - Database specialist)
+- **Playwright** (testing automation - Testing specialist)
+- **Semgrep** (security scanning - Security specialist)
+- **shadcn** (UI components - UI specialist)
+- **Clerk** (authentication - Auth specialist)
+- **Exa** (advanced search - all agents for research)
 
-## Rule #8: Real Data/Errors
-- Show real errors with meaningful messages
-- Never fake success responses
-- Real data loading states with proper UX
-- API errors displayed to user with context
+### Pattern Transparency Display:
 
-## Rule #9: Ultimate Workflow Automation (ACTIVE)
-- **Auto-detection**: Hooks analyze prompts for plan vs conversation mode
-- **Dynamic agent selection**: 1-10 specialists based on task complexity
-- **Phase 8 triple review**: Security + UX + Architect parallel validation
-- **Research delegation**: When uncertain, delegate to appropriate specialist
-- **Auto-checkpoints**: Git commits after each successful phase
-- **Loop detection**: Prevent infinite modification cycles (3-strike rule)
+**🤖 AGENT PATTERN USED:**
+- **Agent**: {agent_name} ({agent_lines} lines)
+- **Pattern**: {pattern_name}
+- **Domain**: {domain} | **Confidence**: 95%+ | **Area**: Dutch SaaS
+- **Why**: {selection_reason}
+- **Validation**: ✅ Production-ready | ⚠️ Needs testing | ❌ Deprecated
 
-## Rule #10: Proactive Patterns
-- Suggest improvements when opportunities spotted
-- Identify competitive advantage opportunities
-- Recommend data collection enhancements
-- Point out performance optimization possibilities
+## ⚡ SUCCESS TRACKING METRICS
 
-## Rule #11: Always Latest Versions
-- **NEVER** use hardcoded version numbers (Next.js 14, React 18, etc.)
-- Always reference "Next.js latest", "React current", "TypeScript latest"
-- Use Context7 MCP for current documentation, not outdated versions
-- Future-proof all patterns and configurations
+### Agent Consultation Success Rates:
+- **Maximum 3 consultations** per implementation issue
+- **Target 95%+ success rate** for each specialist
+- **Track patterns used** and their effectiveness
+- **Document failure modes** and alternatives
 
-## Rule #12: Proactive Git Commits (CRITICAL)
-- **Suggest git commit** after ANY meaningful progress made
-- **Commit before risky changes** or major refactoring attempts
-- **MANDATORY commit** after EVERY production-level feature completion
-- **Document failure patterns** to prevent repeated mistakes
-- Enable easy rollback with "go back to beginning" or "go back one step"
-- Multiple granular commits better than one large commit
+### Golden Rules Violation Detection:
+**Monitor silently but respond dramatically when detected:**
 
-## Rule #13: Security-First Development (CRITICAL)
-- **ALWAYS** run Semgrep security scan before committing
-- **NEVER** store sensitive data in code (API keys, passwords)
-- **VALIDATE** all user inputs with Zod schemas
-- **CHECK** GDPR compliance for all data operations
-- **SCAN** for AI prompt injection vulnerabilities
-- **ENFORCE** API authentication and rate limiting
-- **PROTECT** multi-tenant data isolation with RLS
-- **MONITOR** security patterns for competitive advantage
-
-## Rule #14: Pattern Search First, Agent Research Second (CRITICAL)
-- **STEP 1**: Search LOCAL research/ files FIRST using Grep tool
-- **STEP 2**: IF no patterns found locally, THEN search Archon knowledge base
-- **STEP 3**: IF still no patterns, THEN delegate to specialist agent to research & extract patterns
-- **NEVER** write code from scratch if patterns exist anywhere
-- **AGENTS MUST**: Add new patterns to appropriate research file with ⚠️ NEEDS TESTING
-- **MARK** all tested patterns: ✅ WORKS / ❌ DEPRECATED / ⚠️ NEEDS FIXES  
-- **UPLOAD** updated research files to Archon after each task session
-- **VIOLATION CHECK**: If you start coding without 3-step pattern search, STOP and restart
-
-## 🎯 **Current Mission Status**
-Transform every stressed "oh fuck, I need a plumber" moment into confident "let me book one in under 30 seconds" 
-
-## 🏆 **COMPETITIVE ADVANTAGES**
-
-### **🤖 Archon Intelligence (UNBEATABLE)**
-- **10 Specialist Agents**: Dynamic selection (1-10 based on complexity)
-- **Agent Research Delegation**: Massive context window savings  
-- **All 9 MCP Servers**: Supabase, Context7, Firecrawl, Playwright, Semgrep, shadcn, Clerk, Exa
-- **Perfect Pattern Creation**: Agents research → validate → archon database
-
-### **🇳🇱 Netherlands-First Moat (IMPOSSIBLE TO REPLICATE)**
-- **AI Sophistication**: Dual-model system no competitor has
-- **Dutch Cultural Intelligence**: Down-to-earth plumber mentality built-in
-- **GDPR + iDEAL Integration**: 95% Dutch payment preference covered
-- **Emergency Classification**: Amsterdam-specific crisis management
-
-### **⚡ Technical Lead (18-24 MONTHS AHEAD)**
-- **Development Velocity**: Agent automation = 10x faster than competitors
-- **Security Fortress**: Automated scanning blocks US competitors  
-- **Type Safety**: Supabase + tRPC + Zod prevents all major bugs
-- **Real-time Architecture**: Scalable to 10,000+ Dutch plumbers
-
-**🎯 Result**: While competitors struggle with basic features, we deliver bulletproof AI-powered solutions at Netherlands speed.
-
----
-
-**Last Updated**: January 20, 2025 - Archon Intelligence + Netherlands-First Strategy Operational
-
+🚨 **VIOLATION: Bypassing expert agents - MUST delegate for expertise**
+🚨 **VIOLATION: Using mock data - MUST use real API or loading states**
+🚨 **VIOLATION: Make-it-work mode - MUST use proper patterns**

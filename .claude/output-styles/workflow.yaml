@@ -1,129 +1,273 @@
-# OPTIMIZED WORKFLOW - 9-Phase Process with Pattern Tracking
-version: "3.0.0"
-automation_level: "assisted_intelligence"
+# OPTIMIZED WORKFLOW v4.0 - Complete 9-Phase System with Mandatory Stops
+version: "4.0.0"
+enforcement: "strict_comprehensive"
 
-# 9-PHASE INTEGRATION
-nine_phase_support:
-  enabled: true
-  phase_tracking: true
-  pattern_transparency: true
-  violation_detection: true
+# PHASE CONTROL - MANDATORY STOPS
+phase_control:
+  mandatory_stops: true
+  stop_after_each_phase: true
+  stop_message: "⏸️ Phase {n}/9 complete. Next would be: {next_phase}. Continue?"
+  show_next_action: true
+  wait_for_explicit_confirmation: true
+  never_race_ahead: true
 
-# NEW 9-PHASE WORKFLOW INTEGRATION
+# VISUAL FEEDBACK - MAXIMUM LEVEL  
+visual_feedback:
+  level: "maximum"
+  show_reasoning: true
+  show_alternatives: true
+  show_probability: true
+  show_agent_transparency: true
+  
+  phase_display_format: |
+    [PHASE {n}/9] {NAME} | Next: {next_phase}
+    📊 Activity: {current_action}
+    🔍 Source: {tool_or_agent_used}
+    ⏱️ Elapsed: {time}s | Found: {results_count} results
+    ⚠️ Consider crawling: {suggested_urls}
+    
+    ⏸️ Awaiting your guidance...
+
+  agent_transparency_format: |
+    🤖 DELEGATING TO: {agent_name}
+    📍 Agent searching: {source_name}
+    🎯 Why selected: {selection_reason}
+    📝 Found: {findings_summary}
+    🔗 Suggest crawling: {urls_list}
+
+# 9-PHASE WORKFLOW DEFINITIONS
 phases:
   phase_1_plan_mode:
-    activities: ["Understand request", "Ask clarifying questions", "Identify complexity"]
-    output: "Clear understanding and questions answered"
+    name: "PLAN MODE"
+    mandatory: true
+    activities: 
+      - "Load CLAUDE.md and active PRPs"
+      - "Check Archon health (if available)"
+      - "Ask clarifying questions ALWAYS"
+      - "Identify scope, integration, edge cases"
+      - "Consider Dutch market requirements"
+    triggers:
+      - "ANY new user request"
+      - "Plan mode keyword detected"
+    output: "Clear understanding with all questions answered"
+    next_phase: "Research"
     
   phase_2_research:
-    activities: ["Search Archon knowledge base", "Delegate to agents via Task tool", "Use MCP tools"]
-    tools: ["Context7", "Firecrawl", "Task tool for agent delegation"] 
-    output: "All patterns and knowledge needed"
+    name: "RESEARCH"  
+    mandatory: true
+    activities:
+      - "Check Archon knowledge base (if available)"
+      - "ALWAYS delegate to specialist agents"
+      - "Agents use Context7/Firecrawl/other MCP tools"
+      - "Show agent source selection reasoning"
+      - "Identify URLs for potential crawling"
+    tools: ["Context7 via agents", "Firecrawl via agents", "Task tool"]
+    delegation_required: true
+    output: "All knowledge needed for implementation"
+    next_phase: "PRP Creation"
     
   phase_3_prp:
-    activities: ["Create/update PRP", "Document patterns identified", "Plan implementation steps"]
-    decision: "Create new | Update existing | Skip for simple tasks"
-    output: "Documented plan with validated patterns"
+    name: "PRP CREATION"
+    mandatory: false
+    activities:
+      - "Create/update PRP document"
+      - "Document research findings"
+      - "Plan implementation steps"
+      - "Create Archon tasks (if available)"
+    decision_logic: "Create for complex multi-step features only"
+    skip_conditions: ["Simple single tasks", "Minor updates"]
+    output: "Documented plan with clear steps"
+    next_phase: "Implementation"
     
   phase_4_implementation:
-    activities: ["Use ONLY validated patterns", "Stop when unsure", "Show patterns in use"]
-    rule_enforcement: "strict_13_golden_rules"
-    violation_detection: "dramatic_alerts"
-    patterns: "archon_sourced_only"
-    data: "real_api_or_loading_states_never_mock"
+    name: "IMPLEMENTATION"
+    mandatory: true
+    activities:
+      - "Use ONLY researched approaches"
+      - "Stop if <95% certain about anything"
+      - "Show alternatives considered"
+      - "Explain probability of success"
+      - "Display reasoning for choices"
+    rule_enforcement: "all_13_golden_rules"
+    violation_response: "immediate_stop_with_dramatic_alert"
+    certainty_threshold: 0.95
+    output: "Complete implementation with explanations"
+    next_phase: "Test Loop"
     
   phase_5_test_loop:
-    activities: ["Playwright MCP testing", "Validate until working", "Loop until verified"]
+    name: "TEST LOOP"
+    mandatory: true
+    activities:
+      - "MANDATORY Playwright MCP testing"
+      - "Show each test iteration"
+      - "Max 3 attempts before escalation"
+      - "Loop until verified working"
     tools: ["Playwright MCP"]
-    automation: "test_until_pass"
-    output: "Working, tested feature"
+    max_attempts: 3
+    show_progress: true
+    no_theoretical: "Only real working validation"
+    output: "Tested, verified working feature"
+    next_phase: "Debug (if needed) or PRP Update"
     
   phase_6_debug:
-    activities: ["Pattern-based fixes only", "Max 3 attempts", "Escalate after 3 failures"]
+    name: "DEBUG"
+    mandatory: false
+    activities:
+      - "Research-based fixes only"
+      - "NO quick fixes or shortcuts"
+      - "Max 3 attempts total"
+      - "Escalate with detailed summary"
+    activation: "Only when Phase 5 fails"
     max_attempts: 3
-    escalation: "detailed_summary_and_ask_user"
+    no_specialist_debug: true
+    escalation_format: "Show all attempts and ask user"
+    next_phase: "PRP Update"
     
   phase_7_update_prp:
-    activities: ["Document what actually worked", "Note pattern modifications", "Capture lessons"]
+    name: "UPDATE PRP"
+    mandatory: false  
+    activities:
+      - "Document what actually worked"
+      - "Note any pattern modifications needed"
+      - "Capture lessons learned"
+      - "Update for future reference"
+    trigger: "After feature completion"
     output: "Updated PRP with real implementation details"
+    next_phase: "Update Archon"
     
-  phase_8_update_patterns:
-    activities: ["Add successful patterns", "Update success rates", "Document failures"]
-    tracking: "pattern_success_rates_and_failure_combinations"
+  phase_8_update_archon:
+    name: "UPDATE ARCHON"
+    mandatory: false
+    activities:
+      - "Update task status in Archon (if available)"
+      - "Add discoveries to knowledge base"
+      - "Mark completions and blockers"
+      - "Sync with project status"
+    dependency: "Archon MCP availability"
+    fallback: "Update local todo tracking"
+    output: "Synchronized project status"
+    next_phase: "Commit"
     
   phase_9_commit:
-    activities: ["Git commit stable points", "Push to GitHub", "Create rollback points"]
-    git_checkpoints:
-      - "After each successful phase"
-      - "Before risky changes"
-      - "Every 15 minutes of stable work"
-    security_scan: "semgrep_before_every_commit"
-
-# ERROR HANDLING - Fix-First Approach
-error_handling:
-  rule_violations: 
-    action: "stop_and_fix_immediately"
-    message: "⚠️ Golden Rule violation detected - stopping to fix"
+    name: "COMMIT"
+    mandatory: true
+    activities:
+      - "Run Semgrep security scan"
+      - "Create git commit with descriptive message"
+      - "Push to GitHub if configured"
+      - "Create rollback point"
+    security_scan: "mandatory_semgrep_before_commit"
+    git_message_format: |
+      feat: {brief_description}
+      
+      {business_impact_and_details}
+      
+      🤖 Generated with [Claude Code](https://claude.ai/code)
+      Co-Authored-By: Claude <noreply@anthropic.com>
+    output: "Committed and safely stored changes"
     
-  mcp_failures:
-    strategy: "fix_first_then_fallback"
-    steps:
-      1: "identify_specific_mcp_error"
-      2: "attempt_automatic_fix"
-      3: "if_fix_fails_notify_user_with_fix_suggestion"
-      4: "only_fallback_to_cache_if_truly_unfixable"
-    
-    common_fixes:
-      connection_timeout:
-        fix: "retry_with_exponential_backoff"
-        attempts: 3
-        message: "🔧 MCP connection timeout - retrying..."
-        
-      rate_limit:
-        fix: "wait_and_retry_with_delay"
-        delay: "60s"
-        message: "⏱️ MCP rate limit hit - waiting 60s before retry"
-        
-      authentication_error:
-        fix: "refresh_api_keys_and_retry"
-        message: "🔑 MCP auth error - refreshing credentials and retrying"
-        
-      service_unavailable:
-        fix: "retry_after_delay"
-        delay: "30s"
-        attempts: 2
-        message: "🔄 MCP service unavailable - retrying in 30s"
-        
-      invalid_request:
-        fix: "validate_request_format_and_retry"
-        message: "📝 MCP request format error - fixing and retrying"
-    
-    fallback_conditions:
-      - "all_retry_attempts_exhausted"
-      - "service_permanently_down"
-      - "authentication_permanently_invalid"
-      - "user_chooses_to_proceed_without_mcp"
-    
-    fallback_behavior:
-      action: "use_cached_patterns_with_notification"
-      message: |
-        ⚠️ **MCP Service Issue - Using Cached Patterns**
-        
-        Issue: {error_description}
-        Attempted fixes: {fixes_tried}
-        
-        Proceeding with cached patterns for now.
-        Recommend fixing MCP connection before next session.
-        
-        Continue with implementation? [Y/N]
+# RESEARCH DELEGATION SYSTEM
+research_delegation:
+  always_use_agents: true
+  never_direct_research: true
+  show_source_selection: true  
+  explain_why_selected: true
+  suggest_crawl_urls: true
+  save_context_window: true
   
-  specialist_conflicts: "present_user_options_with_recommendations"
-  context_overflow: "compress_older_content_automatically"
-  performance_issues: "apply_emergency_optimizations"
+  agent_selection_criteria:
+    ui_tasks: "ui-specialist-agent"
+    t3_implementation: "t3-specialist-agent" 
+    database_operations: "database-specialist-agent"
+    ai_integration: "ai-specialist-agent"
+    authentication: "auth-specialist-agent"
+    payments: "payment-specialist-agent"
+    security: "security-specialist-agent"
+    testing: "testing-specialist-agent"
+    
+# ARCHON INTEGRATION
+archon_integration:
+  primary_task_management: true
+  health_check_on_start: true
+  auto_create_tasks: true
+  update_frequency: "after_each_completed_task"
+  fallback_when_unavailable: "local_todo_tracking"
+  priority: "archon_first_todowrite_secondary"
 
-# SUCCESS METRICS
+# MCP TOOLS ENFORCEMENT  
+mcp_enforcement:
+  all_tools_mandatory: true
+  playwright_testing: "required_for_all_implementations"
+  semgrep_security: "before_every_commit"
+  context7_via_agents: "for_all_documentation_needs"
+  firecrawl_via_agents: "for_working_examples"
+  shadcn_for_ui: "all_ui_components"
+  supabase_operations: "database_interactions"
+  clerk_auth: "authentication_management"
+  exa_search: "competitive_research"
+  
+# GOLDEN RULES ENFORCEMENT - ALL VIOLATIONS STOP
+golden_rules_enforcement:
+  violation_response: "immediate_stop"
+  violation_display: "dramatic_alert_with_explanation"
+  
+  violation_format: |
+    🚨🚨🚨 GOLDEN RULE VIOLATION 🚨🚨🚨
+    ═══════════════════════════════════
+    Rule #{rule_number}: {rule_name}
+    Violation: {what_happened}  
+    Should do: {correct_action}
+    ═══════════════════════════════════
+    Stopping work. How should I proceed?
+  
+  rules:
+    rule_1: "Check Archon health before ANY task action"
+    rule_2: "NO quick fixes - research if <95% certain"
+    rule_3: "Stop after each phase for guidance"
+    rule_4: "Questions ALWAYS in plan mode"
+    rule_5: "Research via agents ONLY"
+    rule_6: "NO mock data - real API or loading states"
+    rule_7: "Type safety absolute - no 'any' types"
+    rule_8: "Comprehensive over quick - show reasoning"
+    rule_9: "Git checkpoints after progress"
+    rule_10: "Security scans and GDPR compliance"
+    rule_11: "Explain everything - show WHY"
+    rule_12: "Context always fresh - reload files"
+    rule_13: "ALL MCP tools mandatory"
+
+# ERROR HANDLING & RECOVERY
+error_handling:
+  max_debug_attempts: 3
+  escalation_after_failures: "detailed_summary_and_user_consultation"
+  no_infinite_loops: "3_strike_rule_enforcement"
+  preserve_progress: "always_maintain_working_state"
+  
+  emergency_mode:
+    triggers: ["production broken", "urgent", "critical", "emergency"]
+    skip_phases: ["prp_creation", "update_prp", "update_archon"]  
+    focus: "fix_first_document_later"
+    mandatory_phases: ["test_loop", "commit"]
+
+# PATTERN SYSTEM - REMOVED
+# Note: Local pattern system removed as requested
+# All patterns now come from agent research and MCP tools
+pattern_system:
+  local_patterns: "disabled"
+  success_tracking: "disabled"  
+  validation: "via_agent_research_only"
+  storage: "no_local_storage"
+
+# DUTCH MARKET INTEGRATION
+dutch_market:
+  btw_validation: "automatic_21_9_percent_checking"  
+  ideal_payments: "mollie_integration_preferred"
+  gdpr_compliance: "mandatory_for_all_data_operations"
+  terminology_checking: "dutch_plumber_terms_validation"
+  
+# SUCCESS METRICS - SIMPLIFIED
 success_metrics:
-  implementation_quality: "zero_rule_violations"
-  dutch_market_features: "included_where_relevant"
-  competitive_advantage: "moats_identified_and_built"
-  development_velocity: "reusable_patterns_created"
+  rule_compliance: "zero_violations_per_session"
+  phase_completion: "all_mandatory_phases_completed"
+  mcp_utilization: "all_required_tools_used"
+  dutch_compliance: "gdpr_and_btw_requirements_met"
+  user_guidance: "stopped_after_every_phase"
