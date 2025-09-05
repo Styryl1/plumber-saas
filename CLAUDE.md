@@ -7,6 +7,26 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 **Working Directory**: `C:\Users\styry` (workspace root)
 **Active Project**: `plumbing-agent/` - Netherlands emergency plumber SaaS
 
+### Parallel Development Pattern (IMPORTANT)
+
+**Sometimes we use separate worktrees and directories for parallel development:**
+
+- **Main Worktree**: `C:\Users\styry\plumbing-agent/` - Primary development branch  
+- **Feature Worktrees**: `C:\Users\styry\plumbing-agent-<feature>/` - Separate directories for experimental/parallel work
+
+**When working in alternative directories:**
+1. **Always check the current working directory** - You may be in `plumbing-agent-<feature>` instead of `plumbing-agent`
+2. **Apply same patterns** - All CLAUDE.md rules apply regardless of directory name
+3. **Watch for context switches** - User will specify clearly when switching between worktrees
+4. **Different branches/features** - Each worktree may be on different branches for isolated development
+
+**Example Scenarios:**
+- `plumbing-agent/` - Main production branch
+- `plumbing-agent-status-refresh/` - Feature branch for invoice status polling
+- `plumbing-agent-experimental/` - Testing new architecture patterns
+
+**Key Point**: All technical patterns, commands, and validation rules remain identical across all worktrees.
+
 ## Claude Code Workflow (MANDATORY)
 
 ### Role Definition
@@ -49,7 +69,10 @@ pnpm clean        # Clear build artifacts and caches
 # Specialized commands (use when targeted)
 pnpm lint:fix     # Auto-fix linting issues  
 pnpm i18n:sync    # Sync Dutch/English translations
+pnpm i18n:fix     # Convert hardcoded strings to translation keys
 pnpm guard-safe   # Safe guard version (doesn't fail on minor issues)
+pnpm dev:clean    # Clean build and start fresh development
+pnpm build:clean  # Clean build for production
 ```
 
 ## Tech Stack & Versions
@@ -58,7 +81,7 @@ pnpm guard-safe   # Safe guard version (doesn't fail on minor issues)
 - **tRPC v11.5.0**, **Supabase PostgreSQL**, **Clerk v6.31.6** (multi-tenant)
 - **shadcn/ui**, **Tailwind CSS v4**, **Schedule-X v3.0.0** (Temporal polyfill)
 - **next-intl v4.3.5** (Dutch primary, English fallback)
-- **Biome v2.2.2** (formatter), **ESLint v9** (linter), **Playwright** (testing)
+- **Biome v2.2.2** (formatter), **ESLint v9** (linter), **Playwright v1.55.0** (testing)
 - **Zod v4.1.4** (validation), **React Hook Form v7.62.0**, **@tanstack/react-query v5.85.5**
 
 ## Critical Rules
@@ -161,10 +184,12 @@ if (count) { }        // BANNED
 2. **Truthiness checks on arrays/strings** - triggers `strict-boolean-expressions` 
 3. **JSX literals instead of i18n keys** - triggers `i18next/no-literal-string`
 4. **Using Date for comparisons** - triggers `no-restricted-globals`
-5. **Editing `src/types/supabase.ts`** - NEVER edit generated files
+5. **Editing `src/types/supabase.ts`** - NEVER edit generated files (use MCP to regenerate)
 6. **Importing legacy code** - triggers import restrictions
 7. **Returning `any` from functions** - triggers TypeScript strict mode
 8. **Missing feature flag checks** - UI shows unreleased features
+9. **Using `.length` without `> 0`** - triggers strict-boolean-expressions
+10. **Float money calculations** - causes rounding errors (use integer cents)
 
 ### Supabase, Schema & RLS (CRITICAL - Database Integrity)
 ```typescript
@@ -451,7 +476,7 @@ import { Button } from "../../components/ui/button"
 
 ## Automation Scripts & Quality Gates
 
-### Critical Scripts (Located in `/scripts/`)
+### Critical Scripts (Located in `plumbing-agent/scripts/`)
 ```bash
 # Quality assurance automation
 pnpm guard        # Complete pipeline: format, lint, typecheck, build, i18n, custom rules
@@ -465,7 +490,7 @@ pretypecheck.mjs  # Validates TypeScript before compilation
 pnpm i18n:sync    # Synchronizes Dutch/English translation files
 pnpm i18n:prune   # Removes orphaned translation keys
 pnpm i18n:check   # Validates translation completeness and structure
-i18n-fix-literals # Converts hardcoded strings to translation keys
+i18n-fix-literals.mjs # Converts hardcoded strings to translation keys
 
 # Code quality validation
 check-placeholders.mjs    # 4-layer anti-placeholder protection
@@ -473,6 +498,9 @@ check-imports.mjs         # Validates ~/alias import consistency
 check-routes.mjs          # Validates App Router structure
 check-encoding.mjs        # UTF-8 encoding validation
 audit-production-rules.mjs # Production readiness validation
+
+# Bundle creation
+create-gpt5-bundle.mjs    # Creates focused context bundle for ChatGPT collaboration
 ```
 
 ### Guard Pipeline (Complete Validation - Run at End Only)
@@ -496,15 +524,29 @@ audit-production-rules.mjs # Production readiness validation
 ## Environment Requirements
 
 **Node.js**: 22.18.0 (enforced by volta + engines config)
-**Package Manager**: pnpm >= 9.0.0 (uses packageManager field)
+**Package Manager**: pnpm 10.15.0 (locked via packageManager field)
 **IDE**: Configure to use project's ESLint config (no rule suppressions allowed)
 
 ## Testing Strategy
 
 **Framework**: Playwright via MCP tools (no traditional test files)
-**Commands**: Use `mcp__playwright__*` functions for browser automation  
-**Accessibility**: `mcp__playwright__browser_snapshot` for full DOM analysis
-**Integration**: Real localhost:3000 testing during development
+**Approach**: Integration testing on real running app (localhost:3000)
+
+### MCP Testing Commands
+```typescript
+// Navigation & interaction
+mcp__playwright__browser_navigate("http://localhost:3000/customers")
+mcp__playwright__browser_click("button", "ref")
+mcp__playwright__browser_type("input[name='email']", "test@example.com")
+
+// Validation & verification
+mcp__playwright__browser_snapshot()  // Full DOM + accessibility analysis
+mcp__playwright__browser_wait_for("element", "selector")
+mcp__playwright__browser_take_screenshot()
+
+// Network monitoring
+mcp__playwright__browser_network_requests()  // Track API calls
+```
 
 **IMPORTANT**: Use MCP tools directly, NOT Task/Agent tools (avoid Task tool and specialist agents)
 
@@ -548,19 +590,20 @@ ENABLE_LEGACY_FALLBACK=true             # Legacy system fallback
 
 ## Project Status
 
-**Completion**: 85% (Customer Management & RLS Security production-ready)  
-**Next Priority**: Customer integration in job creation
+**Completion**: 90% (Production-ready core features)  
+**Next Priority**: Customer picker integration in job creation + calendar performance
 **Context**: Netherlands emergency plumber SaaS with Dutch locale compliance
 
 ## Key Features Implemented
 
-- **RLS Security**: Full multi-tenant data isolation with JWT-based auth
-- **Customer Management**: Complete CRUD with search, stats, dialog forms
-- **Jobs System**: Multi-assignee support with calendar integration
-- **Invoice System**: Unified DTO architecture with integer cents precision ✅ PRODUCTION READY
-- **i18n Architecture**: Dutch/English with namespaced translation hooks
-- **Anti-Placeholder**: 4-layer protection against test data pollution
-- **Webhook Infrastructure**: Clerk, Mollie, WhatsApp with signature verification
+- **✅ RLS Security**: Full multi-tenant data isolation with JWT-based auth (12 tables secured)
+- **✅ Customer Management**: Complete CRUD with search, stats, dialog forms (production-ready)
+- **✅ Jobs System**: Multi-assignee support with Schedule-X calendar integration
+- **✅ Invoice System**: Unified DTO architecture with integer cents precision
+- **✅ i18n Architecture**: Dutch/English with namespaced translation hooks (no UI literals)
+- **✅ Anti-Placeholder**: 4-layer protection against test data pollution
+- **✅ Webhook Infrastructure**: Clerk, Mollie, WhatsApp, Moneybird with signature verification
+- **✅ Provider Integration**: Moneybird OAuth2, health monitoring, webhook deduplication (NEW)
 
 ## tRPC Router Architecture (Type-Safe API Layer)
 
@@ -603,6 +646,64 @@ export const customersRouter = createTRPCRouter({
     // No authentication, no organization filtering
   })
 });
+```
+
+### Database Migration Workflow
+```bash
+# 1. Create migration file in plumbing-agent/src/server/db/sql/
+# 2. Apply via MCP tool (not direct SQL)
+mcp__supabase__apply_migration({ sql: migrationContent })
+
+# 3. Regenerate TypeScript types
+mcp__supabase__generate_typescript_types()
+
+# 4. Verify no schema drift
+pnpm guard  # Includes type checking
+```
+
+## Provider Integration Architecture (NEW - Moneybird Complete)
+
+### OAuth2 Flow Pattern (CRITICAL - Security)
+```typescript
+// ✅ CORRECT: PKCE flow with state verification
+const codeVerifier = generateCodeVerifier();
+const codeChallenge = generateCodeChallenge(codeVerifier);
+const state = crypto.randomUUID();
+// Store state + verifier in session for callback verification
+
+// ❌ WRONG: Direct token storage without verification
+const { access_token } = await fetch(tokenUrl);
+await saveToken(access_token);  // Missing state verification!
+```
+
+### Provider Health Pattern (CRITICAL - Monitoring)
+```typescript
+// ✅ CORRECT: Precise health classification
+type HealthStatus = 
+  | { status: "not_connected" }  // No credentials found
+  | { status: "admin_missing" }   // Missing provider admin
+  | { status: "token_invalid" }   // OAuth token expired/invalid
+  | { status: "ok" };             // Fully operational
+
+// ❌ WRONG: Boolean health checks miss failure modes
+const isHealthy = !!credentials;  // Doesn't check token validity
+```
+
+### Webhook Idempotency Pattern (CRITICAL - Data Integrity)
+```typescript
+// ✅ CORRECT: Database-backed deduplication
+const isDuplicate = await ctx.db
+  .from("webhook_events")
+  .select("id")
+  .eq("event_id", webhookId)
+  .eq("provider", "moneybird")
+  .single();
+
+if (isDuplicate.data) return { status: "duplicate" };
+
+// ❌ WRONG: Memory-based deduplication loses data on restart
+const processedEvents = new Set();
+if (processedEvents.has(webhookId)) return;
 ```
 
 ## Invoice System Architecture (CRITICAL - Production Ready)
